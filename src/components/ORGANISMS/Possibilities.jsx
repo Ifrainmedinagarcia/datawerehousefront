@@ -13,18 +13,19 @@ const Possibilities = () => {
 
                 <Cardpossibilities
                     title='Organización'
-                    image='https://imgeneral.s3-sa-east-1.amazonaws.com/10590.png'
+                    image='https://imgeneral.s3-sa-east-1.amazonaws.com/laptop.png'
                     desc='Clasifica según el interés de tu contacto y serás más efectivo'
                 />
                 <Cardpossibilities
                     title='Productividad'
-                    image='https://imgeneral.s3-sa-east-1.amazonaws.com/10590.png'
+                    image='https://imgeneral.s3-sa-east-1.amazonaws.com/contstruyendo.png'
                     desc='Tidy Up te ayuda ahorrar tiempo en la gestión de contactos'
                 />
                 <Cardpossibilities
                     title='Nuevos clientes'
-                    image='https://imgeneral.s3-sa-east-1.amazonaws.com/10590.png'
+                    image='https://imgeneral.s3-sa-east-1.amazonaws.com/laptop.png'
                     desc='Crear contactos en tidy up es muy sencillo'
+                    imgsize='imgsize'
                 />
             </div>
 

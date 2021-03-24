@@ -1,8 +1,17 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
 
+
+const useStyle = makeStyles({
+    color: {
+        color: '#F7F9FC'
+    }
+})
 
 const Cardprice = ({ plan, price, benef1, benef2, benef3, scale }) => {
+    const classes = useStyle()
+
     return (
         <div className={`container__card_flex ${scale}`}>
 
@@ -23,7 +32,7 @@ const Cardprice = ({ plan, price, benef1, benef2, benef3, scale }) => {
 
             </div>
 
-            <Button href='/register' className="btn__card" variant="text" color="default">
+            <Button href='/register' className={`btn__card ${classes.color}`} variant="text">
                 Empieza ya
             </Button>
 
