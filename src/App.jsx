@@ -12,6 +12,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import Company from './components/PAGES/Company';
 import Premium from './components/PAGES/Premium';
 import Region from './components/PAGES/Region';
+import CreateContacts from './components/PAGES/CreateContacts';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/company" component={Company} />
           <Route path="/countries" component={Region} />
           <Route path="/analitycs" component={Premium} />
+          <Route path="/create/contact" component={CreateContacts} />
         </Router>
       </ThemeProvider>
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import { makeStyles, Button } from '@material-ui/core'
 import { DataGrid } from '@material-ui/data-grid'
-import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import Red from '@material-ui/core/colors/red'
 import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyle = makeStyles({
     color: {
@@ -30,12 +30,17 @@ const columns = [
         width: 120,
         renderCell: (params) => (
             <strong>
-                <IconButton>
-                    <DeleteIcon style={{ color: Red[700] }} />
-                </IconButton>
-                <IconButton>
-                    <EditIcon style={{ color: Indigo[700] }} />
-                </IconButton>
+                <Tooltip title='Eliminar'>
+                    <IconButton>
+                        <DeleteIcon style={{ color: Red[700] }} />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title='Editar'>
+                    <IconButton>
+                        <EditIcon style={{ color: Indigo[700] }} />
+                    </IconButton>
+
+                </Tooltip>
             </strong>
         ),
     },

@@ -5,8 +5,13 @@ import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles({
     root: {
-        width: 100,
+        width: 300,
     },
+    display: {
+        display: 'inline-block',
+        marginRight: 25
+
+    }
 });
 
 const marks = [
@@ -44,10 +49,10 @@ const Sliderbtn = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div className={`${classes.root} ${classes.display}`}>
+            Nivel de interés
             <Slider
-                defaultValue={20}
-                disabled
+                defaultValue={25}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-restrict"

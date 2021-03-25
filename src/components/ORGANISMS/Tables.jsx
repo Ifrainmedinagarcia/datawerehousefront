@@ -8,6 +8,8 @@ import EditIcon from '@material-ui/icons/Edit'
 import Red from '@material-ui/core/colors/red'
 import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
+import Tooltip from '@material-ui/core/Tooltip';
+import { NavLink } from 'react-router-dom'
 
 const useStyle = makeStyles({
     color: {
@@ -43,12 +45,17 @@ const columns = [
         width: 120,
         renderCell: (params) => (
             <strong>
-                <IconButton>
-                    <DeleteIcon style={{ color: Red[700] }} />
-                </IconButton>
-                <IconButton>
-                    <EditIcon style={{ color: Indigo[700] }} />
-                </IconButton>
+                <Tooltip title='Eliminar'>
+                    <IconButton>
+                        <DeleteIcon style={{ color: Red[700] }} />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title='Editar'>
+                    <IconButton>
+                        <EditIcon style={{ color: Indigo[700] }} />
+                    </IconButton>
+
+                </Tooltip>
             </strong>
         ),
     },
@@ -187,9 +194,13 @@ const Tables = () => {
             <h3>Contactos</h3>
             <div>
                 <TextField className='busqueda' id="" label="Filtrar" variant="outlined" margin="dense" />
-                <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
-                    Crear Contacto
-                </Button>
+
+                <NavLink to='/create/contact'>
+
+                    <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
+                        Crear Contacto
+                    </Button>
+                </NavLink>
             </div>
             <div style={{ height: 500, width: '100%' }}>
                 <DataGrid loading={rows.length === 0} rows={rows} columns={columns} pageSize={7} checkboxSelection />

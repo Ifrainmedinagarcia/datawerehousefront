@@ -2,17 +2,14 @@ import React from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles } from '@material-ui/core'
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AcordionRegion from '../ATOMS/AcordionRegion'
+import { Button } from '@material-ui/core'
 
 const useStyle = makeStyles(theme => ({
     root: {
-        width: '100%',
+        width: '80%',
+        position: 'relative',
+        margin: 'auto'
     },
     content: {
         flexGrow: 1,
@@ -20,12 +17,20 @@ const useStyle = makeStyles(theme => ({
         paddingLeft: 300,
         position: 'relative',
         justifyContent: 'center',
-        top: 120,
+        top: 50,
         marginBottom: 20,
 
     },
     margin: {
         marginBottom: 20
+    },
+    color: {
+        color: '#F7F9FC'
+    },
+    top: {
+        position: 'relative',
+        top: 30,
+        left: '72%'
     }
 }))
 
@@ -37,8 +42,13 @@ const Region = () => {
             <NavbarUser />
             <Cajon />
             <main className={`${classes.content} ${classes.root}`}>
+                <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
+                    Agregar
+                </Button>
                 <h3 className={classes.margin}>Región/País</h3>
-
+                <AcordionRegion />
+                <AcordionRegion />
+                <AcordionRegion />
             </main>
         </>
     )
