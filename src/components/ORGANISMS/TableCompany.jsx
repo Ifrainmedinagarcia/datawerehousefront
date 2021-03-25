@@ -55,12 +55,12 @@ const TableCompany = () => {
     const classes = useStyle()
     return (
         <>
-            <h3>Contactos</h3>
+            <h3>Compañías</h3>
             <div>
                 <TextField className='busqueda' id="" label="Filtrar" variant="outlined" margin="dense" />
                 <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
                     Crear Compañía
-            </Button>
+                </Button>
             </div>
             <div style={{ height: 500, width: '100%' }}>
                 <DataGrid loading={rows.length === 0} rows={rows} columns={columns} pageSize={7} checkboxSelection />

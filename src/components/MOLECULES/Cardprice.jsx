@@ -10,7 +10,7 @@ const useStyle = makeStyles({
     }
 })
 
-const Cardprice = ({ plan, price, benef1, benef2, benef3, scale }) => {
+const Cardprice = ({ plan, price, benef1, benef2, benef3, scale, link }) => {
     const classes = useStyle()
 
     return (
@@ -32,7 +32,7 @@ const Cardprice = ({ plan, price, benef1, benef2, benef3, scale }) => {
                 </ul>
 
             </div>
-            <NavLink className={`btn__card`} to='/register'>
+            <NavLink className={`btn__card`} to={`${link}`}>
                 <Button className={`btn__card ${classes.color}`} variant="text">
                     Empieza ya
                 </Button>

@@ -10,6 +10,8 @@ import Formcompany from './components/PAGES/Formcompany';
 import Userview from './components/PAGES/Userview';
 import { ThemeProvider } from '@material-ui/styles';
 import Company from './components/PAGES/Company';
+import Premium from './components/PAGES/Premium';
+import Region from './components/PAGES/Region';
 
 function App() {
   return (
@@ -22,9 +24,11 @@ function App() {
           <Route path="/welcome" component={Welcome} />
           <Route path="/region/config" component={FormRegion} />
           <Route path="/country/config" component={Formcountry} />
-          <Route path="/company/config" component={Formcompany} />
+          <Route path="/companies/config" component={Formcompany} />
           <Route path="/contacts" component={Userview} />
           <Route path="/company" component={Company} />
+          <Route path="/countries" component={Region} />
+          <Route path="/analitycs" component={Premium} />
         </Router>
       </ThemeProvider>
 

@@ -16,6 +16,7 @@ const Price = () => {
                     benef1='Gestión de contactos'
                     benef2='Clasifica según interés'
                     benef3='10 contactos nuevo por día'
+                    link='/register'
                 />
                 <Cardprice
                     plan='PREMIUM'
@@ -24,6 +25,7 @@ const Price = () => {
                     benef2='Contactos ilimitados'
                     benef3='Analitycs full'
                     scale='scale'
+                    link='/register'
                 />
                 <Cardprice
                     plan='MEDIUM'
@@ -31,6 +33,7 @@ const Price = () => {
                     benef1='Todo del plan BASIC'
                     benef2='100 contactos nuevos por día'
                     benef3='Funciones de analytics básicas'
+                    link='/register'
                 />
 
 

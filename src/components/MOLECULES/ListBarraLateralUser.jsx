@@ -33,7 +33,7 @@ const ListBarraLateralUser = ({ active }) => {
             <List component='ul'>
 
 
-                <NavLink  to='/contacts' className={`${classes.color}`}>
+                <NavLink to='/contacts' className={`${classes.color}`}>
                     <ListItem button>
                         <ListItemIcon>
                             <PeopleIcon className={`${classes.color}`} />
@@ -42,7 +42,7 @@ const ListBarraLateralUser = ({ active }) => {
                     </ListItem>
                 </NavLink>
 
-                <NavLink to='/region' className={`${classes.color}`}>
+                <NavLink to='/countries' className={`${classes.color}`}>
 
                     <ListItem button >
                         <ListItemIcon>
@@ -60,19 +60,25 @@ const ListBarraLateralUser = ({ active }) => {
                         <ListItemIcon>
                             <BusinessIcon className={`${classes.color}`} />
                         </ListItemIcon>
-                        <ListItemText className={`${classes.color}`}>Compañía</ListItemText>
+                        <ListItemText className={`${classes.color}`}>Compañías</ListItemText>
                     </ListItem>
                 </NavLink>
 
 
 
                 <Divider className={`${classes.whiteDiver}`} />
-                <ListItem button >
-                    <ListItemIcon>
-                        <TimelineIcon className={`${classes.color}`} />
-                    </ListItemIcon>
-                    <ListItemText className={`${classes.color}`}>Analitycs</ListItemText>
-                </ListItem>
+
+
+                <NavLink to='/analitycs' className={`${classes.color}`}>
+                    <ListItem button >
+                        <ListItemIcon>
+                            <TimelineIcon className={`${classes.color}`} />
+                        </ListItemIcon>
+                        <ListItemText className={`${classes.color}`}>Analitycs</ListItemText>
+                    </ListItem>
+                </NavLink>
+
+
             </List>
         </div>
     )
