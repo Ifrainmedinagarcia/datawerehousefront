@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
+import { NavLink } from 'react-router-dom'
 
 
 const useStyle = makeStyles({
@@ -31,10 +32,12 @@ const Cardprice = ({ plan, price, benef1, benef2, benef3, scale }) => {
                 </ul>
 
             </div>
+            <NavLink className={`btn__card`} to='/register'>
+                <Button className={`btn__card ${classes.color}`} variant="text">
+                    Empieza ya
+                </Button>
 
-            <Button href='/register' className={`btn__card ${classes.color}`} variant="text">
-                Empieza ya
-            </Button>
+            </NavLink>
 
         </div>
     )

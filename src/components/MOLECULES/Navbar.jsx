@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
     return (
@@ -12,15 +13,23 @@ const Navbar = () => {
 
             <nav className="nav__container">
                 <ul className="nav__container__lists__flex">
-                    <Button href='/' exact className="nav__list__item" variant="text" color="default">
-                        Home
-                    </Button>
-                    <Button href='/register' className="nav__list__item" variant="text" color="default">
-                        Registro
-                    </Button>
-                    <Button href='/login' className="nav__list__item" variant="text" color="default">
-                        Login
-                    </Button>
+                    <NavLink to='/'>
+                        <Button exact className="nav__list__item" variant="text" color="default">
+                            Home
+                        </Button>
+                    </NavLink>
+
+                    <NavLink to='/register'>
+                        <Button className="nav__list__item" variant="text" color="default">
+                            Registro
+                        </Button>
+                    </NavLink>
+
+                    <NavLink to='/login'>
+                        <Button className="nav__list__item" variant="text" color="default">
+                            Login
+                        </Button>
+                    </NavLink>
 
                 </ul>
             </nav>

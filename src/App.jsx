@@ -8,20 +8,25 @@ import Formcountry from './components/PAGES/Formcountry';
 import FormRegion from './components/PAGES/FormRegion'
 import Formcompany from './components/PAGES/Formcompany';
 import Userview from './components/PAGES/Userview';
+import { ThemeProvider } from '@material-ui/styles';
+import Company from './components/PAGES/Company';
 
 function App() {
   return (
     <>
-      <Router>
-        <Route path="/" exact component={Home} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/welcome" exact component={Welcome} />
-        <Route path="/welcome/region" exact component={FormRegion} />
-        <Route path="/welcome/country" exact component={Formcountry} />
-        <Route path="/welcome/company" exact component={Formcompany} />
-        <Route path="/contacts" exact component={Userview} />
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <Route path="/" exact component={Home} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route path="/welcome" component={Welcome} />
+          <Route path="/region/config" component={FormRegion} />
+          <Route path="/country/config" component={Formcountry} />
+          <Route path="/company/config" component={Formcompany} />
+          <Route path="/contacts" component={Userview} />
+          <Route path="/company" component={Company} />
+        </Router>
+      </ThemeProvider>
 
     </>
   );

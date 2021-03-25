@@ -77,10 +77,20 @@ const Formcompany = () => {
                                     <Checkbox
                                         className='block'
                                         name="checkedB"
-                                        color="primary"
+                                        color="secondary"
                                     />
                                 }
-                                label="España"
+                                label="Netflix"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        className='block'
+                                        name="checkedB"
+                                        color="secondary"
+                                    />
+                                }
+                                label="Mercado Libre"
                             />
                         </div>
 
@@ -90,7 +100,7 @@ const Formcompany = () => {
                     <div className="conteinar__btn__delete__continuar">
 
                         <ButtonGroup className='btn__action' variant="text" aria-label="">
-                            <Button className={`${classes.color}`} variant="text" >Agregar</Button>
+                            <Button className={`${classes.color}`} variant="text" >Continuar</Button>
                             <Button className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
                         </ButtonGroup>
 

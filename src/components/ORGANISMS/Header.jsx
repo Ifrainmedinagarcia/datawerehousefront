@@ -3,6 +3,7 @@ import Navbar from '../MOLECULES/Navbar'
 import Button from '@material-ui/core/Button'
 
 import { makeStyles } from '@material-ui/core/styles'
+import { NavLink } from 'react-router-dom'
 
 
 const useStyle = makeStyles({
@@ -27,9 +28,11 @@ const Header = () => {
                     <h1>EN TIDY UP</h1>
                     <h2 className="carga">Carga, organiza y gestiona a tus actuales y futuros clientes</h2>
                     <br />
-                    <Button href='/register' className={`btn__banner ${classes.color}`} >
-                        Empieza ya
-                    </Button>
+                    <NavLink to='/register'>
+                        <Button className={`btn__banner ${classes.color}`} >
+                            Empieza ya
+                        </Button>
+                    </NavLink>
 
                 </div>
 

@@ -1,8 +1,8 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
-import Tables from '../ORGANISMS/Tables'
-import { makeStyles } from '@material-ui/core'
+import TableCompany from '../ORGANISMS/TableCompany'
 
 
 const useStyle = makeStyles(theme => ({
@@ -17,22 +17,17 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 
-
-
-const Userview = () => {
+const Company = () => {
     const classes = useStyle()
     return (
         <>
             <NavbarUser />
             <Cajon />
             <main className={classes.content}>
-                <Tables />
+                <TableCompany />
             </main>
         </>
-    );
+    )
 }
 
-
-
-export default Userview;
-
+export default Company
