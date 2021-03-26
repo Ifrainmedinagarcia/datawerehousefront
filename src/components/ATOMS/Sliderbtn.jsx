@@ -5,10 +5,9 @@ import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles({
     root: {
-        width: 300,
+        width: '97%',
     },
     display: {
-        display: 'inline-block',
         marginRight: 25
 
     }

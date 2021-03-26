@@ -9,7 +9,7 @@ import Red from '@material-ui/core/colors/red'
 import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip';
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const useStyle = makeStyles({
     color: {
@@ -194,13 +194,11 @@ const Tables = () => {
             <h3>Contactos</h3>
             <div>
                 <TextField className='busqueda' id="" label="Filtrar" variant="outlined" margin="dense" />
-
-                <NavLink to='/create/contact'>
-
+                <Link to='/create/contact'>
                     <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
                         Crear Contacto
                     </Button>
-                </NavLink>
+                </Link>
             </div>
             <div style={{ height: 500, width: '100%' }}>
                 <DataGrid loading={rows.length === 0} rows={rows} columns={columns} pageSize={7} checkboxSelection />

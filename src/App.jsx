@@ -13,6 +13,10 @@ import Company from './components/PAGES/Company';
 import Premium from './components/PAGES/Premium';
 import Region from './components/PAGES/Region';
 import CreateContacts from './components/PAGES/CreateContacts';
+import CreateCompany from './components/PAGES/CreateCompany';
+import CreateCountry from './components/PAGES/CreateCountry';
+import CreateRegion from './components/PAGES/CreateRegion';
+import CreateCity from './components/PAGES/CreateCity';
 
 function App() {
   return (
@@ -31,6 +35,10 @@ function App() {
           <Route path="/countries" component={Region} />
           <Route path="/analitycs" component={Premium} />
           <Route path="/create/contact" component={CreateContacts} />
+          <Route path="/crear/company" component={CreateCompany} />
+          <Route path="/add/country" component={CreateCountry} />
+          <Route path="/agregar/region" component={CreateRegion} />
+          <Route path="/ingresar/city" component={CreateCity} />
         </Router>
       </ThemeProvider>
 

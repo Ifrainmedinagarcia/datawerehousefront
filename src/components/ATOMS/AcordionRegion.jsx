@@ -12,6 +12,9 @@ import EditIcon from '@material-ui/icons/Edit'
 import Tooltip from '@material-ui/core/Tooltip';
 import Red from '@material-ui/core/colors/red'
 import Indigo from '@material-ui/core/colors/indigo'
+import AddIcon from '@material-ui/icons/Add'
+import blue from '@material-ui/core/colors/blue';
+import { NavLink } from 'react-router-dom';
 
 
 const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity, labelCity }) => {
@@ -30,16 +33,35 @@ const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity
                     control={<Checkbox />}
                     label={labelRegion}
                 />
+
                 <Tooltip title='Eliminar'>
                     <IconButton>
                         <DeleteIcon style={{ color: Red[700] }} />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title='Editar'>
-                    <IconButton>
-                        <EditIcon style={{ color: Indigo[700] }} />
-                    </IconButton>
-                </Tooltip>
+
+
+                <NavLink to='/agregar/region'>
+                    <Tooltip title='Editar'>
+                        <IconButton>
+                            <EditIcon style={{ color: Indigo[700] }} />
+                        </IconButton>
+                    </Tooltip>
+
+                </NavLink>
+
+
+
+                <NavLink to='/agregar/region'>
+                    <Tooltip title='Agregar'>
+                        <IconButton>
+                            <AddIcon style={{ color: blue[700] }} />
+                        </IconButton>
+                    </Tooltip>
+
+                </NavLink>
+
+
             </AccordionSummary>
             <AccordionDetails>
                 <Accordion>
@@ -56,16 +78,34 @@ const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity
                             control={<Checkbox />}
                             label={labelCountry}
                         />
+
+
                         <Tooltip title='Eliminar'>
                             <IconButton>
                                 <DeleteIcon style={{ color: Red[700] }} />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title='Editar'>
-                            <IconButton>
-                                <EditIcon style={{ color: Indigo[700] }} />
-                            </IconButton>
-                        </Tooltip>
+
+
+                        <NavLink to='/add/country'>
+                            <Tooltip title='Editar'>
+                                <IconButton>
+                                    <EditIcon style={{ color: Indigo[700] }} />
+                                </IconButton>
+                            </Tooltip>
+
+                        </NavLink>
+
+
+                        <NavLink to='/add/country'>
+                            <Tooltip title='Agregar'>
+                                <IconButton>
+                                    <AddIcon style={{ color: blue[700] }} />
+                                </IconButton>
+                            </Tooltip>
+
+                        </NavLink>
+
                     </AccordionSummary>
                     <AccordionDetails>
                         <Accordion>
@@ -81,16 +121,34 @@ const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity
                                     control={<Checkbox />}
                                     label={labelCity}
                                 />
+
+
                                 <Tooltip title='Eliminar'>
                                     <IconButton>
                                         <DeleteIcon style={{ color: Red[700] }} />
                                     </IconButton>
                                 </Tooltip>
-                                <Tooltip title='Editar'>
-                                    <IconButton>
-                                        <EditIcon style={{ color: Indigo[700] }} />
-                                    </IconButton>
-                                </Tooltip>
+
+
+                                <NavLink to='/ingresar/city'>
+                                    <Tooltip title='Editar'>
+                                        <IconButton>
+                                            <EditIcon style={{ color: Indigo[700] }} />
+                                        </IconButton>
+                                    </Tooltip>
+
+                                </NavLink>
+
+
+                                <NavLink to='/ingresar/city'>
+                                    <Tooltip title='Agregar'>
+                                        <IconButton>
+                                            <AddIcon style={{ color: blue[700] }} />
+                                        </IconButton>
+                                    </Tooltip>
+
+                                </NavLink>
+
                             </AccordionSummary>
                             <AccordionDetails>
 

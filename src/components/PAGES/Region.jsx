@@ -4,6 +4,7 @@ import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles } from '@material-ui/core'
 import AcordionRegion from '../ATOMS/AcordionRegion'
 import { Button } from '@material-ui/core'
+import { NavLink } from 'react-router-dom'
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -42,9 +43,6 @@ const Region = () => {
             <NavbarUser />
             <Cajon />
             <main className={`${classes.content} ${classes.root}`}>
-                <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
-                    Agregar
-                </Button>
                 <h3 className={classes.margin}>Región/País</h3>
                 <AcordionRegion />
                 <AcordionRegion />
