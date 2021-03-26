@@ -17,6 +17,7 @@ import CreateCompany from './components/PAGES/CreateCompany';
 import CreateCountry from './components/PAGES/CreateCountry';
 import CreateRegion from './components/PAGES/CreateRegion';
 import CreateCity from './components/PAGES/CreateCity';
+import ProfileUser from './components/PAGES/ProfileUser';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/add/country" component={CreateCountry} />
           <Route path="/agregar/region" component={CreateRegion} />
           <Route path="/ingresar/city" component={CreateCity} />
+          <Route path="/profile" component={ProfileUser} />
         </Router>
       </ThemeProvider>
 

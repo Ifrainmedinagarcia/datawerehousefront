@@ -1,7 +1,7 @@
 import React from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
-import { Avatar, makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
+import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
 
 const useStyle = makeStyles(theme => ({
     content: {
@@ -68,6 +68,7 @@ const CreateCompany = () => {
                             <TextField className={classes.inputText} id="standard-basic" label="Dirección" size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                                 <Button className={`${classes.color}`} variant="text" >Guardar</Button>
+                                <Button className={`danger ${classes.color}`} variant="text" >Actualizar</Button>
                             </ButtonGroup>
                         </div>
                     </div>

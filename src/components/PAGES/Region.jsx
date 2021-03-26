@@ -3,8 +3,6 @@ import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles } from '@material-ui/core'
 import AcordionRegion from '../ATOMS/AcordionRegion'
-import { Button } from '@material-ui/core'
-import { NavLink } from 'react-router-dom'
 
 const useStyle = makeStyles(theme => ({
     root: {
