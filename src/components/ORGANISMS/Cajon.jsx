@@ -2,8 +2,7 @@ import React from 'react'
 import ListBarraLateralUser from '../MOLECULES/ListBarraLateralUser'
 import {
     makeStyles,
-    Drawer,
-    Divider
+    Drawer
 } from '@material-ui/core'
 
 const useStyle = makeStyles(theme => ({

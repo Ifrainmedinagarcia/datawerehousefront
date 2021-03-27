@@ -9,6 +9,7 @@ const useStyle = makeStyles({
     }
 })
 
+const nombre = localStorage.getItem('welcome')
 
 const Welcome = () => {
     const classes = useStyle()
@@ -16,11 +17,14 @@ const Welcome = () => {
     return (
         <main className="main">
             <TitleWelcomeForm
-                title='Bienvenid@ Ifrain Antes de empezar debes configurar tu cuenta'
+                title={` ${nombre} Antes de empezar debes configurar tu cuenta`}
             />
-            <Button className={`btn__card form__welcome ${classes.color}`} variant="text" color="default">
+
+            <Button href='/region/config' className={`btn__card form__welcome ${classes.color}`} variant="text" color="default">
                 Configurar
             </Button>
+
+
             <img className="img__footer__login" src="https://favicontidyup.s3-sa-east-1.amazonaws.com/logodata.png" alt="" />
         </main>
     )

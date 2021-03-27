@@ -18,6 +18,10 @@ const useStyle = makeStyles({
     }
 })
 
+const userLocalId = localStorage.getItem('user')
+
+const userId = JSON.parse(userLocalId)
+
 
 
 const Frominit = () => {
@@ -35,19 +39,19 @@ const Frominit = () => {
             <div className="container__form__flex">
 
 
-                <div className="form__input">
+                <form className="form__input">
 
                     <h6 className="region__title">Región</h6>
 
                     <div className='container__btn__config'>
 
                         <TextField className='input' id="" label="Región" variant="outlined" margin="dense" />
-                        <Button className={`btn__card ${classes.color} ${classes.top}`} variant="text">
+                        <Button type='submit' className={`btn__card ${classes.color} ${classes.top}`} variant="text">
                             Agregar
                         </Button>
                     </div>
 
-                </div>
+                </form>
 
 
                 <div className="line__center"></div>
@@ -77,17 +81,12 @@ const Frominit = () => {
                     <div className="conteinar__btn__delete__continuar">
 
                         <ButtonGroup className='btn__action' variant="text" aria-label="">
-                            <Button className={`${classes.color}`} variant="text" >Agregar</Button>
+                            <Button href='/country/config' className={`${classes.color}`} variant="text" >Continuar</Button>
                             <Button className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
                         </ButtonGroup>
 
                     </div>
-
-
-
                 </div>
-
-
             </div>
 
             <div className="container__img__region">

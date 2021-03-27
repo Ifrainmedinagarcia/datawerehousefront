@@ -100,7 +100,7 @@ const Formcompany = () => {
                     <div className="conteinar__btn__delete__continuar">
 
                         <ButtonGroup className='btn__action' variant="text" aria-label="">
-                            <Button className={`${classes.color}`} variant="text" >Continuar</Button>
+                            <Button href='/contacts' className={`${classes.color}`} variant="text" >Continuar</Button>
                             <Button className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
                         </ButtonGroup>
 

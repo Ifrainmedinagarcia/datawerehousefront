@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Divider, makeStyles, TextField, Button, ButtonGroup } from '@material-ui/core'
+import { Avatar, makeStyles, TextField, Button, ButtonGroup } from '@material-ui/core'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import IconButton from '@material-ui/core/IconButton';
