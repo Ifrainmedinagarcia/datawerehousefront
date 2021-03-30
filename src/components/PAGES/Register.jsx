@@ -28,10 +28,16 @@ const registerUser = e => {
             .then(res => {
                 console.log(res)
                 window.location = '/login'
-            }).catch(e => console.log(e))
+            }).catch(error => {
+                if (error.response.data.error.name === 'SequelizeUniqueConstraintError') {
+                    alert('Ususario ya existe, por favor inicie sesión')
+                } else {
+                    alert('Error inesperado del servidor')
+                }
+            })
 
     } else {
-        console.log('error');
+        alert('Las contraseñas no coinciden');
     }
 }
 

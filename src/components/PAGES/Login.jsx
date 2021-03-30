@@ -23,7 +23,7 @@ const loginUser = e => {
             console.log(res);
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('welcome', res.data.data)
-            localStorage.setItem('user', JSON.stringify(res.data.info.id_user))
+            localStorage.setItem('user', JSON.stringify(res.data.user.id_user))
             window.location = '/welcome'
         }).catch(e => {
             if (e) {
