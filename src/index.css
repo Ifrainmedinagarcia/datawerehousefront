@@ -641,8 +641,9 @@ input {
 }
 
 .container__lists__region {
-  width: 80%;
+  width: 90%;
   position: relative;
+  min-height: 180px;
   top: 5px;
   margin: auto;
 }
@@ -655,8 +656,10 @@ input {
 
 .conteinar__btn__delete__continuar {
   position: absolute;
-  right: 10px;
-  bottom: 30px;
+  right: 0;
+  bottom: 15px;
+
+
 }
 
 .flex__check {
