@@ -73,7 +73,7 @@ const Frominit = ({ regions }) => {
                 })
                     .then(res => {
                         console.log(res)
-                        id.splice(index, element)
+                        id.splice(index, 1)
                     })
             })
             await store.dispatch(getAllRegions())

@@ -14,8 +14,6 @@ import axios from 'axios'
 import store from '../../REDUX/store'
 import { getAllCountries } from '../../REDUX/actionsCreators'
 
-
-
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
@@ -29,6 +27,9 @@ const useStyle = makeStyles({
         marginTop: 15
     }
 })
+
+
+const id = []
 
 const Formcountry = ({ regions, countries }) => {
     const classes = useStyle()
@@ -63,6 +64,43 @@ const Formcountry = ({ regions, countries }) => {
         }
 
         form.pais.value = ''
+    }
+
+    const deleteCountry = async (e) => {
+        console.log(e.target.id);
+        e.preventDefault()
+        try {
+            id.forEach((element, index) => {
+                axios.delete(`http://localhost:3001/v1/api/countries/${element}`, {
+                    headers: { 'Authorization': JWT }
+                })
+                    .then(res => {
+                        console.log(res)
+                        id.splice(index, 1)
+                    })
+            })
+            await store.dispatch(getAllCountries())
+            if (countries.length === 0) {
+                id = []
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const checkBox = async e => {
+        console.log(e.target.checked);
+        if (e.target.checked) {
+            id.push(parseInt(e.target.id))
+            console.log(e.target.id)
+            console.log(id);
+        }
+        if (!e.target.checked) {
+            id.forEach((element, index) => {
+                id.splice(index, 1)
+            })
+            console.log(id);
+        }
     }
 
     return (
@@ -104,7 +142,7 @@ const Formcountry = ({ regions, countries }) => {
                 </div>
                 <div className="line__center"></div>
                 <div className="container__info__input">
-                    <form className="container__lists__region">
+                    <form onSubmit={deleteCountry.bind()} className="container__lists__region">
                         {
                             countries.length !== 0 ?
                                 countries.map(c => (
@@ -113,9 +151,11 @@ const Formcountry = ({ regions, countries }) => {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
+                                                    id={`${c.id_country}`}
                                                     className='block'
                                                     name={`${c.name_country}`}
                                                     color="primary"
+                                                    onChange={checkBox}
                                                 />
                                             }
                                             label={`${c.name_country}`}
@@ -127,8 +167,13 @@ const Formcountry = ({ regions, countries }) => {
 
                         <div className="conteinar__btn__delete__continuar">
                             <ButtonGroup className='btn__action' variant="text" aria-label="">
-                                <Button href='/companies/config' className={`${classes.color}`} variant="text" >Continuar</Button>
-                                <Button className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
+                                {
+                                    countries.length === 0 ?
+                                        <Button disabled type='button' href='/companies/config' className={`${classes.color}`} variant="text" >Continuar</Button>
+                                        : <Button type='button' href='/companies/config' className={`${classes.color}`} variant="text" >Continuar</Button>
+
+                                }
+                                <Button type='submit' className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
                             </ButtonGroup>
 
                         </div>

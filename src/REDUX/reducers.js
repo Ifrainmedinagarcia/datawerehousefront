@@ -1,5 +1,5 @@
 
-import { GET_ALL_COUNTRIES, GET_ALL_REGIONS } from "./accions"
+import { GET_ALL_CITIES, GET_ALL_COMPANIES, GET_ALL_COUNTRIES, GET_ALL_REGIONS } from "./accions"
 
 let initialStateRegion = {
     regions: []
@@ -60,8 +60,18 @@ export const countryReducer = (state = initialStateCountry, action) => {
 
 export const cityReducer = (state = initialStateCities, action) => {
     return state
+
 }
 
-export const companyReducer = (state = initialStateCompanies, action) => {
-    return state
+export const companiesReducer = (state = initialStateCompanies, action) => {
+    switch (action.type) {
+        case GET_ALL_COMPANIES:
+            return {
+                ...state,
+                companies: action.companies
+            }
+        default:
+            return state
+    }
+
 }

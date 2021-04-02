@@ -7,7 +7,7 @@ import {
     regionReducer,
     countryReducer,
     cityReducer,
-    companyReducer
+    companiesReducer
 } from './reducers'
 
 
@@ -19,7 +19,7 @@ export default createStore(
         regionReducer,
         countryReducer,
         cityReducer,
-        companyReducer
+        companiesReducer
     }),
     composeWithDevTools(applyMiddleware(thunk))
 )
