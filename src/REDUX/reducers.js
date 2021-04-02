@@ -1,5 +1,5 @@
 
-import { GET_ALL_CITIES, GET_ALL_COMPANIES, GET_ALL_COUNTRIES, GET_ALL_REGIONS } from "./accions"
+import { GET_ALL_CITIES, GET_ALL_COMPANIES, GET_ALL_CONTACTS, GET_ALL_COUNTRIES, GET_ALL_REGIONS } from "./accions"
 
 let initialStateRegion = {
     regions: []
@@ -30,7 +30,15 @@ export const usersReducer = (state = initialStateUsers, action) => {
 }
 
 export const contactsReducer = (state = initialStateContacts, action) => {
-    return state
+    switch (action.type) {
+        case GET_ALL_CONTACTS:
+            return {
+                ...state,
+                contacts: action.contacts
+            }
+        default:
+            return state
+    }
 }
 
 export const regionReducer = (state = initialStateRegion, action) => {

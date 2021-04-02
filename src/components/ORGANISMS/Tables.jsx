@@ -10,6 +10,13 @@ import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import store from '../../REDUX/store'
+import { getAllContacts } from '../../REDUX/actionsCreators'
+
+
+store.dispatch(getAllContacts())
+
 
 const useStyle = makeStyles({
     color: {
@@ -19,8 +26,6 @@ const useStyle = makeStyles({
         marginTop: 15
     }
 })
-
-
 
 const columns = [
     {
@@ -33,12 +38,12 @@ const columns = [
             </strong>
         ),
     },
-    { field: 'Contacto', headerName: 'Contacto', width: 130 },
-    { field: 'Pais', headerName: 'País', width: 100 },
-    { field: 'Compania', headerName: 'Compañía', width: 120 },
-    { field: 'Cargo', headerName: 'Cargo', width: 100 },
-    { field: 'Canal', headerName: 'Canal preferido', width: 160 },
-    { field: 'Interes', headerName: 'Interés', width: 100 },
+    { field: 'name_contact', headerName: 'Contacto', width: 130 },
+    { field: 'name_country', headerName: 'País', width: 100 },
+    { field: 'company', headerName: 'Compañía', width: 120 },
+    { field: 'position', headerName: 'Cargo', width: 100 },
+    { field: 'channel', headerName: 'Canal preferido', width: 160 },
+    { field: 'commiment', headerName: 'Interés', width: 100 },
     {
         field: 'Acciones',
         headerName: 'Acciones',
@@ -59,136 +64,13 @@ const columns = [
             </strong>
         ),
     },
-];
+]
 
-const rows = [
-    {
-        id: 1,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 2,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 3,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 4,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 5,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 6,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 7,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 8,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 9,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 10,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    },
-    {
-        id: 1,
-        Avatar: 'https://cdn.pixabay.com/photo/2017/10/25/16/54/african-lion-2888519_1280.jpg',
-        Contacto: 'Ifrain Medina',
-        Pais: 'Venezuela',
-        Compania: 'Acámica',
-        Cargo: 'Gerente',
-        Canal: 'Facebook',
-        Interes: '100%',
-
-    }
-
-];
-
-
-const Tables = () => {
+const Tables = ({ contacts }) => {
     const classes = useStyle()
+
+    const [rows, setRows] = React.useState(contacts)
+
     return (
         <>
             <h3>Contactos</h3>
@@ -201,11 +83,17 @@ const Tables = () => {
                 </Link>
             </div>
             <div style={{ height: 500, width: '100%' }}>
-                <DataGrid loading={rows.length === 0} rows={rows} columns={columns} pageSize={7} checkboxSelection />
+                <DataGrid rows={rows} columns={columns} pageSize={7} checkboxSelection />
             </div>
         </>
 
     )
 }
 
-export default Tables
+const mapStateToProps = state => ({
+    contacts: state.contactsReducer.contacts
+
+})
+
+
+export default connect(mapStateToProps, {})(Tables)

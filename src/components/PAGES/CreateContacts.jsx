@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Sliderbtn from '../ATOMS/Sliderbtn';
+import { connect } from 'react-redux';
 
 
 const useStyle = makeStyles(theme => ({
@@ -74,8 +75,8 @@ const CreateContacts = () => {
             <NavbarUser />
             <Cajon />
 
-            <main className={classes.content}>
-                <h3 style={{ textAlign: 'center' }}>Crear tu contacto</h3>
+            <form className={classes.content}>
+                <h3 style={{ textAlign: 'center' }}>Crea tu contacto</h3>
 
                 <div className={classes.avatar}>
                     <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
@@ -213,16 +214,20 @@ const CreateContacts = () => {
 
                         </TextField>
                         <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
-                            <Button className={`${classes.color}`} variant="text" >Crear</Button>
+                            <Button type='submit' className={`${classes.color}`} variant="text" >Crear</Button>
                             <Button className={`danger ${classes.color}`} variant="text" >Actualizar</Button>
                         </ButtonGroup>
 
                     </div>
 
                 </div>
-            </main>
+            </form>
         </>
     )
 }
 
-export default CreateContacts
+const mapStateToProps = state => {
+
+}
+
+export default connect(mapStateToProps, {})(CreateContacts)

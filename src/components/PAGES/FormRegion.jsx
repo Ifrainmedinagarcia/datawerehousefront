@@ -59,7 +59,6 @@ const registerRegion = async (e) => {
 }
 const id = []
 
-
 const Frominit = ({ regions }) => {
     const classes = useStyle()
 
