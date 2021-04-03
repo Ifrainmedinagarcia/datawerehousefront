@@ -1,5 +1,5 @@
 
-import { GET_ALL_CITIES, GET_ALL_COMPANIES, GET_ALL_CONTACTS, GET_ALL_COUNTRIES, GET_ALL_REGIONS } from "./accions"
+import { GET_ALL_CHANNELS, GET_ALL_CITIES, GET_ALL_COMMITMENTS, GET_ALL_COMPANIES, GET_ALL_CONTACTS, GET_ALL_COUNTRIES, GET_ALL_PREFERENCE, GET_ALL_REGIONS } from "./accions"
 
 let initialStateRegion = {
     regions: []
@@ -18,11 +18,23 @@ let initialStateContacts = {
 }
 
 let initialStateCities = {
-    citie: []
+    cities: []
 }
 
 let initialStateCompanies = {
     companies: []
+}
+
+let initialStateChannels = {
+    channels: []
+}
+
+let initialStateCommitment = {
+    commitments: []
+}
+
+let initialStatePreference = {
+    preferences: []
 }
 
 export const usersReducer = (state = initialStateUsers, action) => {
@@ -67,8 +79,15 @@ export const countryReducer = (state = initialStateCountry, action) => {
 }
 
 export const cityReducer = (state = initialStateCities, action) => {
-    return state
-
+    switch (action.type) {
+        case GET_ALL_CITIES:
+            return {
+                ...state,
+                cities: action.cities
+            }
+        default:
+            return state
+    }
 }
 
 export const companiesReducer = (state = initialStateCompanies, action) => {
@@ -83,3 +102,41 @@ export const companiesReducer = (state = initialStateCompanies, action) => {
     }
 
 }
+
+export const channelsReducer = (state = initialStateChannels, action) => {
+    switch (action.type) {
+        case GET_ALL_CHANNELS:
+            return {
+                ...state,
+                channels: action.channels
+            }
+
+        default:
+            return state
+    }
+}
+
+export const commitmentsReducer = (state = initialStateCommitment, action) => {
+    switch (action.type) {
+        case GET_ALL_COMMITMENTS:
+            return {
+                ...state,
+                commitments: action.commitments
+            }
+        default:
+            return state
+    }
+}
+
+export const preferencesReducer = (state = initialStatePreference, action) => {
+    switch (action.type) {
+        case GET_ALL_PREFERENCE:
+            return {
+                ...state,
+                preferences: action.preferences
+            }
+        default:
+            return state
+    }
+}
+

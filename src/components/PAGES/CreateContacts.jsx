@@ -7,6 +7,18 @@ import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Sliderbtn from '../ATOMS/Sliderbtn';
 import { connect } from 'react-redux';
+import store from '../../REDUX/store';
+import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAllPreferences } from '../../REDUX/actionsCreators';
+import axios from 'axios'
+store.dispatch(getAllChannels())
+store.dispatch(getAllCommitments())
+store.dispatch(getAllPreferences())
+store.dispatch(getAllCompanies())
+store.dispatch(getAllcities())
+
+const userLocalId = localStorage.getItem('user')
+const userId = JSON.parse(userLocalId)
+const JWT = localStorage.getItem('token')
 
 
 const useStyle = makeStyles(theme => ({
@@ -68,14 +80,48 @@ const useStyle = makeStyles(theme => ({
 }))
 
 
-const CreateContacts = () => {
+const CreateContacts = ({ channels, commitments, preferences, regions, countries, cities, companies }) => {
     const classes = useStyle()
+
+    const registerContact = async e => {
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "name_company": form.company.value,
+            "id_country": form.countrySelected.value,
+            "address": form.address.value,
+            "id_user": userId
+        }
+        if (data.name_company === '' && data.id_country === '' && data.address === '') {
+            return alert('Por favor llenar correctamente los campos requeridos')
+        }
+
+        try {
+            await axios.post('http://localhost:3001/v1/api/companies', data, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res)
+            })
+            await store.dispatch(getAllCompanies())
+        } catch (error) {
+            if (error) {
+                alert('La compañía debe estar asociada a un país')
+            }
+        }
+
+        form.company.value = ''
+        form.address.value = ''
+    }
     return (
         <>
             <NavbarUser />
             <Cajon />
 
-            <form className={classes.content}>
+            <form onSubmit={registerContact.bind()} className={classes.content}>
                 <h3 style={{ textAlign: 'center' }}>Crea tu contacto</h3>
 
                 <div className={classes.avatar}>
@@ -97,11 +143,45 @@ const CreateContacts = () => {
                 <div className='container__crear'>
                     <div className='container__main__crear'>
                         <div className={classes.inputs}>
-                            <TextField className={classes.inputText} id="standard-basic" label="Nombre" size="small" required ></TextField>
-                            <TextField className={classes.inputText} id="standard-basic" label="Apellido" size="small" required ></TextField>
-                            <TextField className={classes.inputText} id="standard-basic" label="Cargo" size="small" required ></TextField>
-                            <TextField className={classes.inputText} id="standard-basic" label="Email" type='email' size="small" required ></TextField>
+
                             <TextField
+                                name='nombre'
+                                className={classes.inputText}
+                                id="standard-basic"
+                                label="Nombre"
+                                size="small"
+                                required >
+                            </TextField>
+
+                            <TextField
+                                name='apellido'
+                                className={classes.inputText}
+                                id="standard-basic"
+                                label="Apellido"
+                                size="small"
+                                required >
+                            </TextField>
+
+                            <TextField
+                                name='cargo'
+                                className={classes.inputText}
+                                id="standard-basic"
+                                label="Cargo"
+                                size="small"
+                                required >
+                            </TextField>
+
+                            <TextField
+                                name='correo'
+                                className={classes.inputText}
+                                id="standard-basic"
+                                label="Email"
+                                type='email'
+                                size="small"
+                                required >
+                            </TextField>
+                            <TextField
+                                name='compania'
                                 id="standard-select-currency-native"
                                 select
                                 label="Compañías"
@@ -110,13 +190,17 @@ const CreateContacts = () => {
                                     native: true,
                                 }}
                             >
-                                <option /* key={option.value} */ /* value={option.value} */>
-                                    Netflix
-                                    </option>
-                                <option /* key={option.value} */ /* value={option.value} */>
-                                    Acámica
-                                    </option>
+                                <option aria-label="None" value="" disabled selected></option>
+                                {
+                                    companies.length !== 0 ?
+                                        companies.map(c => (
+                                            <option key={c.id_company} value={c.id_company}>
+                                                {c.name_company}
+                                            </option>
+                                        ))
+                                        : <option>Aun no hay compañías ingresadas</option>
 
+                                }
                             </TextField>
 
                         </div>
@@ -133,15 +217,19 @@ const CreateContacts = () => {
                             native: true,
                         }}
                     >
-                        <option aria-label="None" value="" disabled selected/* key={option.value} */ /* value={option.value} */>
-                            Region
-                        </option>
-                        <option /* key={option.value} */ /* value={option.value} */>
-                            Netflix
-                        </option>
-                        <option /* key={option.value} */ /* value={option.value} */>
-                            Acámica
-                        </option>
+                        <option aria-label="None" value="" disabled selected></option>
+                        {
+                            regions.length !== 0 ?
+                                regions.map(r => (
+                                    <option key={r.id_region} value={r.id_region}>
+                                        {r.name_region}
+                                    </option>
+                                ))
+                                : <option>
+                                    Debe configurar una ciudad
+                                </option>
+                        }
+
 
                     </TextField>
                     <TextField
@@ -153,13 +241,17 @@ const CreateContacts = () => {
                             native: true,
                         }}
                     >
-                        <option /* key={option.value} */ /* value={option.value} */>
-                            Netflix
-                                    </option>
-                        <option /* key={option.value} */ /* value={option.value} */>
-                            Acámica
+                        <option aria-label="None" value="" disabled selected></option>
+                        {
+                            countries.length !== 0 ?
+                                countries.map(c => (
+                                    <option key={c.id_country} value={c.id_country}>
+                                        {c.name_country}
                                     </option>
 
+                                ))
+                                : <option>Debes agregar un país</option>
+                        }
                     </TextField>
                     <TextField
                         id="standard-select-currency-native"
@@ -170,12 +262,17 @@ const CreateContacts = () => {
                             native: true,
                         }}
                     >
-                        <option /* key={option.value} */ /* value={option.value} */>
-                            Netflix
+                        <option aria-label="None" value="" disabled selected></option>
+                        {
+                            cities.length !== 0 ?
+                                cities.map(c => (
+                                    <option key={c.id_city} value={c.id_city}>
+                                        {c.name_city}
                                     </option>
-                        <option /* key={option.value} */ /* value={option.value} */>
-                            Acámica
-                                    </option>
+                                ))
+                                : <option disabled>Debes agregar un ciudad</option>
+                        }
+
 
                     </TextField>
                     <TextField className={classes.inputText} id="standard-basic" label="Dirección" size="small" required ></TextField>
@@ -193,13 +290,30 @@ const CreateContacts = () => {
                                 native: true,
                             }}
                         >
-                            <option /* key={option.value} */ /* value={option.value} */>
-                                Whatsapp
-                            </option>
+                            <option aria-label="None" value="" disabled selected></option>
+
+                            {
+                                channels.length !== 0 ?
+                                    channels.map(c => (
+                                        <option key={c.id_channel_comunication} value={c.id_channel_comunication}>
+                                            {c.name_channel}
+                                        </option>
+                                    ))
+                                    : <option>Hay un error, recarge la página</option>
+                            }
 
                         </TextField>
-                        <TextField className={classes.inputText} id="standard-basic" label="Cuenta de Usuario" size="small" required ></TextField>
+
                         <TextField
+                            name='cuenta'
+                            className={classes.inputText}
+                            id="standard-basic"
+                            label="Cuenta de Usuario"
+                            size="small"
+                            required >
+                        </TextField>
+                        <TextField
+                            name='preferencia'
                             id="standard-select-currency-native"
                             select
                             label="Preferencias"
@@ -208,9 +322,17 @@ const CreateContacts = () => {
                                 native: true,
                             }}
                         >
-                            <option /* key={option.value} */ /* value={option.value} */>
-                                No molestar
-                            </option>
+                            <option aria-label="None" value="" disabled selected></option>
+                            {
+                                preferences.length !== 0 ?
+                                    preferences.map(p => (
+                                        <option key={p.id_preference} value={p.id_preference}>
+                                            {p.name_preference}
+                                        </option>
+
+                                    ))
+                                    : <option>Hay un error, recargue la página</option>
+                            }
 
                         </TextField>
                         <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
@@ -226,8 +348,14 @@ const CreateContacts = () => {
     )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
+    channels: state.channelsReducer.channels,
+    preferences: state.preferencesReducer.preferences,
+    regions: state.regionReducer.regions,
+    countries: state.countryReducer.countries,
+    cities: state.cityReducer.cities,
+    companies: state.companiesReducer.companies
 
-}
+})
 
 export default connect(mapStateToProps, {})(CreateContacts)
