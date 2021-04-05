@@ -14,9 +14,14 @@ import Indigo from '@material-ui/core/colors/indigo'
 import AddIcon from '@material-ui/icons/Add'
 import blue from '@material-ui/core/colors/blue';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import store from '../../REDUX/store';
+import { getAllcities, getAllCountries } from '../../REDUX/actionsCreators';
+store.dispatch(getAllCountries())
+store.dispatch(getAllcities())
 
 
-const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity, labelCity }) => {
+const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
     return (
         <Accordion >
             <AccordionSummary
@@ -46,7 +51,6 @@ const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity
                             <EditIcon style={{ color: Indigo[700] }} />
                         </IconButton>
                     </Tooltip>
-
                 </NavLink>
 
 
@@ -57,109 +61,138 @@ const AcordionRegion = ({ idRegion, labelRegion, idCountry, labelCountry, idCity
                             <AddIcon style={{ color: blue[700] }} />
                         </IconButton>
                     </Tooltip>
-
                 </NavLink>
 
 
             </AccordionSummary>
-            <AccordionDetails>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-label="Expand"
-                        aria-controls="additional-actions1-content"
-                        id={idCountry}
-                    >
-                        <FormControlLabel
-                            aria-label="Acknowledge"
-                            onClick={(event) => event.stopPropagation()}
-                            onFocus={(event) => event.stopPropagation()}
-                            control={<Checkbox />}
-                            label={labelCountry}
-                        />
+
+            {
+                countries.length !== 0 ?
+                    countries.map(c => (
+                        <AccordionDetails>
+                            <Accordion>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-label="Expand"
+                                    aria-controls="additional-actions1-content"
+                                    id={c.id_country}
+                                >
+                                    <FormControlLabel
+                                        aria-label="Acknowledge"
+                                        onClick={(event) => event.stopPropagation()}
+                                        onFocus={(event) => event.stopPropagation()}
+                                        control={<Checkbox />}
+                                        label={c.name_country}
+                                    />
 
 
-                        <Tooltip title='Eliminar'>
-                            <IconButton>
-                                <DeleteIcon style={{ color: Red[700] }} />
-                            </IconButton>
-                        </Tooltip>
+                                    <Tooltip title='Eliminar'>
+                                        <IconButton>
+                                            <DeleteIcon style={{ color: Red[700] }} />
+                                        </IconButton>
+                                    </Tooltip>
 
 
-                        <NavLink to='/add/country'>
-                            <Tooltip title='Editar'>
-                                <IconButton>
-                                    <EditIcon style={{ color: Indigo[700] }} />
-                                </IconButton>
-                            </Tooltip>
+                                    <NavLink to='/add/country'>
+                                        <Tooltip title='Editar'>
+                                            <IconButton>
+                                                <EditIcon style={{ color: Indigo[700] }} />
+                                            </IconButton>
+                                        </Tooltip>
 
-                        </NavLink>
+                                    </NavLink>
 
 
-                        <NavLink to='/add/country'>
+                                    <NavLink to='/add/country'>
+                                        <Tooltip title='Agregar'>
+                                            <IconButton>
+                                                <AddIcon style={{ color: blue[700] }} />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                    </NavLink>
+
+                                </AccordionSummary>
+                                {
+                                    c.City.length !== 0 ?
+                                        c.City.map(c => (
+                                            <AccordionDetails>
+                                                <Accordion>
+                                                    <AccordionSummary
+                                                        aria-label="Expand"
+                                                        aria-controls="additional-actions1-content"
+                                                        id={c.id_city}
+                                                    >
+                                                        <FormControlLabel
+                                                            aria-label="Acknowledge"
+                                                            onClick={(event) => event.stopPropagation()}
+                                                            onFocus={(event) => event.stopPropagation()}
+                                                            control={<Checkbox />}
+                                                            label={c.name_city}
+                                                        />
+
+
+                                                        <Tooltip title='Eliminar'>
+                                                            <IconButton>
+                                                                <DeleteIcon style={{ color: Red[700] }} />
+                                                            </IconButton>
+                                                        </Tooltip>
+
+
+                                                        <NavLink to='/ingresar/city'>
+                                                            <Tooltip title='Editar'>
+                                                                <IconButton>
+                                                                    <EditIcon style={{ color: Indigo[700] }} />
+                                                                </IconButton>
+                                                            </Tooltip>
+
+                                                        </NavLink>
+
+
+                                                        <NavLink to='/ingresar/city'>
+                                                            <Tooltip title='Agregar'>
+                                                                <IconButton>
+                                                                    <AddIcon style={{ color: blue[700] }} />
+                                                                </IconButton>
+                                                            </Tooltip>
+
+                                                        </NavLink>
+
+                                                    </AccordionSummary>
+                                                </Accordion>
+                                            </AccordionDetails>
+                                        ))
+                                        : <h5>No hay ciudades
+                                            <NavLink to='/ingresar/city'>
+                                                <Tooltip title='Agregar'>
+                                                    <IconButton>
+                                                        <AddIcon style={{ color: blue[700] }} />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </NavLink>
+                                        </h5>
+                                }
+                            </Accordion>
+                        </AccordionDetails>
+                    ))
+                    : <h5>No hay Países
+                    <NavLink to='/ingresar/city'>
                             <Tooltip title='Agregar'>
                                 <IconButton>
                                     <AddIcon style={{ color: blue[700] }} />
                                 </IconButton>
                             </Tooltip>
-
                         </NavLink>
+                    </h5>
 
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Accordion>
-                            <AccordionSummary
-                                aria-label="Expand"
-                                aria-controls="additional-actions1-content"
-                                id={idCity}
-                            >
-                                <FormControlLabel
-                                    aria-label="Acknowledge"
-                                    onClick={(event) => event.stopPropagation()}
-                                    onFocus={(event) => event.stopPropagation()}
-                                    control={<Checkbox />}
-                                    label={labelCity}
-                                />
+            }
 
-
-                                <Tooltip title='Eliminar'>
-                                    <IconButton>
-                                        <DeleteIcon style={{ color: Red[700] }} />
-                                    </IconButton>
-                                </Tooltip>
-
-
-                                <NavLink to='/ingresar/city'>
-                                    <Tooltip title='Editar'>
-                                        <IconButton>
-                                            <EditIcon style={{ color: Indigo[700] }} />
-                                        </IconButton>
-                                    </Tooltip>
-
-                                </NavLink>
-
-
-                                <NavLink to='/ingresar/city'>
-                                    <Tooltip title='Agregar'>
-                                        <IconButton>
-                                            <AddIcon style={{ color: blue[700] }} />
-                                        </IconButton>
-                                    </Tooltip>
-
-                                </NavLink>
-
-                            </AccordionSummary>
-                            <AccordionDetails>
-
-                            </AccordionDetails>
-                        </Accordion>
-                    </AccordionDetails>
-                </Accordion>
-
-
-            </AccordionDetails>
         </Accordion>
     )
 }
 
-export default AcordionRegion
+const mapStateToProps = state => ({
+    cities: state.cityReducer.cities
+})
+
+export default connect(mapStateToProps, {})(AcordionRegion)

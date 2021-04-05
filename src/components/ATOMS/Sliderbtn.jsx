@@ -41,13 +41,13 @@ function valueLabelFormat(value) {
     return marks.findIndex((mark) => mark.value === value) + 1
 }
 
-const Sliderbtn = () => {
+const Sliderbtn = ({ name }) => {
     const classes = useStyles();
     return (
         <div className={`${classes.root} ${classes.display}`}>
             Nivel de interés
             <Slider
-                name='sliderCommitment'
+                name={name}
                 defaultValue={25}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}

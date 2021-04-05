@@ -80,16 +80,73 @@ const useStyle = makeStyles(theme => ({
 }))
 
 
-const CreateContacts = ({ channels, commitments, preferences, regions, countries, cities, companies }) => {
+const CreateContacts = (
+    {
+        channels,
+        commitments,
+        preferences,
+        regions,
+        countries,
+        cities,
+        companies
+    }) => {
     const classes = useStyle()
+
+    const [src, setSrc] = React.useState('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
+    const [idFoto, setIdFoto] = React.useState(null);
+
+    const renderImage = async e => {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        const form = new FormData()
+
+        reader.onloadend = function () {
+            let url = reader.result
+            setSrc(url)
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
+        }
+    }
 
     const registerContact = async e => {
         e.preventDefault()
         const form = e.target
+
+        const dataImage = {
+            "file": form.image.file
+        }
+
+        try {
+            await axios.post('http://localhost:3001/v1/api/file/upload', dataImage, {
+                headers: {
+                    'Authorization': JWT
+                }
+            }).then(res => {
+                console.log(res);
+                setIdFoto(res.data.id_photo)
+            })
+        } catch (error) {
+            console.log(error);
+        }
+
         const data = {
-            "name_company": form.company.value,
-            "id_country": form.countrySelected.value,
+            "name_contact": form.nombre.value,
+            "lastname_contact": form.apellido.value,
+            "position": form.cargo.value,
             "address": form.address.value,
+            "contact_account": form.cuenta.value,
+            "id_company": form.idComany.value,
+            "id_region": form.idRegion.value,
+            "id_photo": idFoto,
+            "id_country": form.idCountry.value,
+            "id_city": form.idCity.value,
+            "id_preference": form.preferencia.value,
+            "id_commitment": form.sliderCommitment.value,
+            "id_cannel_comunication": form.idChannel.value,
             "id_user": userId
         }
         if (data.name_company === '' && data.id_country === '' && data.address === '') {
@@ -97,7 +154,7 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
         }
 
         try {
-            await axios.post('http://localhost:3001/v1/api/companies', data, {
+            await axios.post('http://localhost:3001/v1/api/contacts', data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -116,6 +173,7 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
         form.company.value = ''
         form.address.value = ''
     }
+
     return (
         <>
             <NavbarUser />
@@ -125,10 +183,10 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
                 <h3 style={{ textAlign: 'center' }}>Crea tu contacto</h3>
 
                 <div className={classes.avatar}>
-                    <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
 
+                    <input name='image' onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
 
-                    <Avatar className={classes.absolute} src="https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png" />
+                    <img style={{ borderRadius: '200px' }} className={classes.absolute} src={src} />
 
 
                     <label className={`${classes.absolute} ${classes.camera}`} htmlFor="icon-button-file">
@@ -136,10 +194,7 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
                             <PhotoCamera />
                         </IconButton>
                     </label>
-
                 </div>
-
-
                 <div className='container__crear'>
                     <div className='container__main__crear'>
                         <div className={classes.inputs}>
@@ -184,6 +239,7 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
                                 name='compania'
                                 id="standard-select-currency-native"
                                 select
+                                name='idComany'
                                 label="Compañías"
                                 className={classes.inputText}
                                 SelectProps={{
@@ -211,6 +267,7 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
                     <TextField
                         id="standard-select-currency-native"
                         select
+                        name='idRegion'
                         label="Region"
                         className={classes.inputText}
                         SelectProps={{
@@ -233,9 +290,11 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
 
                     </TextField>
                     <TextField
+                        name
                         id="standard-select-currency-native"
                         select
                         label="País"
+                        name='idCountry'
                         className={classes.inputText}
                         SelectProps={{
                             native: true,
@@ -256,6 +315,7 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
                     <TextField
                         id="standard-select-currency-native"
                         select
+                        name='idCity'
                         label="Cuidad"
                         className={classes.inputText}
                         SelectProps={{
@@ -275,15 +335,24 @@ const CreateContacts = ({ channels, commitments, preferences, regions, countries
 
 
                     </TextField>
-                    <TextField className={classes.inputText} id="standard-basic" label="Dirección" size="small" required ></TextField>
+                    <TextField
+                        className={classes.inputText}
+                        id="standard-basic"
+                        label="Dirección"
+                        size="small"
+                        required
+                        name='address'
+                    >
+                    </TextField>
                     <div className={classes.slider}>
-                        <Sliderbtn />
+                        <Sliderbtn name='sliderCommitment' />
                     </div>
 
                     <div className={classes.slider}>
                         <TextField
                             id="standard-select-currency-native"
                             select
+                            name='idChannel'
                             label="Canal de contacto"
                             className={classes.inputText}
                             SelectProps={{
