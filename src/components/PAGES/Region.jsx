@@ -48,7 +48,7 @@ const Region = ({ regions }) => {
                 <h3 className={classes.margin}>Región/País</h3>
 
                 {
-                    regions.length !== 0 ?
+                    regions.length ?
                         regions.map(r => (
                             <AcordionRegion
                                 key={r.id_region}
@@ -57,7 +57,9 @@ const Region = ({ regions }) => {
                                 countries={r.Paises}
                             />
                         ))
-                        : <AcordionRegion />
+                        : <AcordionRegion
+
+                        />
                 }
 
             </main>

@@ -2,6 +2,10 @@ import React from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
+import axios from 'axios'
+import store from '../../REDUX/store'
+import { getAllRegions } from '../../REDUX/actionsCreators'
+
 
 const useStyle = makeStyles(theme => ({
     content: {
@@ -34,6 +38,43 @@ const useStyle = makeStyles(theme => ({
 
 }))
 
+const userLocalId = localStorage.getItem('user')
+const userId = JSON.parse(userLocalId)
+const JWT = localStorage.getItem('token')
+
+const createRegion = async (e) => {
+    e.preventDefault()
+    const form = e.target
+    const data = {
+        "name_region": form.regionForm.value,
+        "id_user": userId
+    }
+
+    if (data.name_region === '') {
+        return alert('Imput vacío')
+    }
+
+    try {
+        await axios.post('http://localhost:3001/v1/api/regions', data, {
+            headers: {
+                'Authorization': JWT,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                console.log(res)
+            })
+
+        await store.dispatch(getAllRegions())
+
+    } catch (error) {
+        console.log(error);
+    }
+
+    form.regionForm.value = ''
+}
+
 const CreateRegion = () => {
     const classes = useStyle()
     return (
@@ -44,13 +85,13 @@ const CreateRegion = () => {
                 <h3 style={{ textAlign: 'center' }}>Agregar Región</h3>
                 <div className='container__crear'>
                     <div className='container__main__crear'>
-                        <div className={classes.inputs}>
-                            <TextField className={classes.inputText} id="standard-basic" label="Región" size="small" required ></TextField>
+                        <form onSubmit={createRegion.bind()} className={classes.inputs}>
+                            <TextField name='regionForm' className={classes.inputText} id="standard-basic" label="Región" size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
-                                <Button className={`${classes.color}`} variant="text" >Guardar</Button>
-                                <Button className={`danger ${classes.color}`} variant="text" >Actualizar</Button>
+                                <Button type='submit' className={`${classes.color}`} variant="text" >Guardar</Button>
+                                <Button type='button' className={`danger ${classes.color}`} variant="text" >Actualizar</Button>
                             </ButtonGroup>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
