@@ -20,11 +20,12 @@ import { getAllcities, getAllCountries, getAllRegions } from '../../REDUX/action
 import axios from 'axios';
 store.dispatch(getAllCountries())
 store.dispatch(getAllcities())
+store.dispatch(getAllRegions())
 
 const JWT = localStorage.getItem('token')
 
-const deleteRegion = async id => {
-    await axios.delete(`http://localhost:3001/v1/api/regions/${id}`, {
+const deleteRegion = async (id, path) => {
+    await axios.delete(`http://localhost:3001/v1/api/${path}/${id}`, {
         headers: { 'Authorization': JWT }
     })
         .then(res => {
@@ -32,6 +33,7 @@ const deleteRegion = async id => {
         }).catch(e => console.log(e))
     await store.dispatch(getAllRegions())
 }
+
 
 const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
     return (
@@ -42,18 +44,28 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                 aria-controls="additional-actions1-content"
                 id={idRegion}
             >
-                <FormControlLabel
-                    aria-label="Acknowledge"
-                    onClick={(event) => event.stopPropagation()}
-                    onFocus={(event) => event.stopPropagation()}
-                    control={<Checkbox />}
-                    label={labelRegion}
-                />
+                {
+                    labelRegion !== undefined ?
+                        <FormControlLabel
+                            aria-label="Acknowledge"
+                            onClick={(event) => event.stopPropagation()}
+                            onFocus={(event) => event.stopPropagation()}
+                            control={<Checkbox />}
+                            label={labelRegion}
+                        />
+                        : <FormControlLabel
+                            aria-label="Acknowledge"
+                            onClick={(event) => event.stopPropagation()}
+                            onFocus={(event) => event.stopPropagation()}
+                            control={<Checkbox />}
+                            label='Aún no hay Regiones ingresadas'
+                        />
 
+                }
                 {
                     labelRegion !== undefined ?
                         <Tooltip title='Eliminar'>
-                            <IconButton onClick={() => deleteRegion(idRegion)}>
+                            <IconButton onClick={() => deleteRegion(idRegion, 'regions')}>
                                 <DeleteIcon style={{ color: Red[700] }} />
                             </IconButton>
                         </Tooltip>
@@ -62,9 +74,13 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
 
                 {
                     labelRegion !== undefined ?
-                        <Link to='/agregar/region'>
+                        <Link to={{
+                            pathname: '/edit/region',
+                            id: idRegion,
+                            value: labelRegion
+                        }}>
                             <Tooltip title='Editar'>
-                                <IconButton>
+                                <IconButton >
                                     <EditIcon style={{ color: Indigo[700] }} />
                                 </IconButton>
                             </Tooltip>
@@ -80,119 +96,11 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                     </Tooltip>
                 </Link>
 
-
             </AccordionSummary>
             {
-                countries ?
-                    countries.map(c => (
-                        <AccordionDetails>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-label="Expand"
-                                    aria-controls="additional-actions1-content"
-                                    id={c.id_country}
-                                >
-                                    <FormControlLabel
-                                        aria-label="Acknowledge"
-                                        onClick={(event) => event.stopPropagation()}
-                                        onFocus={(event) => event.stopPropagation()}
-                                        control={<Checkbox />}
-                                        label={c.name_country}
-                                    />
-
-
-                                    <Tooltip title='Eliminar'>
-                                        <IconButton>
-                                            <DeleteIcon style={{ color: Red[700] }} />
-                                        </IconButton>
-                                    </Tooltip>
-
-
-                                    <Link to='/add/country'>
-                                        <Tooltip title='Editar'>
-                                            <IconButton>
-                                                <EditIcon style={{ color: Indigo[700] }} />
-                                            </IconButton>
-                                        </Tooltip>
-
-                                    </Link>
-
-
-                                    <Link to='/add/country'>
-                                        <Tooltip title='Agregar'>
-                                            <IconButton>
-                                                <AddIcon style={{ color: blue[700] }} />
-                                            </IconButton>
-                                        </Tooltip>
-
-                                    </Link>
-
-                                </AccordionSummary>
-                                {
-                                    c.City ?
-                                        c.City.map(c => (
-                                            <AccordionDetails>
-                                                <Accordion>
-                                                    <AccordionSummary
-                                                        aria-label="Expand"
-                                                        aria-controls="additional-actions1-content"
-                                                        id={c.id_city}
-                                                    >
-                                                        <FormControlLabel
-                                                            aria-label="Acknowledge"
-                                                            onClick={(event) => event.stopPropagation()}
-                                                            onFocus={(event) => event.stopPropagation()}
-                                                            control={<Checkbox />}
-                                                            label={c.name_city}
-                                                        />
-
-
-                                                        <Tooltip title='Eliminar'>
-                                                            <IconButton>
-                                                                <DeleteIcon style={{ color: Red[700] }} />
-                                                            </IconButton>
-                                                        </Tooltip>
-
-
-                                                        <Link to='/ingresar/city'>
-                                                            <Tooltip title='Editar'>
-                                                                <IconButton>
-                                                                    <EditIcon style={{ color: Indigo[700] }} />
-                                                                </IconButton>
-                                                            </Tooltip>
-
-                                                        </Link>
-
-
-                                                        <Link to='/ingresar/city'>
-                                                            <Tooltip title='Agregar'>
-                                                                <IconButton>
-                                                                    <AddIcon style={{ color: blue[700] }} />
-                                                                </IconButton>
-                                                            </Tooltip>
-
-                                                        </Link>
-
-                                                    </AccordionSummary>
-                                                </Accordion>
-                                            </AccordionDetails>
-                                        ))
-                                        : <h5>No hay ciudades
-                                            <Link to='/ingresar/city'>
-                                                <Tooltip title='Agregar'>
-                                                    <IconButton>
-                                                        <AddIcon style={{ color: blue[700] }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </Link>
-                                        </h5>
-                                }
-                            </Accordion>
-                        </AccordionDetails>
-                    ))
-                    : <h5>No hay Países
-                    <Link to='/ingresar/city'>
+                !countries ?
+                    <h5>No hay Países
+                        <Link to='/add/country'>
                             <Tooltip title='Agregar'>
                                 <IconButton>
                                     <AddIcon style={{ color: blue[700] }} />
@@ -200,6 +108,136 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                             </Tooltip>
                         </Link>
                     </h5>
+                    : countries.length !== 0 ?
+                        countries.map(c => (
+                            <AccordionDetails>
+                                <Accordion>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-label="Expand"
+                                        aria-controls="additional-actions1-content"
+                                        id={c.id_country}
+                                    >
+                                        <FormControlLabel
+                                            aria-label="Acknowledge"
+                                            onClick={(event) => event.stopPropagation()}
+                                            onFocus={(event) => event.stopPropagation()}
+                                            control={<Checkbox />}
+                                            label={c.name_country}
+                                        />
+                                        <Tooltip title='Eliminar'>
+                                            <IconButton onClick={() => deleteRegion(c.id_country, 'countries')}>
+                                                <DeleteIcon style={{ color: Red[700] }} />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <Link to={{
+                                            pathname: '/editar/country',
+                                            id: c.id_country,
+                                            labelCountry: c.name_country,
+                                            labelRegion: labelRegion,
+                                            idRegion: idRegion
+                                        }}>
+                                            <Tooltip title='Editar'>
+                                                <IconButton>
+                                                    <EditIcon style={{ color: Indigo[700] }} />
+                                                </IconButton>
+                                            </Tooltip>
+
+                                        </Link>
+
+
+                                        <Link to='/add/country'>
+                                            <Tooltip title='Agregar'>
+                                                <IconButton>
+                                                    <AddIcon style={{ color: blue[700] }} />
+                                                </IconButton>
+                                            </Tooltip>
+
+                                        </Link>
+
+                                    </AccordionSummary>
+                                    {
+                                        !c.City ?
+                                            <h5>No hay ciudades
+                                            <Link to='/ingresar/city'>
+                                                    <Tooltip title='Agregar'>
+                                                        <IconButton>
+                                                            <AddIcon style={{ color: blue[700] }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Link>
+                                            </h5>
+                                            : c.City.length !== 0 ?
+                                                c.City.map(t => (
+                                                    <AccordionDetails>
+                                                        <Accordion>
+                                                            <AccordionSummary
+                                                                aria-label="Expand"
+                                                                aria-controls="additional-actions1-content"
+                                                                id={t.id_city}
+                                                            >
+                                                                <FormControlLabel
+                                                                    aria-label="Acknowledge"
+                                                                    onClick={(event) => event.stopPropagation()}
+                                                                    onFocus={(event) => event.stopPropagation()}
+                                                                    control={<Checkbox />}
+                                                                    label={t.name_city}
+                                                                />
+                                                                <Tooltip title='Eliminar'>
+                                                                    <IconButton onClick={() => deleteRegion(t.id_city, 'cities')}>
+                                                                        <DeleteIcon style={{ color: Red[700] }} />
+                                                                    </IconButton>
+                                                                </Tooltip>
+
+                                                                <Link to='/ingresar/city'>
+                                                                    <Tooltip title='Editar'>
+                                                                        <IconButton>
+                                                                            <EditIcon style={{ color: Indigo[700] }} />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+
+                                                                </Link>
+
+
+                                                                <Link to={{
+                                                                    pathname:'/modificar/city',
+                                                                    labelCountry: c.name_country,
+                                                                }}>
+                                                                    <Tooltip title='Agregar'>
+                                                                        <IconButton>
+                                                                            <AddIcon style={{ color: blue[700] }} />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+
+                                                                </Link>
+
+                                                            </AccordionSummary>
+                                                        </Accordion>
+                                                    </AccordionDetails>
+                                                ))
+                                                : <h5>No hay ciudades
+                                                    <Link to='/ingresar/city'>
+                                                        <Tooltip title='Agregar'>
+                                                            <IconButton>
+                                                                <AddIcon style={{ color: blue[700] }} />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </Link>
+                                                </h5>
+                                    }
+                                </Accordion>
+                            </AccordionDetails>
+                        ))
+                        : <h5>No hay Países
+                            <Link to='/add/country'>
+                                <Tooltip title='Agregar'>
+                                    <IconButton>
+                                        <AddIcon style={{ color: blue[700] }} />
+                                    </IconButton>
+                                </Tooltip>
+                            </Link>
+                        </h5>
 
             }
 

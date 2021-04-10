@@ -20,6 +20,9 @@ import CreateCity from './components/PAGES/CreateCity';
 import ProfileUser from './components/PAGES/ProfileUser';
 import Protected from './components/HOC/Protected';
 import Public from './components/HOC/Public';
+import EditRegion from './components/PAGES/EditRegion';
+import EditCountry from './components/PAGES/EditCountry';
+import EditCity from './components/PAGES/EditCity';
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
             <Protected path="/crear/company" component={CreateCompany} />
             <Protected path="/add/country" component={CreateCountry} />
             <Protected path="/agregar/region" component={CreateRegion} />
+            <Protected path="/edit/region" component={(props) => < EditRegion {...props} id={props.id} value={props.value} />} />
+            <Protected path="/editar/country" component={(props) => <EditCountry {...props} id={props.id} labelRegion={props.labelRegion} idRegion={props.idRegion} labelCountry={props.labelCountry} />} />
+            <Protected path="/modificar/city" component={(props) => <EditCity {...props} id={props.id} labelCountry={props.labelRegion} />} />
             <Protected path="/ingresar/city" component={CreateCity} />
             <Protected path="/profile" component={ProfileUser} />
             {/* pagina 404 */}

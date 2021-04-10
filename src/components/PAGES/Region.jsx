@@ -45,10 +45,10 @@ const Region = ({ regions }) => {
             <NavbarUser />
             <Cajon />
             <main className={`${classes.content} ${classes.root}`}>
-                <h3 className={classes.margin}>Región/País</h3>
+                <h3 className={classes.margin}>Región/Cuidad</h3>
 
                 {
-                    regions.length ?
+                    regions.length !== 0 ?
                         regions.map(r => (
                             <AcordionRegion
                                 key={r.id_region}

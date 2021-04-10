@@ -124,7 +124,7 @@ export const getAllPreferences = () => dispatch => {
 }
 
 export const getAllcities = () => dispatch => {
-    axios.get('http://localhost:3000/v1/api/cities', {
+    axios.get('http://localhost:3001/v1/api/cities', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
