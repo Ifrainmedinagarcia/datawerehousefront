@@ -190,7 +190,12 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                                     </IconButton>
                                                                 </Tooltip>
 
-                                                                <Link to='/ingresar/city'>
+                                                                <Link to={{
+                                                                    pathname: '/modificar/city',
+                                                                    labelCountry: c.name_country,
+                                                                    id: t.id_city,
+                                                                    valueInputCity: t.name_city
+                                                                }}>
                                                                     <Tooltip title='Editar'>
                                                                         <IconButton>
                                                                             <EditIcon style={{ color: Indigo[700] }} />
@@ -200,10 +205,7 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                                 </Link>
 
 
-                                                                <Link to={{
-                                                                    pathname:'/modificar/city',
-                                                                    labelCountry: c.name_country,
-                                                                }}>
+                                                                <Link to='/ingresar/city'>
                                                                     <Tooltip title='Agregar'>
                                                                         <IconButton>
                                                                             <AddIcon style={{ color: blue[700] }} />

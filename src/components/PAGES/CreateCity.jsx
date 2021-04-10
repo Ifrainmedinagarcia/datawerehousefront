@@ -5,9 +5,10 @@ import store from '../../REDUX/store'
 import axios from 'axios'
 import { connect } from 'react-redux';
 import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
-import { getAllcities, getAllCountries } from '../../REDUX/actionsCreators';
+import { getAllcities, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 store.dispatch(getAllCountries())
 store.dispatch(getAllcities())
+store.dispatch(getAllRegions())
 
 const useStyle = makeStyles(theme => ({
     content: {
@@ -68,6 +69,7 @@ const addCity = async e => {
             console.log(res)
         })
         await store.dispatch(getAllcities())
+        await store.dispatch(getAllRegions())
     } catch (error) {
         console.log(error)
     }

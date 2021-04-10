@@ -47,7 +47,7 @@ function App() {
             <Protected path="/agregar/region" component={CreateRegion} />
             <Protected path="/edit/region" component={(props) => < EditRegion {...props} id={props.id} value={props.value} />} />
             <Protected path="/editar/country" component={(props) => <EditCountry {...props} id={props.id} labelRegion={props.labelRegion} idRegion={props.idRegion} labelCountry={props.labelCountry} />} />
-            <Protected path="/modificar/city" component={(props) => <EditCity {...props} id={props.id} labelCountry={props.labelRegion} />} />
+            <Protected path="/modificar/city" component={(props) => <EditCity {...props} id={props.id} labelCountry={props.labelRegion} valueInputCity={props.valueInputCity} />} />
             <Protected path="/ingresar/city" component={CreateCity} />
             <Protected path="/profile" component={ProfileUser} />
             {/* pagina 404 */}

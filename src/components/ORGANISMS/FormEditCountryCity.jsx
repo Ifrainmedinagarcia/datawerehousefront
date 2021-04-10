@@ -61,8 +61,6 @@ const FormEditCountryCity = ({ title, submitBtn, valueInput, labelRegion }) => {
                                     {labelRegion}
                                 </option>
                                     ))
-
-
                         </TextField>
                             <TextField name='countryInput' className={classes.inputText} id="standard-basic" label={valueInput} size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">

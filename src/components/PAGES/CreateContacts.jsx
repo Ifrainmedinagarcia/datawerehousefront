@@ -1,7 +1,7 @@
 import React from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
-import { Avatar, makeStyles, TextField, ButtonGroup } from '@material-ui/core'
+import { Avatar, makeStyles, TextField, ButtonGroup, AccordionSummary } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
@@ -79,15 +79,12 @@ const useStyle = makeStyles(theme => ({
 
 }))
 
-
 const CreateContacts = (
     {
         channels,
         commitments,
         preferences,
         regions,
-        countries,
-        cities,
         companies
     }) => {
     const classes = useStyle()
@@ -95,11 +92,50 @@ const CreateContacts = (
     const [src, setSrc] = React.useState('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
     const [idFoto, setIdFoto] = React.useState(null);
 
+    const [allRegion, setAllRegion] = React.useState({})
+
+    const [allCountry, setAllCountry] = React.useState({})
+
+    const countryFromRegion = async (e) => {
+        try {
+            await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                setAllRegion(res)
+                console.log(res)
+            })
+        } catch (error) {
+            console.log(error)
+
+        }
+
+    }
+
+    const CityFromCountry = async e => {
+        try {
+            await axios.get(`http://localhost:3001/v1/api/countries/${e.target.value}`, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => {
+                setAllCountry(resp)
+                console.log(allCountry);
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const renderImage = async e => {
         const file = e.target.files[0]
         const reader = new FileReader()
-        const form = new FormData()
-
+        console.log(file)
         reader.onloadend = function () {
             let url = reader.result
             setSrc(url)
@@ -110,18 +146,9 @@ const CreateContacts = (
         } else {
             setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
         }
-    }
-
-    const registerContact = async e => {
-        e.preventDefault()
-        const form = e.target
-
-        const dataImage = {
-            "file": form.image.file
-        }
 
         try {
-            await axios.post('http://localhost:3001/v1/api/file/upload', dataImage, {
+            await axios.post('http://localhost:3001/v1/api/file/upload', file, {
                 headers: {
                     'Authorization': JWT
                 }
@@ -132,6 +159,12 @@ const CreateContacts = (
         } catch (error) {
             console.log(error);
         }
+
+    }
+
+    const registerContact = async e => {
+        e.preventDefault()
+        const form = e.target
 
         const data = {
             "name_contact": form.nombre.value,
@@ -178,17 +211,11 @@ const CreateContacts = (
         <>
             <NavbarUser />
             <Cajon />
-
             <form onSubmit={registerContact.bind()} className={classes.content}>
                 <h3 style={{ textAlign: 'center' }}>Crea tu contacto</h3>
-
                 <div className={classes.avatar}>
-
                     <input name='image' onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-
                     <img style={{ borderRadius: '200px' }} className={classes.absolute} src={src} />
-
-
                     <label className={`${classes.absolute} ${classes.camera}`} htmlFor="icon-button-file">
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera />
@@ -198,7 +225,6 @@ const CreateContacts = (
                 <div className='container__crear'>
                     <div className='container__main__crear'>
                         <div className={classes.inputs}>
-
                             <TextField
                                 name='nombre'
                                 className={classes.inputText}
@@ -207,7 +233,6 @@ const CreateContacts = (
                                 size="small"
                                 required >
                             </TextField>
-
                             <TextField
                                 name='apellido'
                                 className={classes.inputText}
@@ -216,7 +241,6 @@ const CreateContacts = (
                                 size="small"
                                 required >
                             </TextField>
-
                             <TextField
                                 name='cargo'
                                 className={classes.inputText}
@@ -225,7 +249,6 @@ const CreateContacts = (
                                 size="small"
                                 required >
                             </TextField>
-
                             <TextField
                                 name='correo'
                                 className={classes.inputText}
@@ -258,7 +281,6 @@ const CreateContacts = (
 
                                 }
                             </TextField>
-
                         </div>
                     </div>
                 </div>
@@ -269,6 +291,7 @@ const CreateContacts = (
                         select
                         name='idRegion'
                         label="Region"
+                        onChange={countryFromRegion}
                         className={classes.inputText}
                         SelectProps={{
                             native: true,
@@ -286,13 +309,12 @@ const CreateContacts = (
                                     Debe configurar una ciudad
                                 </option>
                         }
-
-
                     </TextField>
                     <TextField
                         name
                         id="standard-select-currency-native"
                         select
+                        onChange={CityFromCountry}
                         label="País"
                         name='idCountry'
                         className={classes.inputText}
@@ -302,8 +324,8 @@ const CreateContacts = (
                     >
                         <option aria-label="None" value="" disabled selected></option>
                         {
-                            countries.length !== 0 ?
-                                countries.map(c => (
+                            allRegion.data !== undefined ?
+                                allRegion.data.data.Paises.map(c => (
                                     <option key={c.id_country} value={c.id_country}>
                                         {c.name_country}
                                     </option>
@@ -324,15 +346,14 @@ const CreateContacts = (
                     >
                         <option aria-label="None" value="" disabled selected></option>
                         {
-                            cities.length !== 0 ?
-                                cities.map(c => (
+                            allCountry.data !== undefined ?
+                                allCountry.data.data.City.map(c => (
                                     <option key={c.id_city} value={c.id_city}>
                                         {c.name_city}
                                     </option>
                                 ))
                                 : <option disabled>Debes agregar un ciudad</option>
                         }
-
 
                     </TextField>
                     <TextField
@@ -421,8 +442,6 @@ const mapStateToProps = state => ({
     channels: state.channelsReducer.channels,
     preferences: state.preferencesReducer.preferences,
     regions: state.regionReducer.regions,
-    countries: state.countryReducer.countries,
-    cities: state.cityReducer.cities,
     companies: state.companiesReducer.companies
 
 })
