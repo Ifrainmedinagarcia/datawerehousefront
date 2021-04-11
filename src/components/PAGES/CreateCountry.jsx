@@ -88,7 +88,7 @@ const CreateCountry = ({ regions }) => {
                     <div className='container__main__crear'>
                         <form onSubmit={createCountry.bind()} className={classes.inputs}>
                             <TextField
-                                id="standard-select-currency-native"
+
                                 select
                                 name='regionSelect'
                                 label="Región"
@@ -109,7 +109,7 @@ const CreateCountry = ({ regions }) => {
                                 }
 
                             </TextField>
-                            <TextField name='countryInput' className={classes.inputText} id="standard-basic" label="País" size="small" required ></TextField>
+                            <TextField name='countryInput' className={classes.inputText} label="País" size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                                 <Button type='submit' className={`${classes.color}`} variant="text" >Guardar</Button>
                             </ButtonGroup>

@@ -45,7 +45,7 @@ const FormAddEditRegion = ({ title, nameBtn, submitBtn, valueInput }) => {
                 <div className='container__crear'>
                     <div className='container__main__crear'>
                         <form onSubmit={submitBtn} className={classes.inputs}>
-                            <TextField name='regionForm' className={classes.inputText} id="standard-basic" label={valueInput} size="small" required ></TextField>
+                            <TextField name='regionForm' className={classes.inputText} label={valueInput} size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                                 <Button type='submit' className={`${classes.color}`} variant="text" >{nameBtn}</Button>
                             </ButtonGroup>

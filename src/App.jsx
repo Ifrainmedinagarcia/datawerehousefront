@@ -31,25 +31,25 @@ function App() {
         <Router>
           <Switch>
             <Public path="/" exact component={Home} />
-            <Public path="/register" component={Register} />
-            <Public path="/login" component={Login} />
-            <Protected path="/welcome" component={Welcome} />
-            <Protected path="/region/config" component={FormRegion} />
-            <Protected path="/country/config" component={Formcountry} />
-            <Protected path="/companies/config" component={Formcompany} />
-            <Protected path="/contacts" component={Userview} />
-            <Protected path="/company" component={Company} />
-            <Protected path="/countries" component={Region} />
-            <Protected path="/analitycs" component={Premium} />
-            <Protected path="/create/contact" component={CreateContacts} />
-            <Protected path="/crear/company" component={CreateCompany} />
-            <Protected path="/add/country" component={CreateCountry} />
-            <Protected path="/agregar/region" component={CreateRegion} />
-            <Protected path="/edit/region" component={(props) => < EditRegion {...props} id={props.id} value={props.value} />} />
-            <Protected path="/editar/country" component={(props) => <EditCountry {...props} id={props.id} labelRegion={props.labelRegion} idRegion={props.idRegion} labelCountry={props.labelCountry} />} />
-            <Protected path="/modificar/city" component={(props) => <EditCity {...props} id={props.id} labelCountry={props.labelRegion} valueInputCity={props.valueInputCity} />} />
-            <Protected path="/ingresar/city" component={CreateCity} />
-            <Protected path="/profile" component={ProfileUser} />
+            <Public path="/register" exact component={Register} />
+            <Public path="/login" exact component={Login} />
+            <Protected path="/welcome" exact component={Welcome} />
+            <Protected path="/region/config" exact component={FormRegion} />
+            <Protected path="/country/config" exact component={Formcountry} />
+            <Protected path="/companies/config" exact component={Formcompany} />
+            <Protected path="/contacts" exact component={Userview} />
+            <Protected path="/company" exact component={Company} />
+            <Protected path="/countries" exact component={Region} />
+            <Protected path="/analitycs" exact component={Premium} />
+            <Protected path="/create/contact" exact component={CreateContacts} />
+            <Protected path="/crear/company" exact component={CreateCompany} />
+            <Protected path="/add/country" exact component={CreateCountry} />
+            <Protected path="/agregar/region" exact component={CreateRegion} />
+            <Protected path="/edit/region" exact component={(props) => < EditRegion {...props} id={props.id} value={props.value} />} />
+            <Protected path="/editar/country" exact component={(props) => <EditCountry {...props} id={props.id} labelRegion={props.labelRegion} idRegion={props.idRegion} labelCountry={props.labelCountry} />} />
+            <Protected path="/modificar/city" exact component={(props) => <EditCity {...props} id={props.id} labelCountry={props.labelRegion} valueInputCity={props.valueInputCity} />} />
+            <Protected path="/ingresar/city" exact component={CreateCity} />
+            <Protected path="/profile" exact component={ProfileUser} />
             {/* pagina 404 */}
           </Switch>
         </Router>

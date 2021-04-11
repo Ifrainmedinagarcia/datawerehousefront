@@ -91,7 +91,6 @@ const CreateCity = ({ countries }) => {
                     <div className='container__main__crear'>
                         <form onSubmit={addCity.bind()} className={classes.inputs}>
                             <TextField
-                                id="standard-select-currency-native"
                                 select
                                 name='countryOption'
                                 label="País"
@@ -111,7 +110,7 @@ const CreateCity = ({ countries }) => {
                                         : <option selected disabled>Aún no hay países ingresados</option>
                                 }
                             </TextField>
-                            <TextField name='cityInput' className={classes.inputText} id="standard-basic" label="Ciudad" size="small" required ></TextField>
+                            <TextField name='cityInput' className={classes.inputText} label="Ciudad" size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                                 <Button type='submit' className={`${classes.color}`} variant="text" >Guardar</Button>
                             </ButtonGroup>

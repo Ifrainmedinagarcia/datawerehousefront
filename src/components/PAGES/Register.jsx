@@ -59,7 +59,7 @@ const Register = () => {
                     <TextField
                         className='input'
                         name='nombre'
-                        id=""
+                    
                         label="Nombre"
                         variant="outlined"
                         margin="dense"
@@ -68,7 +68,7 @@ const Register = () => {
                     <TextField
                         className='input'
                         name='apellido'
-                        id=""
+                     
                         label="Apellido"
                         variant="outlined"
                         margin="dense"
@@ -78,7 +78,7 @@ const Register = () => {
                         className='input'
                         name='correo'
                         type='email'
-                        id=""
+                        
                         label="Correo electrónico"
                         variant="outlined"
                         margin="dense"
@@ -87,7 +87,7 @@ const Register = () => {
                     <TextField
                         className='input'
                         name='pass'
-                        id=""
+                   
                         type="password"
                         label="Contraseña"
                         variant="outlined"
@@ -98,7 +98,7 @@ const Register = () => {
                     <TextField
                         className='input'
                         name='newpass'
-                        id=""
+                
                         type="password"
                         label="Repetir contraseña"
                         variant="outlined"

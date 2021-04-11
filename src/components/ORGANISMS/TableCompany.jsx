@@ -63,7 +63,7 @@ const TableCompany = () => {
         <>
             <h3>Compañías</h3>
             <div>
-                <TextField className='busqueda' id="" label="Filtrar" variant="outlined" margin="dense" />
+                <TextField className='busqueda' label="Filtrar" variant="outlined" margin="dense" />
                 <NavLink to='/crear/company'>
                     <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
                         Crear Compañía

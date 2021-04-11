@@ -174,14 +174,14 @@ const CreateContacts = (
             "address": form.address.value,
             "email_contact": form.correo.value,
             "contact_account": form.cuenta.value,
-            "id_company": form.idComany.value,
-            "id_region": form.idRegion.value,
+            "id_company": parseInt(form.idComany.value),
+            "id_region": parseInt(form.idRegion.value),
             "id_photo": idFoto,
-            "id_country": form.idCountry.value,
-            "id_city": form.idCity.value,
-            "id_preference": form.preferencia.value,
-            "id_commitment": form.sliderCommitment.value,
-            "id_channel_comunication": form.idChannel.value,
+            "id_country": parseInt(form.idCountry.value),
+            "id_city": parseInt(form.idCity.value),
+            "id_preference": parseInt(form.preferencia.value),
+            "id_commitment": parseInt(form.sliderCommitment.value),
+            "id_channel_comunication": parseInt(form.idChannel.value),
             "id_user": userId
         }
         if (data.name_company === '' && data.id_country === '' && data.address === '') {
@@ -232,7 +232,6 @@ const CreateContacts = (
                             <TextField
                                 name='nombre'
                                 className={classes.inputText}
-                                id="standard-basic"
                                 label="Nombre"
                                 size="small"
                                 required >
@@ -240,7 +239,7 @@ const CreateContacts = (
                             <TextField
                                 name='apellido'
                                 className={classes.inputText}
-                                id="standard-basic"
+                                
                                 label="Apellido"
                                 size="small"
                                 required >
@@ -248,7 +247,7 @@ const CreateContacts = (
                             <TextField
                                 name='cargo'
                                 className={classes.inputText}
-                                id="standard-basic"
+                                
                                 label="Cargo"
                                 size="small"
                                 required >
@@ -256,7 +255,7 @@ const CreateContacts = (
                             <TextField
                                 name='correo'
                                 className={classes.inputText}
-                                id="standard-basic"
+                                
                                 label="Email"
                                 type='email'
                                 size="small"
@@ -264,7 +263,7 @@ const CreateContacts = (
                             </TextField>
                             <TextField
                                 name='compania'
-                                id="standard-select-currency-native"
+                               
                                 select
                                 name='idComany'
                                 label="Compañías"
@@ -291,7 +290,7 @@ const CreateContacts = (
 
                 <div className='container__body__inputs'>
                     <TextField
-                        id="standard-select-currency-native"
+                   
                         select
                         name='idRegion'
                         label="Region"
@@ -316,7 +315,7 @@ const CreateContacts = (
                     </TextField>
                     <TextField
                         name
-                        id="standard-select-currency-native"
+                        
                         select
                         onChange={CityFromCountry}
                         label="País"
@@ -339,7 +338,7 @@ const CreateContacts = (
                         }
                     </TextField>
                     <TextField
-                        id="standard-select-currency-native"
+                       
                         select
                         name='idCity'
                         label="Cuidad"
@@ -362,7 +361,7 @@ const CreateContacts = (
                     </TextField>
                     <TextField
                         className={classes.inputText}
-                        id="standard-basic"
+                       
                         label="Dirección"
                         size="small"
                         required
@@ -375,7 +374,7 @@ const CreateContacts = (
 
                     <div className={classes.slider}>
                         <TextField
-                            id="standard-select-currency-native"
+                         
                             select
                             name='idChannel'
                             label="Canal de contacto"
@@ -401,14 +400,14 @@ const CreateContacts = (
                         <TextField
                             name='cuenta'
                             className={classes.inputText}
-                            id="standard-basic"
+                    
                             label="Cuenta de Usuario"
                             size="small"
                             required >
                         </TextField>
                         <TextField
                             name='preferencia'
-                            id="standard-select-currency-native"
+                           
                             select
                             label="Preferencias"
                             className={classes.inputText}

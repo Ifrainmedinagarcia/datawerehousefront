@@ -48,7 +48,6 @@ const FormEditCountryCity = ({ title, submitBtn, valueInput, labelRegion }) => {
                     <div className='container__main__crear'>
                         <form onSubmit={submitBtn} className={classes.inputs}>
                             <TextField
-                                id="standard-select-currency-native"
                                 select
                                 name='regionSelect'
                                 label="Región"
@@ -62,7 +61,7 @@ const FormEditCountryCity = ({ title, submitBtn, valueInput, labelRegion }) => {
                                 </option>
                                     ))
                         </TextField>
-                            <TextField name='countryInput' className={classes.inputText} id="standard-basic" label={valueInput} size="small" required ></TextField>
+                            <TextField name='countryInput' className={classes.inputText} label={valueInput} size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                                 <Button type='submit' className={`${classes.color}`} variant="text" >Actualizar</Button>
                             </ButtonGroup>

@@ -133,7 +133,7 @@ const Formcountry = ({ regions, countries }) => {
 
                             </Select>
                         </FormControl>
-                        <TextField name='pais' className='input' id="" label="País" variant="outlined" margin="dense" />
+                        <TextField name='pais' className='input' label="País" variant="outlined" margin="dense" />
                         <Button type='submit' className={`btn__card ${classes.color} ${classes.top}`} variant="text">
                             Agregar
                         </Button>

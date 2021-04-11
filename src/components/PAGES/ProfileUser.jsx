@@ -83,9 +83,9 @@ const ProfileUser = () => {
                 </div>
 
                 <div className='contenedorInfo'>
-                    <TextField className={classes.inputText} id="standard-basic" label="Ifrain David" size="small" selected></TextField>
-                    <TextField className={classes.inputText} id="standard-basic" label="Medina García" size="small" selected></TextField>
-                    <TextField className={classes.inputText} id="standard-basic" label='Admin' size="small" selected disabled></TextField>
+                    <TextField className={classes.inputText} label="Ifrain David" size="small" selected></TextField>
+                    <TextField className={classes.inputText} label="Medina García" size="small" selected></TextField>
+                    <TextField className={classes.inputText} label='Admin' size="small" selected disabled></TextField>
                     <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                         <Button className={`${classes.color}`} variant="text" >Actualizar</Button>
                     </ButtonGroup>

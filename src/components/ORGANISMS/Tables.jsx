@@ -10,12 +10,6 @@ import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux';
-import store from '../../REDUX/store'
-import { getAllContacts } from '../../REDUX/actionsCreators'
-
-
-store.dispatch(getAllContacts())
 
 
 const useStyle = makeStyles({
@@ -59,7 +53,6 @@ const columns = [
                     <IconButton>
                         <EditIcon style={{ color: Indigo[700] }} />
                     </IconButton>
-
                 </Tooltip>
             </strong>
         ),
@@ -75,7 +68,7 @@ const Tables = ({ contacts }) => {
         <>
             <h3>Contactos</h3>
             <div>
-                <TextField className='busqueda' id="" label="Filtrar" variant="outlined" margin="dense" />
+                <TextField className='busqueda' label="Filtrar" variant="outlined" margin="dense" />
                 <Link to='/create/contact'>
                     <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
                         Crear Contacto
@@ -90,10 +83,6 @@ const Tables = ({ contacts }) => {
     )
 }
 
-const mapStateToProps = state => ({
-    contacts: state.contactsReducer.contacts
-
-})
 
 
-export default connect(mapStateToProps, {})(Tables)
+export default Tables

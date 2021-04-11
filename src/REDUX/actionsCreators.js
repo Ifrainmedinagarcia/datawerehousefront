@@ -123,6 +123,7 @@ export const getAllPreferences = () => dispatch => {
     })
 }
 
+//CITIES
 export const getAllcities = () => dispatch => {
     axios.get('http://localhost:3001/v1/api/cities', {
         headers: {

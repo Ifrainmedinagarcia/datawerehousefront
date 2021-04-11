@@ -46,10 +46,9 @@ const CreateCompany = () => {
                 <div className='container__crear'>
                     <div className='container__main__crear'>
                         <div className={classes.inputs}>
-                            <TextField className={classes.inputText} id="standard-basic" label="Nombre" size="small" required ></TextField>
+                            <TextField className={classes.inputText} label="Nombre" size="small" required ></TextField>
 
                             <TextField
-                                id="standard-select-currency-native"
                                 select
                                 label="País"
                                 className={classes.inputText}
@@ -65,7 +64,7 @@ const CreateCompany = () => {
                                     </option>
 
                             </TextField>
-                            <TextField className={classes.inputText} id="standard-basic" label="Dirección" size="small" required ></TextField>
+                            <TextField className={classes.inputText} label="Dirección" size="small" required ></TextField>
                             <ButtonGroup className={`btn__action ${classes.position}`} variant="text" aria-label="">
                                 <Button className={`${classes.color}`} variant="text" >Guardar</Button>
                                 <Button className={`danger ${classes.color}`} variant="text" >Actualizar</Button>

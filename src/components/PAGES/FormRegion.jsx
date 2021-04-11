@@ -116,7 +116,7 @@ const Frominit = ({ regions }) => {
 
                     <div className='container__btn__config'>
 
-                        <TextField name='region' className='input' id="" label="Región" variant="outlined" margin="dense" />
+                        <TextField name='region' className='input' label="Región" variant="outlined" margin="dense" />
                         <Button type='submit' className={`btn__card ${classes.color} ${classes.top}`} variant="text">
                             Agregar
                         </Button>

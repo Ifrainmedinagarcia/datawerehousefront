@@ -48,7 +48,6 @@ const Login = () => {
                     <TextField
                         type='email'
                         className='input'
-                        id=""
                         label="Correo electrónico"
                         variant="outlined"
                         margin="dense"
@@ -57,7 +56,6 @@ const Login = () => {
                     />
                     <TextField
                         className='input'
-                        id=""
                         name='passwordUser'
                         type="password"
                         label="Contraseña"

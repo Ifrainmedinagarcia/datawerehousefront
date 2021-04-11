@@ -16,19 +16,20 @@ const useStyles = makeStyles({
 const marks = [
 
     {
-        value: 25,
+        value: 1,
         label: '25%',
     },
     {
-        value: 50,
+        value: 2,
         label: '50%',
     },
     {
-        value: 75,
+        value: 3,
         label: '75%',
     },
     {
-        value: 100,
+
+        value: 4,
         label: '100%',
     },
 ]
@@ -48,7 +49,10 @@ const Sliderbtn = ({ name }) => {
             Nivel de interés
             <Slider
                 name={name}
-                defaultValue={25}
+                step={25}
+                min={0}
+                max={4}
+                defaultValue={1}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-restrict"

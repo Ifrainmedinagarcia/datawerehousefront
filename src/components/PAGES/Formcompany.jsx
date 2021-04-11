@@ -115,7 +115,7 @@ const Formcompany = ({ countries, companies }) => {
                 <div className="form__input">
                     <h6 className="region__title">Compañías</h6>
                     <form onSubmit={registerCompany.bind()} className='container__btn__config'>
-                        <TextField className='input' id="" name='company' label="Nombre de la compañía" variant="outlined" margin="dense" />
+                        <TextField className='input' name='company' label="Nombre de la compañía" variant="outlined" margin="dense" />
 
                         <FormControl className='input' variant="outlined" margin='dense'>
                             <InputLabel htmlFor="outlined-age-native-simple">País</InputLabel>
@@ -135,7 +135,7 @@ const Formcompany = ({ countries, companies }) => {
                                 }
                             </Select>
                         </FormControl>
-                        <TextField className='input' id="" name='address' label="Dirección" variant="outlined" margin="dense" />
+                        <TextField className='input' name='address' label="Dirección" variant="outlined" margin="dense" />
                         <Button type='submit' className={`btn__card ${classes.color} ${classes.top}`} variant="text">
                             Agregar
                         </Button>
