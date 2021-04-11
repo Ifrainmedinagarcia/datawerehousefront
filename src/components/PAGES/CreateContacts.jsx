@@ -90,6 +90,7 @@ const CreateContacts = (
     const classes = useStyle()
 
     const [src, setSrc] = React.useState('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
+
     const [idFoto, setIdFoto] = React.useState(null);
 
     const [allRegion, setAllRegion] = React.useState({})
@@ -147,30 +148,31 @@ const CreateContacts = (
             setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
         }
 
+        const formdata = new FormData();
+        formdata.append("file", file)
+
         try {
-            await axios.post('http://localhost:3001/v1/api/file/upload', file, {
+            await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
                 }
             }).then(res => {
-                console.log(res);
-                setIdFoto(res.data.id_photo)
+                setIdFoto(res.data.data.id_photo)
             })
         } catch (error) {
             console.log(error);
         }
-
     }
 
     const registerContact = async e => {
         e.preventDefault()
         const form = e.target
-
         const data = {
             "name_contact": form.nombre.value,
             "lastname_contact": form.apellido.value,
             "position": form.cargo.value,
             "address": form.address.value,
+            "email_contact": form.correo.value,
             "contact_account": form.cuenta.value,
             "id_company": form.idComany.value,
             "id_region": form.idRegion.value,
@@ -179,7 +181,7 @@ const CreateContacts = (
             "id_city": form.idCity.value,
             "id_preference": form.preferencia.value,
             "id_commitment": form.sliderCommitment.value,
-            "id_cannel_comunication": form.idChannel.value,
+            "id_channel_comunication": form.idChannel.value,
             "id_user": userId
         }
         if (data.name_company === '' && data.id_country === '' && data.address === '') {
@@ -198,20 +200,22 @@ const CreateContacts = (
             })
             await store.dispatch(getAllCompanies())
         } catch (error) {
-            if (error) {
-                alert('La compañía debe estar asociada a un país')
-            }
-        }
+            console.log(error);
 
-        form.company.value = ''
+        }
+        form.nombre.value = ''
+        form.apellido.value = ''
+        form.cargo.value = ''
         form.address.value = ''
+        form.correo.value = ''
+        form.cuenta.value = ''
     }
 
     return (
         <>
             <NavbarUser />
             <Cajon />
-            <form onSubmit={registerContact.bind()} className={classes.content}>
+            <form onSubmit={registerContact.bind()} className={classes.content} encType='multipart/form-data'>
                 <h3 style={{ textAlign: 'center' }}>Crea tu contacto</h3>
                 <div className={classes.avatar}>
                     <input name='image' onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
@@ -429,7 +433,6 @@ const CreateContacts = (
                             <Button type='submit' className={`${classes.color}`} variant="text" >Crear</Button>
                             <Button className={`danger ${classes.color}`} variant="text" >Actualizar</Button>
                         </ButtonGroup>
-
                     </div>
 
                 </div>
