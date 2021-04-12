@@ -8,13 +8,14 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Sliderbtn from '../ATOMS/Sliderbtn';
 import { connect } from 'react-redux';
 import store from '../../REDUX/store';
-import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAllPreferences } from '../../REDUX/actionsCreators';
+import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAllContacts, getAllPreferences } from '../../REDUX/actionsCreators';
 import axios from 'axios'
 store.dispatch(getAllChannels())
 store.dispatch(getAllCommitments())
 store.dispatch(getAllPreferences())
 store.dispatch(getAllCompanies())
 store.dispatch(getAllcities())
+store.dispatch(getAllContacts())
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -184,7 +185,7 @@ const CreateContacts = (
             "id_channel_comunication": parseInt(form.idChannel.value),
             "id_user": userId
         }
-        if (data.name_company === '' && data.id_country === '' && data.address === '') {
+        if (data.name_contact === '' && data.lastname_contact === '' && data.position === '' && data.address === '' && data.email_contact === '' && data.contact_account === '') {
             return alert('Por favor llenar correctamente los campos requeridos')
         }
 
@@ -198,7 +199,7 @@ const CreateContacts = (
             }).then(res => {
                 console.log(res)
             })
-            await store.dispatch(getAllCompanies())
+            await store.dispatch(getAllContacts())
         } catch (error) {
             console.log(error);
 
@@ -239,7 +240,7 @@ const CreateContacts = (
                             <TextField
                                 name='apellido'
                                 className={classes.inputText}
-                                
+
                                 label="Apellido"
                                 size="small"
                                 required >
@@ -247,7 +248,7 @@ const CreateContacts = (
                             <TextField
                                 name='cargo'
                                 className={classes.inputText}
-                                
+
                                 label="Cargo"
                                 size="small"
                                 required >
@@ -255,7 +256,7 @@ const CreateContacts = (
                             <TextField
                                 name='correo'
                                 className={classes.inputText}
-                                
+
                                 label="Email"
                                 type='email'
                                 size="small"
@@ -263,7 +264,7 @@ const CreateContacts = (
                             </TextField>
                             <TextField
                                 name='compania'
-                               
+
                                 select
                                 name='idComany'
                                 label="Compañías"
@@ -290,7 +291,7 @@ const CreateContacts = (
 
                 <div className='container__body__inputs'>
                     <TextField
-                   
+
                         select
                         name='idRegion'
                         label="Region"
@@ -315,7 +316,7 @@ const CreateContacts = (
                     </TextField>
                     <TextField
                         name
-                        
+
                         select
                         onChange={CityFromCountry}
                         label="País"
@@ -338,7 +339,7 @@ const CreateContacts = (
                         }
                     </TextField>
                     <TextField
-                       
+
                         select
                         name='idCity'
                         label="Cuidad"
@@ -361,7 +362,7 @@ const CreateContacts = (
                     </TextField>
                     <TextField
                         className={classes.inputText}
-                       
+
                         label="Dirección"
                         size="small"
                         required
@@ -374,7 +375,7 @@ const CreateContacts = (
 
                     <div className={classes.slider}>
                         <TextField
-                         
+
                             select
                             name='idChannel'
                             label="Canal de contacto"
@@ -400,14 +401,14 @@ const CreateContacts = (
                         <TextField
                             name='cuenta'
                             className={classes.inputText}
-                    
+
                             label="Cuenta de Usuario"
                             size="small"
                             required >
                         </TextField>
                         <TextField
                             name='preferencia'
-                           
+
                             select
                             label="Preferencias"
                             className={classes.inputText}
