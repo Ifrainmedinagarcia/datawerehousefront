@@ -16,7 +16,6 @@ import { getAllContacts } from '../../REDUX/actionsCreators'
 import axios from 'axios'
 store.dispatch(getAllContacts())
 
-
 const useStyle = makeStyles({
     color: {
         color: '#F7F9FC'
@@ -71,11 +70,31 @@ const columns = [
                         <DeleteIcon style={{ color: Red[700] }} />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title='Editar'>
-                    <IconButton>
-                        <EditIcon style={{ color: Indigo[700] }} />
-                    </IconButton>
-                </Tooltip>
+
+                <Link style={{ background: 'transparent' }} to={{
+                    pathname: '/editar/contact',
+                    id: params.row.id,
+                    nombreValue: params.row.name_contact,
+                    apellidoValue: params.row.lastname_contact,
+                    cargoValue: params.row.position,
+                    src: params.row.urlPhoto_contact,
+                    correoValue: params.row.email_contact,
+                    companyValue: params.row.name_company,
+                    regionValue: params.row.Region.name_region,
+                    countryValue: params.row.name_country,
+                    cityValue: params.row.city.name_city,
+                    addressValue: params.row.address,
+                    channelValue: params.row.name_channel,
+                    cuentaValue: params.row.contact_account,
+                    preferenceValue: params.row.preference.name_preference,
+                    defaultValue: params.row.valueComitId
+                }}>
+                    <Tooltip title='Editar'>
+                        <IconButton >
+                            <EditIcon style={{ color: Indigo[700] }} />
+                        </IconButton>
+                    </Tooltip>
+                </Link>
             </strong>
         ),
     },
@@ -84,19 +103,26 @@ const columns = [
 const Tables = ({ contacts }) => {
     const classes = useStyle()
     let rows = []
-    console.log(rows)
+    console.log(contacts)
 
     contacts.map(c => {
         rows.push({
             id: c.id,
             urlPhoto_contact: c.Photo.urlPhoto_contact,
             name_contact: c.name_contact,
+            lastname_contact: c.lastname_contact,
+            email_contact: c.email_contact,
+            address: c.address,
+            Region: c.Region,
+            city: c.City,
+            preference: c.Preference,
             name_country: c.Country.name_country,
             name_company: c.Company.name_company,
             position: c.position,
             name_channel: c.Channel.name_channel,
             contact_account: c.contact_account,
-            value_commitment: c.Commitment.value_commitment
+            value_commitment: c.Commitment.value_commitment,
+            valueComitId: c.id_commitment
         })
     })
 

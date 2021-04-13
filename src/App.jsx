@@ -23,6 +23,7 @@ import Public from './components/HOC/Public';
 import EditRegion from './components/PAGES/EditRegion';
 import EditCountry from './components/PAGES/EditCountry';
 import EditCity from './components/PAGES/EditCity';
+import EditContact from './components/PAGES/EditContact';
 
 function App() {
   return (
@@ -45,9 +46,51 @@ function App() {
             <Protected path="/crear/company" exact component={CreateCompany} />
             <Protected path="/add/country" exact component={CreateCountry} />
             <Protected path="/agregar/region" exact component={CreateRegion} />
-            <Protected path="/edit/region" exact component={(props) => < EditRegion {...props} id={props.id} value={props.value} />} />
-            <Protected path="/editar/country" exact component={(props) => <EditCountry {...props} id={props.id} labelRegion={props.labelRegion} idRegion={props.idRegion} labelCountry={props.labelCountry} />} />
-            <Protected path="/modificar/city" exact component={(props) => <EditCity {...props} id={props.id} labelCountry={props.labelRegion} valueInputCity={props.valueInputCity} />} />
+            <Protected
+              path="/edit/region"
+              exact
+              component={(props) => < EditRegion
+                {...props}
+                id={props.id}
+                value={props.value} />} />
+            <Protected
+              path="/editar/country"
+              exact
+              component={(props) => <EditCountry
+                {...props}
+                id={props.id}
+                labelRegion={props.labelRegion}
+                idRegion={props.idRegion}
+                labelCountry={props.labelCountry} />} />
+            <Protected
+              path="/modificar/city"
+              exact
+              component={(props) => <EditCity
+                {...props}
+                id={props.id}
+                labelCountry={props.labelRegion}
+                valueInputCity={props.valueInputCity} />} />
+            <Protected
+              path="/editar/contact"
+              exact
+              component={(props) => <EditContact
+                {...props}
+                id={props.id}
+                nombreValue={props.nombreValue}
+                apellidoValue={props.apellidoValue}
+                cargoValue={props.cargoValue}
+                src={props.src}
+                correoValue={props.correoValue}
+                companyValue={props.companyValue}
+                regionValue={props.regionValue}
+                countryValue={props.countryValue}
+                cityValue={props.cityValue}
+                addressValue={props.addressValue}
+                channelValue={props.channelValue}
+                cuentaValue={props.cuentaValue}
+                preferenceValue={props.preferenceValue}
+                defaultValue={props.defaultValue}
+              />} />
             <Protected path="/ingresar/city" exact component={CreateCity} />
             <Protected path="/profile" exact component={ProfileUser} />
             {/* pagina 404 */}

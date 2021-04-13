@@ -42,7 +42,7 @@ function valueLabelFormat(value) {
     return marks.findIndex((mark) => mark.value === value) + 1
 }
 
-const Sliderbtn = ({ name }) => {
+const Sliderbtn = ({ name, defaultValue }) => {
     const classes = useStyles();
     return (
         <div className={`${classes.root} ${classes.display}`}>
@@ -52,7 +52,7 @@ const Sliderbtn = ({ name }) => {
                 step={25}
                 min={0}
                 max={4}
-                defaultValue={1}
+                defaultValue={defaultValue || 1}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-restrict"
