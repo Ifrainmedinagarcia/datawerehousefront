@@ -87,7 +87,17 @@ const columns = [
                     channelValue: params.row.name_channel,
                     cuentaValue: params.row.contact_account,
                     preferenceValue: params.row.preference.name_preference,
-                    defaultValue: params.row.valueComitId
+                    defaultValue: params.row.valueComitId,
+
+
+                    idRegion: params.row.Region.id_region,
+                    idCountry: params.row.idCountry,
+                    idChannel: params.row.idChannel,
+                    idCommitment: params.row.idCommitment,
+                    idCompany: params.row.idCompany,
+                    idPreference: params.row.idPreference,
+                    idCity: params.row.city.id_city
+
                 }}>
                     <Tooltip title='Editar'>
                         <IconButton >
@@ -122,7 +132,11 @@ const Tables = ({ contacts }) => {
             name_channel: c.Channel.name_channel,
             contact_account: c.contact_account,
             value_commitment: c.Commitment.value_commitment,
-            valueComitId: c.id_commitment
+            valueComitId: c.id_commitment,
+            idCompany: c.Company.id_company,
+            idChannel: c.Channel.id_channel_comunication,
+            idPreference: c.Preference.id_preference,
+            idCountry: c.Country.id_country
         })
     })
 

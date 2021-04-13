@@ -45,6 +45,7 @@ const CreateContacts = (
                 }
             }).then(res => {
                 setAllRegion(res)
+                setAllCountry('')
                 console.log(res)
             })
         } catch (error) {
@@ -147,6 +148,13 @@ const CreateContacts = (
         form.address.value = ''
         form.correo.value = ''
         form.cuenta.value = ''
+        form.idComany.value = ''
+        form.idRegion.value = ''
+        form.idCountry.value = ''
+        form.idCity.value = ''
+        form.preferencia.value = ''
+        form.sliderCommitment.value = 1
+        form.idChannel.value = ''
     }
 
     return (
@@ -167,6 +175,18 @@ const CreateContacts = (
                 src={src}
                 functionSubmit={registerContact.bind()}
                 nameBtn='Crear'
+                nombreValue='Nombre'
+                apellidoValue='Apellido'
+                cargoValue='Cargo'
+                correoValue='Email'
+                companyValue='Compañía'
+                regionValue='Region'
+                countryValue='País'
+                cityValue='Ciudad'
+                addressValue='Dirección'
+                channelValue='Canal de contacto'
+                cuentaValue='Cuenta'
+                preferenceValue='Disponibilidad'
             />
         </>
     )

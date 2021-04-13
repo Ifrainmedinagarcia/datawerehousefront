@@ -90,6 +90,13 @@ function App() {
                 cuentaValue={props.cuentaValue}
                 preferenceValue={props.preferenceValue}
                 defaultValue={props.defaultValue}
+                idRegion={props.idRegion}
+                idCountry={props.idCountry}
+                idChannel={props.idChannel}
+                idCommitment={props.idCommitment}
+                idCompany={props.idCompany}
+                idPreference={props.idPreference}
+                idCity={props.idCity}
               />} />
             <Protected path="/ingresar/city" exact component={CreateCity} />
             <Protected path="/profile" exact component={ProfileUser} />

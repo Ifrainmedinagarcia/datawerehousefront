@@ -64,8 +64,6 @@ const useStyle = makeStyles(theme => ({
 
 }))
 
-
-
 const FormAddEditContact = (
     {
         title,
@@ -116,48 +114,44 @@ const FormAddEditContact = (
                     <div className={classes.inputs}>
                         <TextField
                             name='nombre'
-                            vaelue={nombreValue}
                             className={classes.inputText}
-                            label="Nombre"
+                            label={nombreValue}
                             size="small"
-                            required >
+                        >
                         </TextField>
                         <TextField
                             name='apellido'
                             className={classes.inputText}
-                            value={apellidoValue}
-                            label="Apellido"
+                            label={apellidoValue}
                             size="small"
-                            required >
+                        >
                         </TextField>
                         <TextField
                             name='cargo'
                             className={classes.inputText}
-                            value={cargoValue}
-                            label="Cargo"
+                            label={cargoValue}
                             size="small"
-                            required >
+                        >
                         </TextField>
                         <TextField
                             name='correo'
                             className={classes.inputText}
-                            value={correoValue}
-                            label="Email"
+                            label={correoValue}
                             type='email'
                             size="small"
-                            required >
+                        >
                         </TextField>
                         <TextField
                             name='compania'
                             select
                             name='idComany'
-                            label="Compañías"
+                            label={companyValue}
                             className={classes.inputText}
                             SelectProps={{
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" value="" disabled selected>{companyValue}</option>
+                            <option aria-label="None" value="" selected></option>
                             {
                                 companies.length !== 0 ?
                                     companies.map(c => (
@@ -177,14 +171,14 @@ const FormAddEditContact = (
                 <TextField
                     select
                     name='idRegion'
-                    label="Region"
+                    label={regionValue}
                     onChange={countryFromRegion}
                     className={classes.inputText}
                     SelectProps={{
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" disabled selected>{regionValue}</option>
+                    <option aria-label="None" value="" selected></option>
                     {
                         regions.length !== 0 ?
                             regions.map(r => (
@@ -201,14 +195,14 @@ const FormAddEditContact = (
                     name
                     select
                     onChange={CityFromCountry}
-                    label="País"
+                    label={countryValue}
                     name='idCountry'
                     className={classes.inputText}
                     SelectProps={{
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" disabled selected>{countryValue}</option>
+                    <option aria-label="None" value="" selected></option>
                     {
                         allRegion.data !== undefined ?
                             allRegion.data.data.Paises.map(c => (
@@ -223,13 +217,13 @@ const FormAddEditContact = (
                 <TextField
                     select
                     name='idCity'
-                    label="Cuidad"
+                    label={cityValue}
                     className={classes.inputText}
                     SelectProps={{
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" disabled selected>{cityValue}</option>
+                    <option aria-label="None" value="" selected></option>
                     {
                         allCountry.data !== undefined ?
                             allCountry.data.data.City.map(c => (
@@ -243,10 +237,8 @@ const FormAddEditContact = (
                 </TextField>
                 <TextField
                     className={classes.inputText}
-                    label="Dirección"
-                    value={addressValue}
+                    label={addressValue}
                     size="small"
-                    required
                     name='address'
                 >
                 </TextField>
@@ -258,13 +250,13 @@ const FormAddEditContact = (
                     <TextField
                         select
                         name='idChannel'
-                        label="Canal de contacto"
+                        label={channelValue}
                         className={classes.inputText}
                         SelectProps={{
                             native: true,
                         }}
                     >
-                        <option aria-label="None" value="" disabled selected>{channelValue}</option>
+                        <option aria-label="None" value="" selected></option>
 
                         {
                             channels.length !== 0 ?
@@ -280,21 +272,20 @@ const FormAddEditContact = (
                     <TextField
                         name='cuenta'
                         className={classes.inputText}
-                        value={cuentaValue}
-                        label="Cuenta de Usuario"
+                        label={cuentaValue}
                         size="small"
-                        required >
+                    >
                     </TextField>
                     <TextField
                         name='preferencia'
                         select
-                        label="Preferencias"
+                        label={preferenceValue}
                         className={classes.inputText}
                         SelectProps={{
                             native: true,
                         }}
                     >
-                        <option aria-label="None" value="" disabled selected>{preferenceValue}</option>
+                        <option aria-label="None" value="" selected></option>
                         {
                             preferences.length !== 0 ?
                                 preferences.map(p => (
