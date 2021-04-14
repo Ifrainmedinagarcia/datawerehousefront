@@ -96,7 +96,8 @@ const columns = [
                     idCommitment: params.row.idCommitment,
                     idCompany: params.row.idCompany,
                     idPreference: params.row.idPreference,
-                    idCity: params.row.city.id_city
+                    idCity: params.row.city.id_city,
+                    idPhoto: params.row.id_photo
 
                 }}>
                     <Tooltip title='Editar'>
@@ -136,7 +137,8 @@ const Tables = ({ contacts }) => {
             idCompany: c.Company.id_company,
             idChannel: c.Channel.id_channel_comunication,
             idPreference: c.Preference.id_preference,
-            idCountry: c.Country.id_country
+            idCountry: c.Country.id_country,
+            idPhot: c.id.photo
         })
     })
 

@@ -97,6 +97,7 @@ function App() {
                 idCompany={props.idCompany}
                 idPreference={props.idPreference}
                 idCity={props.idCity}
+                idPhoto={props.idPhoto}
               />} />
             <Protected path="/ingresar/city" exact component={CreateCity} />
             <Protected path="/profile" exact component={ProfileUser} />

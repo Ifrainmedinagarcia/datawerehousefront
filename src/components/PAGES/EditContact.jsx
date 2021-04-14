@@ -19,22 +19,9 @@ const JWT = localStorage.getItem('token')
 
 
 const EditContact = (props) => {
-    const id = props.location.id
-    const nombreValue = props.location.nombreValue
-    const apellidoValue = props.location.apellidoValue
-    const cargoValue = props.location.cargoValue
-    const src = props.location.src
-    const correoValue = props.location.correoValue
-    const companyValue = props.location.companyValue
-    const regionValue = props.location.regionValue
-    const countryValue = props.location.countryValue
-    const cityValue = props.location.cityValue
-    const addressValue = props.location.addressValue
-    const channelValue = props.location.channelValue
-    const cuentaValue = props.location.cuentaValue
-    const preferenceValue = props.location.preferenceValue
-    const defaultValue = props.location.defaultValue
 
+    const id = props.location.id
+    const src = props.location.src
     const idRegion = props.location.idRegion
     const idCountry = props.location.idCountry
     const idChannel = props.location.idChannel
@@ -42,7 +29,7 @@ const EditContact = (props) => {
     const idCompany = props.location.idCompany
     const idPreference = props.location.idPreference
     const idCity = props.location.idCity
-
+    const idPhoto = props.location.idPhoto
 
     const [srcProps, setSrcProps] = React.useState(src);
 
@@ -52,6 +39,38 @@ const EditContact = (props) => {
 
     const [allCountry, setAllCountry] = React.useState({})
 
+    const [updateLabel, setUdateLabes] = React.useState(
+        {
+            id: props.location.id,
+            nombreValue: props.location.nombreValue,
+            apellidoValue: props.location.apellidoValue,
+            cargoValue: props.location.cargoValue,
+            src: props.location.src,
+            correoValue: props.location.correoValue,
+            companyValue: props.location.companyValue,
+            regionValue: props.location.regionValue,
+            countryValue: props.location.countryValue,
+            cityValue: props.location.cityValue,
+            addressValue: props.location.addressValue,
+            channelValue: props.location.channelValue,
+            cuentaValue: props.location.cuentaValue,
+            preferenceValue: props.location.preferenceValue,
+            defaultValue: props.location.defaultValue
+        }
+    )
+
+    const [updateIdLabel, setUpdateIdLabel] = React.useState(
+        {
+            companyValue: props.location.companyValue,
+            regionValue: props.location.regionValue,
+            countryValue: props.location.countryValue,
+            cityValue: props.location.cityValue,
+            channelValue: props.location.channelValue,
+            preferenceValue: props.location.preferenceValue,
+        }
+    )
+
+    console.log(updateLabel)
     const countryFromRegion = async (e) => {
         try {
             await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
@@ -125,15 +144,15 @@ const EditContact = (props) => {
         e.preventDefault()
         const form = e.target
         const data = {
-            "name_contact": form.nombre.value || nombreValue,
-            "lastname_contact": form.apellido.value || apellidoValue,
-            "position": form.cargo.value || cargoValue,
-            "address": form.address.value || addressValue,
-            "email_contact": form.correo.value || correoValue,
-            "contact_account": form.cuenta.value || cuentaValue,
+            "name_contact": form.nombre.value || updateLabel.nombreValue,
+            "lastname_contact": form.apellido.value || updateLabel.apellidoValue,
+            "position": form.cargo.value || updateLabel.cargoValue,
+            "address": form.address.value || updateLabel.addressValue,
+            "email_contact": form.correo.value || updateLabel.correoValue,
+            "contact_account": form.cuenta.value || updateLabel.cuentaValue,
             "id_company": parseInt(form.idComany.value || idCompany),
             "id_region": parseInt(form.idRegion.value || idRegion),
-            "id_photo": idFoto || src,
+            "id_photo": idFoto || idPhoto,
             "id_country": parseInt(form.idCountry.value || idCountry),
             "id_city": parseInt(form.idCity.value || idCity),
             "id_preference": parseInt(form.preferencia.value || idPreference),
@@ -152,6 +171,30 @@ const EditContact = (props) => {
                 console.log(res)
             })
             await store.dispatch(getAllContacts())
+            await props.contacts.map(c => {
+                setUpdateIdLabel(
+                    {
+                        companyValue: c.Company.name_company,
+                        regionValue: c.Region.name_region,
+                        countryValue: c.Country.name_country,
+                        cityValue: c.City.name_city,
+                        channelValue: c.Channel.name_channel,
+                        preferenceValue: c.Preference.name_preference,
+                    }
+                )
+            })
+            setUdateLabes(
+                {
+                    nombreValue: form.nombre.value,
+                    apellidoValue: form.apellido.value,
+                    cargoValue: form.cargo.value,
+                    correoValue: form.correo.value,
+                    addressValue: form.address.value,
+                    cuentaValue: form.cuenta.value,
+                    defaultValue: form.sliderCommitment.value,
+                }
+            )
+
         } catch (error) {
             console.log(error);
 
@@ -176,19 +219,19 @@ const EditContact = (props) => {
             <FormAddEditContact
                 title='Editar Contactos'
                 nameBtn='Actualizar'
-                nombreValue={nombreValue}
-                apellidoValue={apellidoValue}
-                cargoValue={cargoValue}
-                correoValue={correoValue}
-                companyValue={companyValue}
-                regionValue={regionValue}
-                countryValue={countryValue}
-                cityValue={cityValue}
-                addressValue={addressValue}
-                channelValue={channelValue}
-                cuentaValue={cuentaValue}
-                preferenceValue={preferenceValue}
-                defaultValue={defaultValue}
+                nombreValue={updateLabel.nombreValue}
+                apellidoValue={updateLabel.apellidoValue}
+                cargoValue={updateLabel.cargoValue}
+                correoValue={updateLabel.correoValue}
+                companyValue={updateIdLabel.companyValue}
+                regionValue={updateIdLabel.regionValue}
+                countryValue={updateIdLabel.countryValue}
+                cityValue={updateIdLabel.cityValue}
+                addressValue={updateLabel.addressValue}
+                channelValue={updateIdLabel.channelValue}
+                cuentaValue={updateLabel.cuentaValue}
+                preferenceValue={updateIdLabel.preferenceValue}
+                defaultValue={updateLabel.defaultValue}
                 src={srcProps}
                 functionSubmit={updateContact.bind()}
                 companies={props.companies}
@@ -197,8 +240,6 @@ const EditContact = (props) => {
                 regions={props.regions}
                 channels={props.channels}
                 preferences={props.preferences}
-                allRegion={allRegion}
-                allCountry={allCountry}
                 renderImage={renderImage}
                 CityFromCountry={CityFromCountry}
                 countryFromRegion={countryFromRegion}
@@ -210,7 +251,8 @@ const mapStateToProps = state => ({
     channels: state.channelsReducer.channels,
     preferences: state.preferencesReducer.preferences,
     regions: state.regionReducer.regions,
-    companies: state.companiesReducer.companies
+    companies: state.companiesReducer.companies,
+    contacts: state.contactsReducer.contacts
 })
 
 
