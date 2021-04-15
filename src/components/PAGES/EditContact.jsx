@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import FormAddEditContact from '../ORGANISMS/FormAddEditContact'
 import store from '../../REDUX/store'
 import axios from 'axios'
-import { getAllChannels, getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
+import { getAllChannels, getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators'
 store.dispatch(getAllCountries())
 store.dispatch(getAllChannels())
 store.dispatch(getAllcities())
@@ -29,7 +29,7 @@ const EditContact = (props) => {
     const idCompany = props.location.idCompany
     const idPreference = props.location.idPreference
     const idCity = props.location.idCity
-    const idPhoto = props.location.idPhoto
+    const idPhotoProps = props.location.idPhoto
 
     const [srcProps, setSrcProps] = React.useState(src);
 
@@ -55,22 +55,19 @@ const EditContact = (props) => {
             channelValue: props.location.channelValue,
             cuentaValue: props.location.cuentaValue,
             preferenceValue: props.location.preferenceValue,
-            defaultValue: props.location.defaultValue
-        }
-    )
+            defaultValue: props.location.defaultValue,
 
-    const [updateIdLabel, setUpdateIdLabel] = React.useState(
-        {
+
             companyValue: props.location.companyValue,
             regionValue: props.location.regionValue,
             countryValue: props.location.countryValue,
             cityValue: props.location.cityValue,
             channelValue: props.location.channelValue,
-            preferenceValue: props.location.preferenceValue,
+            preferenceValue: props.location.preferenceValue
         }
     )
 
-    console.log(updateLabel)
+
     const countryFromRegion = async (e) => {
         try {
             await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
@@ -152,7 +149,7 @@ const EditContact = (props) => {
             "contact_account": form.cuenta.value || updateLabel.cuentaValue,
             "id_company": parseInt(form.idComany.value || idCompany),
             "id_region": parseInt(form.idRegion.value || idRegion),
-            "id_photo": idFoto || idPhoto,
+            "id_photo": idFoto || idPhotoProps,
             "id_country": parseInt(form.idCountry.value || idCountry),
             "id_city": parseInt(form.idCity.value || idCity),
             "id_preference": parseInt(form.preferencia.value || idPreference),
@@ -171,46 +168,11 @@ const EditContact = (props) => {
                 console.log(res)
             })
             await store.dispatch(getAllContacts())
-            await props.contacts.map(c => {
-                setUpdateIdLabel(
-                    {
-                        companyValue: c.Company.name_company,
-                        regionValue: c.Region.name_region,
-                        countryValue: c.Country.name_country,
-                        cityValue: c.City.name_city,
-                        channelValue: c.Channel.name_channel,
-                        preferenceValue: c.Preference.name_preference,
-                    }
-                )
-            })
-            setUdateLabes(
-                {
-                    nombreValue: form.nombre.value,
-                    apellidoValue: form.apellido.value,
-                    cargoValue: form.cargo.value,
-                    correoValue: form.correo.value,
-                    addressValue: form.address.value,
-                    cuentaValue: form.cuenta.value,
-                    defaultValue: form.sliderCommitment.value,
-                }
-            )
-
         } catch (error) {
             console.log(error);
 
         }
-        form.nombre.value = ''
-        form.apellido.value = ''
-        form.cargo.value = ''
-        form.address.value = ''
-        form.correo.value = ''
-        form.cuenta.value = ''
-        form.idComany.value = ''
-        form.idRegion.value = ''
-        form.idCountry.value = ''
-        form.idCity.value = ''
-        form.preferencia.value = ''
-        form.idChannel.value = ''
+        window.location = '/contacts'
     }
     return (
         <>
@@ -223,14 +185,14 @@ const EditContact = (props) => {
                 apellidoValue={updateLabel.apellidoValue}
                 cargoValue={updateLabel.cargoValue}
                 correoValue={updateLabel.correoValue}
-                companyValue={updateIdLabel.companyValue}
-                regionValue={updateIdLabel.regionValue}
-                countryValue={updateIdLabel.countryValue}
-                cityValue={updateIdLabel.cityValue}
+                companyValue={updateLabel.companyValue}
+                regionValue={updateLabel.regionValue}
+                countryValue={updateLabel.countryValue}
+                cityValue={updateLabel.cityValue}
                 addressValue={updateLabel.addressValue}
-                channelValue={updateIdLabel.channelValue}
+                channelValue={updateLabel.channelValue}
                 cuentaValue={updateLabel.cuentaValue}
-                preferenceValue={updateIdLabel.preferenceValue}
+                preferenceValue={updateLabel.preferenceValue}
                 defaultValue={updateLabel.defaultValue}
                 src={srcProps}
                 functionSubmit={updateContact.bind()}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles, Button } from '@material-ui/core'
-import { DataGrid } from '@material-ui/data-grid'
+import { DataGrid, gridRowsLookupSelector } from '@material-ui/data-grid'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -113,9 +113,8 @@ const columns = [
 
 const Tables = ({ contacts }) => {
     const classes = useStyle()
-    let rows = []
-    console.log(contacts)
 
+    let rows = []
     contacts.map(c => {
         rows.push({
             id: c.id,
@@ -138,24 +137,50 @@ const Tables = ({ contacts }) => {
             idChannel: c.Channel.id_channel_comunication,
             idPreference: c.Preference.id_preference,
             idCountry: c.Country.id_country,
-            idPhot: c.id.photo
+            idPhoto: c.id.photo
         })
     })
 
-    console.log(rows)
+
+    const filterTableContact = (e) => {
+        const valueInput = e.target.value.toLowerCase()
+
+        for (let contact of contacts) {
+            let name = contact.name_contact.toLowerCase()
+            if (name.indexOf(valueInput) !== -1) {
+                rows = rows.filter(row => row.name_contact.toLowerCase() === contact.name_contact.toLowerCase())
+            }
+        }
+    }
+
     return (
         <>
             <h3>Contactos</h3>
             <div>
-                <TextField className='busqueda' label="Filtrar" variant="outlined" margin="dense" />
+                <TextField
+                    onChange={filterTableContact}
+                    className='busqueda'
+                    label="Filtrar"
+                    variant="outlined"
+                    margin="dense"
+                />
                 <Link to='/create/contact'>
-                    <Button className={`btn__card__agregar ${classes.color} ${classes.top}`} variant="text">
+                    <Button
+                        className={`btn__card__agregar ${classes.color} ${classes.top}`}
+                        variant="text"
+                    >
                         Crear Contacto
                     </Button>
                 </Link>
             </div>
             <div style={{ height: 500, width: '100%' }}>
-                <DataGrid key={rows.id} rows={rows} columns={columns} pageSize={7} checkboxSelection />
+                <DataGrid
+                    key={rows.id}
+                    rows={rows}
+                    columns={columns}
+                    pageSize={7}
+                    checkboxSelection
+                />
             </div>
         </>
 
