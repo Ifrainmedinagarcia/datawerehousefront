@@ -64,7 +64,7 @@ const columns = [
         width: 120,
         renderCell: (params) => (
             <strong>
-                {console.log(params)}
+
                 <Tooltip title='Eliminar'>
                     <IconButton onClick={() => deleteContact(params.id)}>
                         <DeleteIcon style={{ color: Red[700] }} />
@@ -111,10 +111,13 @@ const columns = [
     },
 ]
 
+
 const Tables = ({ contacts }) => {
     const classes = useStyle()
 
     let rows = []
+    const [filterRows, setFilterRows] = React.useState([])
+
     contacts.map(c => {
         rows.push({
             id: c.id,
@@ -141,14 +144,19 @@ const Tables = ({ contacts }) => {
         })
     })
 
-
     const filterTableContact = (e) => {
         const valueInput = e.target.value.toLowerCase()
 
         for (let contact of contacts) {
             let name = contact.name_contact.toLowerCase()
+
             if (name.indexOf(valueInput) !== -1) {
-                rows = rows.filter(row => row.name_contact.toLowerCase() === contact.name_contact.toLowerCase())
+                let filter = rows.filter(row => row.name_contact.toLowerCase() === contact.name_contact.toLowerCase())
+                setFilterRows(filter)
+            }
+
+            if (valueInput === '') {
+                setFilterRows([])
             }
         }
     }
@@ -174,13 +182,25 @@ const Tables = ({ contacts }) => {
                 </Link>
             </div>
             <div style={{ height: 500, width: '100%' }}>
-                <DataGrid
-                    key={rows.id}
-                    rows={rows}
-                    columns={columns}
-                    pageSize={7}
-                    checkboxSelection
-                />
+
+                {
+                    filterRows.length !== 0 ?
+                        < DataGrid
+                            key={rows.id}
+                            rows={filterRows}
+                            columns={columns}
+                            pageSize={7}
+                            checkboxSelection
+                        />
+                        : <DataGrid
+                            key={rows.id}
+                            rows={rows}
+                            columns={columns}
+                            pageSize={7}
+                            checkboxSelection
+                        />
+                }
+
             </div>
         </>
 
