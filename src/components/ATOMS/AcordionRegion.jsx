@@ -54,17 +54,19 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                 {
                     labelRegion !== undefined ?
                         <FormControlLabel
+                            style={{ marginLeft: '20px' }}
                             aria-label="Acknowledge"
                             onClick={(event) => event.stopPropagation()}
                             onFocus={(event) => event.stopPropagation()}
-                            control={<Checkbox />}
+                            control={<Checkbox style={{ display: 'none' }} />}
                             label={labelRegion}
                         />
                         : <FormControlLabel
+                            style={{ marginLeft: '20px' }}
                             aria-label="Acknowledge"
                             onClick={(event) => event.stopPropagation()}
                             onFocus={(event) => event.stopPropagation()}
-                            control={<Checkbox />}
+                            control={<Checkbox style={{ display: 'none' }} />}
                             label='Aún no hay Regiones ingresadas'
                         />
 
@@ -126,10 +128,11 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                         id={c.id_country}
                                     >
                                         <FormControlLabel
+                                            style={{ marginLeft: '20px' }}
                                             aria-label="Acknowledge"
                                             onClick={(event) => event.stopPropagation()}
                                             onFocus={(event) => event.stopPropagation()}
-                                            control={<Checkbox />}
+                                            control={<Checkbox style={{ display: 'none' }} />}
                                             label={c.name_country}
                                         />
                                         <Tooltip title='Eliminar'>
@@ -185,10 +188,11 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                                 id={t.id_city}
                                                             >
                                                                 <FormControlLabel
+                                                                    style={{ marginLeft: '20px' }}
                                                                     aria-label="Acknowledge"
                                                                     onClick={(event) => event.stopPropagation()}
                                                                     onFocus={(event) => event.stopPropagation()}
-                                                                    control={<Checkbox />}
+                                                                    control={<Checkbox style={{ display: 'none' }} />}
                                                                     label={t.name_city}
                                                                 />
                                                                 <Tooltip title='Eliminar'>

@@ -31,6 +31,7 @@ const JWT = localStorage.getItem('token')
 const Tables = ({ contacts }) => {
     const classes = useStyle()
     const [idFull, setIdFull] = React.useState([])
+
     const deleteFull = async () => {
         try {
             idFull.forEach((element, index) => {
@@ -47,6 +48,7 @@ const Tables = ({ contacts }) => {
             console.log(error)
         }
     }
+
     const deleteContact = async id => {
         try {
             await axios.delete(`http://localhost:3001/v1/api/contacts/${id}`, {
@@ -85,13 +87,11 @@ const Tables = ({ contacts }) => {
             width: 120,
             renderCell: (params) => (
                 <strong>
-
                     <Tooltip title='Eliminar'>
                         <IconButton onClick={() => deleteContact(params.id)}>
                             <DeleteIcon style={{ color: Red[700] }} />
                         </IconButton>
                     </Tooltip>
-
                     <Link style={{ background: 'transparent' }} to={{
                         pathname: '/editar/contact',
                         id: params.row.id,
@@ -131,7 +131,6 @@ const Tables = ({ contacts }) => {
             ),
         },
     ]
-
 
     const checkBox = async e => {
         setIdFull(e.selectionModel)

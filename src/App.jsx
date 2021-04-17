@@ -24,6 +24,7 @@ import EditRegion from './components/PAGES/EditRegion';
 import EditCountry from './components/PAGES/EditCountry';
 import EditCity from './components/PAGES/EditCity';
 import EditContact from './components/PAGES/EditContact';
+import EditCompany from './components/PAGES/EditCompany';
 
 function App() {
   return (
@@ -101,6 +102,16 @@ function App() {
               />} />
             <Protected path="/ingresar/city" exact component={CreateCity} />
             <Protected path="/profile" exact component={ProfileUser} />
+            <Protected
+              path="/update/company"
+              exact
+              component={(props) => <EditCompany
+                {...props}
+                id={props.id}
+                valueNameCompany={props.valueNameCompany}
+                addressValue={props.addressValue}
+                valueCountry={props.valueCountry} />} />
+
             {/* pagina 404 */}
           </Switch>
         </Router>
