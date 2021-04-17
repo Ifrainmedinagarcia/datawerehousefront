@@ -178,7 +178,7 @@ const FormAddEditContact = (
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" selected></option>
+                    <option aria-label="None" value="" disabled selected></option>
                     {
                         regions.length !== 0 ?
                             regions.map(r => (
@@ -202,14 +202,13 @@ const FormAddEditContact = (
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" selected></option>
+                    <option aria-label="None" value="" disabled selected></option>
                     {
                         allRegion.data !== undefined ?
                             allRegion.data.data.Paises.map(c => (
                                 <option key={c.id_country} value={c.id_country}>
                                     {c.name_country}
                                 </option>
-
                             ))
                             : <option>Debes agregar un país</option>
                     }
@@ -223,7 +222,7 @@ const FormAddEditContact = (
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" selected></option>
+                    <option aria-label="None" value="" disabled selected></option>
                     {
                         allCountry.data !== undefined ?
                             allCountry.data.data.City.map(c => (

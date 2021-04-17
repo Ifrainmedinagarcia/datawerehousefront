@@ -9,6 +9,7 @@ import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip';
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 const useStyle = makeStyles({
     color: {
@@ -19,12 +20,12 @@ const useStyle = makeStyles({
     }
 })
 
-
+const JWT = localStorage.getItem('token')
 
 const columns = [
-    { field: 'Nombre', headerName: 'Nombre', width: 150 },
-    { field: 'Pais', headerName: 'País', width: 150 },
-    { field: 'Direccion', headerName: 'Dirección', width: 150 },
+    { field: 'name_company', headerName: 'Nombre', width: 150 },
+    { field: 'name_country', headerName: 'País', width: 150 },
+    { field: 'address', headerName: 'Dirección', width: 150 },
     {
         field: 'Acciones',
         headerName: 'Acciones',
@@ -47,18 +48,22 @@ const columns = [
     },
 ];
 
-const rows = [
-    {
-        id: 1,
-        Nombre: 'Netflix',
-        Pais: 'Chile',
-        Direccion: 'Primo de rivera'
-    }
-];
 
-
-const TableCompany = () => {
+const TableCompany = ({ companies }) => {
     const classes = useStyle()
+    let rows = []
+    const [filterRows, setFilterRows] = React.useState([])
+
+    companies.map(c => {
+        console.log(c)
+        rows.push({
+            id: c.id_company,
+            name_company: c.name_company,
+            name_country: c.Country.name_country,
+            address: c.address
+        })
+    })
+
     return (
         <>
             <h3>Compañías</h3>
@@ -72,10 +77,13 @@ const TableCompany = () => {
                 </NavLink>
             </div>
             <div style={{ height: 500, width: '100%' }}>
-                <DataGrid loading={rows.length === 0} rows={rows} columns={columns} pageSize={7} checkboxSelection />
+                <DataGrid /* loading={rows.length === 0} */ rows={rows} columns={columns} pageSize={7} checkboxSelection />
             </div>
         </>
     )
 }
 
-export default TableCompany
+const mapStateToProps = state => ({
+    companies: state.companiesReducer.companies
+})
+export default connect(mapStateToProps, {})(TableCompany)

@@ -16,11 +16,13 @@ import blue from '@material-ui/core/colors/blue';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../../REDUX/store';
-import { getAllcities, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
+import { getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 import axios from 'axios';
 store.dispatch(getAllCountries())
 store.dispatch(getAllcities())
 store.dispatch(getAllRegions())
+store.dispatch(getAllContacts())
+store.dispatch(getAllCompanies())
 
 const JWT = localStorage.getItem('token')
 
@@ -32,6 +34,11 @@ const deleteRegion = async (id, path) => {
             console.log(res)
         }).catch(e => console.log(e))
     await store.dispatch(getAllRegions())
+    await store.dispatch(getAllContacts())
+    await store.dispatch(getAllCountries())
+    await store.dispatch(getAllCompanies())
+    await store.dispatch(getAllcities())
+
 }
 
 

@@ -28,7 +28,6 @@ const useStyle = makeStyles({
     }
 })
 
-
 const id = []
 
 const Formcountry = ({ regions, countries }) => {
@@ -67,7 +66,6 @@ const Formcountry = ({ regions, countries }) => {
     }
 
     const deleteCountry = async (e) => {
-        console.log(e.target.id);
         e.preventDefault()
         try {
             id.forEach((element, index) => {
@@ -89,7 +87,6 @@ const Formcountry = ({ regions, countries }) => {
     }
 
     const checkBox = async e => {
-        console.log(e.target.checked);
         if (e.target.checked) {
             id.push(parseInt(e.target.id))
             console.log(e.target.id)

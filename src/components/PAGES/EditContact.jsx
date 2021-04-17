@@ -67,7 +67,7 @@ const EditContact = (props) => {
         }
     )
 
-
+    console.log(updateLabel.preferenceValue);
     const countryFromRegion = async (e) => {
         try {
             await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
@@ -157,6 +157,7 @@ const EditContact = (props) => {
             "id_channel_comunication": parseInt(form.idChannel.value || idChannel),
             "id_user": parseInt(userId)
         }
+
         try {
             await axios.put(`http://localhost:3001/v1/api/contacts/${id}`, data, {
                 headers: {
@@ -166,6 +167,7 @@ const EditContact = (props) => {
                 }
             }).then(res => {
                 console.log(res)
+                console.log(data);
             })
             await store.dispatch(getAllContacts())
         } catch (error) {
