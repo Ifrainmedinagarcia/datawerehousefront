@@ -67,7 +67,6 @@ const EditContact = (props) => {
         }
     )
 
-    console.log(updateLabel.preferenceValue);
     const countryFromRegion = async (e) => {
         try {
             await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {

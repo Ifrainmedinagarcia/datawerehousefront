@@ -251,7 +251,6 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                 </Tooltip>
                             </Link>
                         </h5>
-
             }
 
         </Accordion>

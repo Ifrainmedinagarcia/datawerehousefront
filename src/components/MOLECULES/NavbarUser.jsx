@@ -1,10 +1,11 @@
 import React from 'react'
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@material-ui/core/Avatar'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton'
+import { makeStyles } from '@material-ui/core/styles'
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles({
     tamaño: {
@@ -15,9 +16,7 @@ const useStyles = makeStyles({
     },
 })
 
-
-
-const NavbarUser = () => {
+const NavbarUser = ({ contacts }) => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -32,12 +31,21 @@ const NavbarUser = () => {
 
         <header className="header__flex">
             <figure>
-                <img className="img__navbar" src="https://favicontidyup.s3-sa-east-1.amazonaws.com/logodata.png" alt="" />
+                <img className="img__navbar" src='https://favicontidyup.s3-sa-east-1.amazonaws.com/logodata.png' alt="" />
             </figure>
             <nav className="nav__container">
                 <ul className="nav__container__lists__flex">
                     <IconButton aria-label="" onClick={handleClick}>
-                        <Avatar className={classes.tamaño} alt="Remy Sharp" src="https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png" />
+                        {
+                            contacts ?
+                                contacts.map(c => (
+                                    c.Photo.urlPhoto_contact !== undefined ?
+                                        <Avatar className={classes.tamaño} alt="Remy Sharp" src={c.Photo.urlPhoto_contact} />
+                                        : <Avatar className={classes.tamaño} alt="Remy Sharp" src='https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png' />
+
+                                ))
+                                : <Avatar className={classes.tamaño} alt="Remy Sharp" src='https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png' />
+                        }
                     </IconButton>
                     <Menu
                         id="simple-menu"
@@ -59,4 +67,8 @@ const NavbarUser = () => {
     )
 }
 
-export default NavbarUser
+const mapStateToProps = state => ({
+    contacts: state.contactsReducer.contacts
+})
+
+export default connect(mapStateToProps, {})(NavbarUser)
