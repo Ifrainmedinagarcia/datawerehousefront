@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles, Button } from '@material-ui/core'
 import { DataGrid } from '@material-ui/data-grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -7,13 +7,12 @@ import EditIcon from '@material-ui/icons/Edit'
 import Red from '@material-ui/core/colors/red'
 import Indigo from '@material-ui/core/colors/indigo'
 import TextField from '@material-ui/core/TextField'
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@material-ui/core/Tooltip'
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import store from '../../REDUX/store'
-import { getAllCompanies } from '../../REDUX/actionsCreators'
-store.dispatch(getAllCompanies())
+import { getAllCompanies, getAllContacts } from '../../REDUX/actionsCreators'
 
 const useStyle = makeStyles({
     color: {
@@ -24,10 +23,16 @@ const useStyle = makeStyles({
     }
 })
 
+
 const JWT = localStorage.getItem('token')
 
 const TableCompany = ({ companies }) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getAllCompanies())
+        store.dispatch(getAllContacts())
+    }, [])
+
     let rows = []
     const [filterRowsCompany, setFilterRowsCompany] = React.useState([])
     const [idFullCompany, setIdFullCompany] = React.useState([])
@@ -43,6 +48,7 @@ const TableCompany = ({ companies }) => {
                     })
             })
             await store.dispatch(getAllCompanies())
+            await store.dispatch(getAllContacts())
         } catch (error) {
             console.log(error)
         }
@@ -56,6 +62,7 @@ const TableCompany = ({ companies }) => {
                 setIdFullCompany([])
             })
             await store.dispatch(getAllCompanies())
+            await store.dispatch(getAllContacts())
         } catch (error) {
             console.log(error)
         }
@@ -71,7 +78,6 @@ const TableCompany = ({ companies }) => {
             width: 120,
             renderCell: (params) => (
                 <strong>
-                    {console.log(params)}
                     <Tooltip title='Eliminar'>
                         <IconButton onClick={() => deleteCompany(params.id)}>
                             <DeleteIcon style={{ color: Red[700] }} />
@@ -88,17 +94,15 @@ const TableCompany = ({ companies }) => {
                             <IconButton>
                                 <EditIcon style={{ color: Indigo[700] }} />
                             </IconButton>
-
                         </Tooltip>
                     </Link>
-
                 </strong>
             ),
         },
     ]
 
     companies.map(c => {
-        rows.push({
+        return rows.push({
             id: c.id_company,
             name_company: c.name_company,
             name_country: c.Country.name_country,
@@ -117,7 +121,7 @@ const TableCompany = ({ companies }) => {
             let name = company.name_company.toLowerCase()
             let country = company.Country.name_country.toLowerCase()
 
-            console.log(company)
+
             if (name.indexOf(valueInput) !== -1) {
                 let filter = rows.filter(row => row.name_company.toLowerCase() === company.name_company.toLowerCase())
                 setFilterRowsCompany(filter)
@@ -164,7 +168,6 @@ const TableCompany = ({ companies }) => {
                 {
                     filterRowsCompany.length !== 0 ?
                         < DataGrid
-                            key={rows.id}
                             rows={filterRowsCompany}
                             columns={columns}
                             pageSize={7}
@@ -172,7 +175,6 @@ const TableCompany = ({ companies }) => {
                             onChange={checkBox}
                         />
                         : <DataGrid
-                            key={rows.id}
                             rows={rows}
                             columns={columns}
                             pageSize={7}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import store from '../../REDUX/store'
@@ -6,9 +6,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
 import { getAllcities, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
-store.dispatch(getAllCountries())
-store.dispatch(getAllcities())
-store.dispatch(getAllRegions())
+
 
 const useStyle = makeStyles(theme => ({
     content: {
@@ -46,40 +44,45 @@ const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
 
 
-const addCity = async e => {
-    e.preventDefault()
-    const form = e.target
-    const data = {
-        "name_city": form.cityInput.value,
-        "id_country": form.countryOption.value,
-        "id_user": userId
-    }
-    if (data.name_city === '') {
-        return alert('Input vacío')
-    }
-
-    try {
-        await axios.post(`http://localhost:3001/v1/api/cities`, data, {
-            headers: {
-                'Authorization': JWT,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            console.log(res)
-        })
-        await store.dispatch(getAllcities())
-        await store.dispatch(getAllRegions())
-    } catch (error) {
-        console.log(error)
-    }
-
-    form.cityInput.value = ''
-}
-
 
 const CreateCity = ({ countries }) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getAllCountries())
+        store.dispatch(getAllcities())
+        store.dispatch(getAllRegions())
+    }, [])
+
+    const addCity = async e => {
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "name_city": form.cityInput.value,
+            "id_country": form.countryOption.value,
+            "id_user": userId
+        }
+        if (data.name_city === '') {
+            return alert('Input vacío')
+        }
+
+        try {
+            await axios.post(`http://localhost:3001/v1/api/cities`, data, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res)
+            })
+            await store.dispatch(getAllcities())
+            await store.dispatch(getAllRegions())
+        } catch (error) {
+            console.log(error)
+        }
+
+        form.cityInput.value = ''
+    }
 
     return (
         <>
@@ -103,7 +106,7 @@ const CreateCity = ({ countries }) => {
                                 {
                                     countries.length !== 0 ?
                                         countries.map(c => (
-                                            <option key={c.id_country} value={c.id_country} >
+                                            <option key={c.id_country.toString()} value={c.id_country} >
                                                 {c.name_country}
                                             </option>
                                         ))

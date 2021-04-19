@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
@@ -6,9 +6,6 @@ import store from '../../REDUX/store'
 import { getAllCompanies, getAllCountries } from '../../REDUX/actionsCreators'
 import { connect } from 'react-redux';
 import axios from 'axios'
-
-store.dispatch(getAllCountries())
-store.dispatch(getAllCompanies())
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -46,36 +43,41 @@ const useStyle = makeStyles(theme => ({
 
 }))
 
-const createCompany = async (e) => {
-    e.preventDefault()
-    const form = e.target
-    const data = {
-        "name_company": form.nameCompany.value,
-        "id_country": form.countrySelection.value,
-        "address": form.address.value,
-        "id_user": userId
-    }
-    try {
-        await axios.post('http://localhost:3001/v1/api/companies', data, {
-            headers: {
-                'Authorization': JWT,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            console.log(res)
-        })
-        await store.dispatch(getAllCompanies())
-    } catch (error) {
-        console.log(error)
-    }
-    form.nameCompany.value = ''
-    form.countrySelection.value = ''
-    form.address.value = ''
-}
-
 const CreateCompany = ({ countries }) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getAllCountries())
+        store.dispatch(getAllCompanies())
+    }, [])
+
+    const createCompany = async (e) => {
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "name_company": form.nameCompany.value,
+            "id_country": form.countrySelection.value,
+            "address": form.address.value,
+            "id_user": userId
+        }
+        try {
+            await axios.post('http://localhost:3001/v1/api/companies', data, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res)
+            })
+            await store.dispatch(getAllCompanies())
+        } catch (error) {
+            console.log(error)
+        }
+        form.nameCompany.value = ''
+        form.countrySelection.value = ''
+        form.address.value = ''
+    }
+
     return (
         <>
             <NavbarUser />
@@ -106,7 +108,7 @@ const CreateCompany = ({ countries }) => {
                                 {
                                     countries.length !== 0 ?
                                         countries.map(c => (
-                                            <option key={c.id_country} value={c.id_country}>
+                                            <option key={c.id_country.toString()} value={c.id_country}>
                                                 {c.name_country}
                                             </option>
                                         ))

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TitleWelcomeForm from '../MOLECULES/TitleWelcomeForm'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -17,7 +17,6 @@ import { getAllCompanies } from '../../REDUX/actionsCreators'
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
-store.dispatch(getAllCompanies())
 
 const useStyle = makeStyles({
     color: {
@@ -31,6 +30,10 @@ let id = []
 
 const Formcompany = ({ countries, companies }) => {
     const classes = useStyle()
+
+    useEffect(() => {
+        store.dispatch(getAllCompanies())
+    }, []);
 
     const registerCompany = async e => {
         e.preventDefault()
@@ -129,7 +132,7 @@ const Formcompany = ({ countries, companies }) => {
                                 {
                                     countries ?
                                         countries.map(p => (
-                                            <option key={p.id_country} value={p.id_country}>{p.name_country}</option>
+                                            <option value={p.id_country}>{p.name_country}</option>
                                         ))
                                         : alert('Ocurrió un error, vaya a configurar los países')
                                 }
@@ -147,7 +150,7 @@ const Formcompany = ({ countries, companies }) => {
                         {
                             companies.length !== 0 ?
                                 companies.map(c => (
-                                    <div key={`${c.id_company}`} className="flex__check">
+                                    <div className="flex__check">
                                         <FormControlLabel
                                             control={
                                                 <Checkbox

@@ -22,7 +22,7 @@ const Header = () => {
             </header>
             <section className="container__banner__flex">
 
-                <div class="blue"></div>
+                <div className="blue"></div>
 
                 <div className="container__banner__title">
                     <h1>EN TIDY UP</h1>

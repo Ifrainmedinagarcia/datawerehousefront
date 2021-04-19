@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TitleWelcomeForm from '../MOLECULES/TitleWelcomeForm'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -23,44 +23,48 @@ const useStyle = makeStyles({
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
-store.dispatch(getAllRegions())
 
-const registerRegion = async (e) => {
-    e.preventDefault()
-    const form = e.target
-    const data = {
-        "name_region": form.region.value,
-        "id_user": userId
-    }
 
-    if (data.name_region === '') {
-        return alert('Imput vacío')
-    }
-
-    try {
-        await axios.post('http://localhost:3001/v1/api/regions', data, {
-            headers: {
-                'Authorization': JWT,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => {
-                console.log(res)
-            })
-
-        await store.dispatch(getAllRegions())
-
-    } catch (error) {
-        console.log(error);
-    }
-
-    form.region.value = ''
-}
-const id = []
+let id = []
 
 const Frominit = ({ regions }) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getAllRegions())
+    }, [])
+
+    const registerRegion = async (e) => {
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "name_region": form.region.value,
+            "id_user": userId
+        }
+
+        if (data.name_region === '') {
+            return alert('Imput vacío')
+        }
+
+        try {
+            await axios.post('http://localhost:3001/v1/api/regions', data, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => {
+                    console.log(res)
+                })
+
+            await store.dispatch(getAllRegions())
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        form.region.value = ''
+    }
 
     const deleteRegion = async (e) => {
         console.log(e.target.id);
@@ -132,7 +136,7 @@ const Frominit = ({ regions }) => {
                         {
                             regions.length !== 0 ?
                                 regions.map(resp => (
-                                    <div className="flex__check" key={resp.id_region}>
+                                    <div className="flex__check">
                                         <FormControlLabel
                                             control={
                                                 <Checkbox

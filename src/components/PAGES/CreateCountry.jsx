@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 import axios from 'axios'
 import store from '../../REDUX/store';
 import { getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
-store.dispatch(getAllRegions())
-store.dispatch(getAllCountries())
+
 
 const useStyle = makeStyles(theme => ({
     content: {
@@ -44,40 +43,45 @@ const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
 
-const createCountry = async (e) => {
-    e.preventDefault()
-    const form = e.target
-    const data = {
-        "name_country": form.countryInput.value,
-        "id_region": form.regionSelect.value,
-        "id_user": userId
-    }
-
-    if (data.name_country === '') {
-        return alert('Input vacío')
-    }
-
-    try {
-        await axios.post(`http://localhost:3001/v1/api/countries`, data, {
-            headers: {
-                'Authorization': JWT,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            console.log(res)
-        })
-        await store.dispatch(getAllCountries())
-        await store.dispatch(getAllRegions())
-    } catch (error) {
-        console.log(error)
-    }
-
-    form.countryInput.value = ''
-}
-
 const CreateCountry = ({ regions }) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getAllRegions())
+        store.dispatch(getAllCountries())
+    }, [])
+
+    const createCountryFun = async (e) => {
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "name_country": form.countryInput.value,
+            "id_region": form.regionSelect.value,
+            "id_user": userId
+        }
+
+        if (data.name_country === '') {
+            return alert('Input vacío')
+        }
+
+        try {
+            await axios.post(`http://localhost:3001/v1/api/countries`, data, {
+                headers: {
+                    'Authorization': JWT,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res)
+            })
+            await store.dispatch(getAllCountries())
+            await store.dispatch(getAllRegions())
+        } catch (error) {
+            console.log(error)
+        }
+
+        form.countryInput.value = ''
+    }
+
     return (
         <>
             <NavbarUser />
@@ -86,7 +90,7 @@ const CreateCountry = ({ regions }) => {
                 <h3 style={{ textAlign: 'center' }}>Agregar País</h3>
                 <div className='container__crear'>
                     <div className='container__main__crear'>
-                        <form onSubmit={createCountry.bind()} className={classes.inputs}>
+                        <form onSubmit={createCountryFun.bind()} className={classes.inputs}>
                             <TextField
 
                                 select
@@ -101,7 +105,7 @@ const CreateCountry = ({ regions }) => {
                                 {
                                     regions.length !== 0 ?
                                         regions.map(r => (
-                                            <option key={r.id_region} value={r.id_region}>
+                                            <option value={r.id_region}>
                                                 {r.name_region}
                                             </option>
                                         ))

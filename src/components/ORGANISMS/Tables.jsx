@@ -140,7 +140,7 @@ const Tables = ({ contacts }) => {
     const [filterRows, setFilterRows] = React.useState([])
 
     contacts.map(c => {
-        rows.push({
+        return rows.push({
             id: c.id,
             urlPhoto_contact: c.Photo.urlPhoto_contact,
             name_contact: c.name_contact,
@@ -233,7 +233,6 @@ const Tables = ({ contacts }) => {
                 {
                     filterRows.length !== 0 ?
                         < DataGrid
-                            key={rows.id}
                             rows={filterRows}
                             columns={columns}
                             pageSize={7}
@@ -241,7 +240,6 @@ const Tables = ({ contacts }) => {
                             onChange={checkBox}
                         />
                         : <DataGrid
-                            key={rows.id}
                             rows={rows}
                             columns={columns}
                             pageSize={7}

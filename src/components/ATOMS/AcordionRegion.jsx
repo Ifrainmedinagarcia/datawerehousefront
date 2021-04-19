@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -18,31 +18,33 @@ import { connect } from 'react-redux';
 import store from '../../REDUX/store';
 import { getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 import axios from 'axios';
-store.dispatch(getAllCountries())
-store.dispatch(getAllcities())
-store.dispatch(getAllRegions())
-store.dispatch(getAllContacts())
-store.dispatch(getAllCompanies())
 
 const JWT = localStorage.getItem('token')
 
-const deleteRegion = async (id, path) => {
-    await axios.delete(`http://localhost:3001/v1/api/${path}/${id}`, {
-        headers: { 'Authorization': JWT }
-    })
-        .then(res => {
-            console.log(res)
-        }).catch(e => console.log(e))
-    await store.dispatch(getAllRegions())
-    await store.dispatch(getAllContacts())
-    await store.dispatch(getAllCountries())
-    await store.dispatch(getAllCompanies())
-    await store.dispatch(getAllcities())
-
-}
-
 
 const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
+    useEffect(() => {
+        store.dispatch(getAllCountries())
+        store.dispatch(getAllcities())
+        store.dispatch(getAllRegions())
+        store.dispatch(getAllContacts())
+        store.dispatch(getAllCompanies())
+    }, [])
+    const deleteRegion = async (id, path) => {
+        await axios.delete(`http://localhost:3001/v1/api/${path}/${id}`, {
+            headers: { 'Authorization': JWT }
+        })
+            .then(res => {
+                console.log(res)
+            }).catch(e => console.log(e))
+        await store.dispatch(getAllRegions())
+        await store.dispatch(getAllContacts())
+        await store.dispatch(getAllCountries())
+        await store.dispatch(getAllCompanies())
+        await store.dispatch(getAllcities())
+
+    }
+
     return (
         <Accordion >
             <AccordionSummary
@@ -119,7 +121,7 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                     </h5>
                     : countries.length !== 0 ?
                         countries.map(c => (
-                            <AccordionDetails>
+                            <AccordionDetails key={c.id_country.toString()}>
                                 <Accordion>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -180,12 +182,13 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                             </h5>
                                             : c.City.length !== 0 ?
                                                 c.City.map(t => (
-                                                    <AccordionDetails>
+                                                    <AccordionDetails key={t.id_city.toString()}>
                                                         <Accordion>
                                                             <AccordionSummary
                                                                 aria-label="Expand"
                                                                 aria-controls="additional-actions1-content"
                                                                 id={t.id_city}
+
                                                             >
                                                                 <FormControlLabel
                                                                     style={{ marginLeft: '20px' }}

@@ -1,17 +1,20 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { getAllCompanies } from '../../REDUX/actionsCreators'
 import store from '../../REDUX/store'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import FormAddEditCompany from '../ORGANISMS/FormAddEditCompany'
-store.dispatch(getAllCompanies())
-const userLocalId = localStorage.getItem('user')
-const userId = JSON.parse(userLocalId)
+
+
 const JWT = localStorage.getItem('token')
 
 
 const EditCompany = (props) => {
+
+    useEffect(() => {
+        store.dispatch(getAllCompanies())
+    }, [])
 
     const id = props.location.id
     const addressValue = props.location.addressValue

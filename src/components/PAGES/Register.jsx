@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { NavLink } from 'react-router-dom';
 import axios from 'axios'
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyle = makeStyles({
     color: {

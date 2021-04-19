@@ -1,7 +1,10 @@
 import axios from 'axios'
-import { GET_ALL_CHANNELS, GET_ALL_CITIES, GET_ALL_COMMITMENTS, GET_ALL_COMPANIES, GET_ALL_CONTACTS, GET_ALL_COUNTRIES, GET_ALL_PREFERENCE, GET_ALL_REGIONS, POST_REGIONS } from './accions'
+import { GET_ALL_CHANNELS, GET_ALL_CITIES, GET_ALL_COMMITMENTS, GET_ALL_COMPANIES, GET_ALL_CONTACTS, GET_ALL_COUNTRIES, GET_ALL_PREFERENCE, GET_ALL_REGIONS, GET_USER } from './accions'
 
+const userLocalId = localStorage.getItem('user')
+const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
+
 
 //REGIONS
 export const getAllRegions = () => dispatch => {
@@ -138,3 +141,22 @@ export const getAllcities = () => dispatch => {
         })
     })
 }
+
+//USERS
+export const getUserByid = () => dispatch => {
+    axios.get(`http://localhost:3001/v1/api/users/${userId}`, {
+        headers: {
+            'Authorization': JWT,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        console.log(res)
+        return dispatch({
+            type: GET_USER,
+            users: res.data.data
+        })
+    })
+}
+
+//catch

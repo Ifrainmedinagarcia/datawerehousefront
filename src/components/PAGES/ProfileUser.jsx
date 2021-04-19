@@ -1,14 +1,14 @@
-import React from 'react'
-import { Avatar, makeStyles, TextField, Button, ButtonGroup } from '@material-ui/core'
+import React, { useEffect } from 'react'
+import { makeStyles, TextField, Button, ButtonGroup } from '@material-ui/core'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import IconButton from '@material-ui/core/IconButton'
 import axios from 'axios'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import store from '../../REDUX/store'
-import { getAllContacts } from '../../REDUX/actionsCreators'
+import { getUserByid } from '../../REDUX/actionsCreators'
 import { connect } from 'react-redux'
-store.dispatch(getAllContacts)
+
 
 const useStyle = makeStyles(theme => ({
     content: {
@@ -62,15 +62,19 @@ const useStyle = makeStyles(theme => ({
     },
 }))
 
-const nombre = localStorage.getItem('welcome').replace('Bienvenid@', '')
+const nombre = localStorage.getItem('welcome') //.replace('Bienvenid@', '')arreglar cuando se vence el token
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
 
-const ProfileUser = ({ contacts }) => {
+const ProfileUser = (props) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getUserByid())
+    }, [])
+    const urlPhoto = props.location.urlPhoto
 
-    const [srcProps, setSrcProps] = React.useState('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
+    const [srcProps, setSrcProps] = React.useState(urlPhoto);
     const [idFoto, setIdFoto] = React.useState(null)
 
     const renderImage = async e => {
@@ -101,7 +105,7 @@ const ProfileUser = ({ contacts }) => {
                 setIdFoto(res.data.data.id_photo)
                 console.log(res)
             })
-            await store.dispatch(getAllContacts)
+            await store.dispatch(getUserByid())
         } catch (error) {
             console.log(error);
         }
@@ -123,7 +127,7 @@ const ProfileUser = ({ contacts }) => {
             }).then(res => {
                 console.log(res)
             })
-            await store.dispatch(getAllContacts)
+            await store.dispatch(getUserByid())
         } catch (error) {
             console.log(error)
         }
@@ -136,17 +140,7 @@ const ProfileUser = ({ contacts }) => {
             <main className={classes.content}>
                 <div className={classes.avatar}>
                     <input onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-                    {
-                        contacts ?
-                            contacts.map(c => (
-                                c.Photo.urlPhoto_contact !== undefined ?
-                                    <img style={{ borderRadius: '200px' }} className={classes.absolute} src={c.Photo.urlPhoto_contact} />
-                                    : <img style={{ borderRadius: '200px' }} className={classes.absolute} src={srcProps} />
-                            ))
-
-                            : <img style={{ borderRadius: '200px' }} className={classes.absolute} src={srcProps} />
-                    }
-
+                    <img style={{ borderRadius: '200px' }} className={classes.absolute} src={srcProps} alt='imageProfile' />
                     <label className={`${classes.absolute} ${classes.camera}`} htmlFor="icon-button-file">
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera />
@@ -194,7 +188,7 @@ const ProfileUser = ({ contacts }) => {
 }
 
 const mapStateToProps = state => ({
-    contacts: state.contactsReducer.contacts
+    users: state.usersReducer.users
 })
 
 export default connect(mapStateToProps, {})(ProfileUser)

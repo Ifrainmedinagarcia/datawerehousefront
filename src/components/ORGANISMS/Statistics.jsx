@@ -3,9 +3,9 @@ import Numberstatistics from '../MOLECULES/Numberstatistics'
 
 const Statistics = () => {
     return (
-        <section class=" container__statistics">
+        <section className=" container__statistics">
 
-            <div class="container__statistics__flex">
+            <div className="container__statistics__flex">
                 <Numberstatistics
                     number='+80%'
                     benef='Productividad'

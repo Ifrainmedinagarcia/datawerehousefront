@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { makeStyles } from '@material-ui/core'
@@ -6,7 +6,7 @@ import AcordionRegion from '../ATOMS/AcordionRegion'
 import { connect } from 'react-redux';
 import store from '../../REDUX/store'
 import { getAllRegions } from '../../REDUX/actionsCreators'
-store.dispatch(getAllRegions())
+
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -37,9 +37,11 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 
-
 const Region = ({ regions }) => {
     const classes = useStyle()
+    useEffect(() => {
+        store.dispatch(getAllRegions())
+    }, [])
     return (
         <>
             <NavbarUser />
@@ -51,7 +53,7 @@ const Region = ({ regions }) => {
                     regions.length !== 0 ?
                         regions.map(r => (
                             <AcordionRegion
-                                key={r.id_region}
+                                key={r.id_region.toString()}
                                 idRegion={r.id_region}
                                 labelRegion={r.name_region}
                                 countries={r.Paises}

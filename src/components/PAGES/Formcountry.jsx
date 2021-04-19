@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TitleWelcomeForm from '../MOLECULES/TitleWelcomeForm'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -17,7 +17,7 @@ import { getAllCountries } from '../../REDUX/actionsCreators'
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
-store.dispatch(getAllCountries())
+
 
 const useStyle = makeStyles({
     color: {
@@ -28,10 +28,14 @@ const useStyle = makeStyles({
     }
 })
 
-const id = []
+let id = []
 
 const Formcountry = ({ regions, countries }) => {
     const classes = useStyle()
+
+    useEffect(() => {
+        store.dispatch(getAllCountries())
+    }, [])
 
     const registerCountry = async e => {
         e.preventDefault()
@@ -123,7 +127,7 @@ const Formcountry = ({ regions, countries }) => {
                                 {
                                     regions ?
                                         regions.map(r => (
-                                            <option key={r.id_region} value={`${r.id_region}`}>{`${r.name_region}`}</option>
+                                            <option value={`${r.id_region}`}>{`${r.name_region}`}</option>
                                         ))
                                         : alert('Ocurrió un error, vaya a configurar las Regiones')
                                 }
@@ -143,8 +147,7 @@ const Formcountry = ({ regions, countries }) => {
                         {
                             countries.length !== 0 ?
                                 countries.map(c => (
-                                    <div className="flex__check" key={`${c.id_country}`}>
-                                        {console.log(c)}
+                                    <div className="flex__check">
                                         <FormControlLabel
                                             control={
                                                 <Checkbox

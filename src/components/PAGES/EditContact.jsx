@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { connect } from 'react-redux'
@@ -6,12 +6,7 @@ import FormAddEditContact from '../ORGANISMS/FormAddEditContact'
 import store from '../../REDUX/store'
 import axios from 'axios'
 import { getAllChannels, getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators'
-store.dispatch(getAllCountries())
-store.dispatch(getAllChannels())
-store.dispatch(getAllcities())
-store.dispatch(getAllCompanies())
-store.dispatch(getAllRegions())
-store.dispatch(getAllContacts())
+
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -19,6 +14,15 @@ const JWT = localStorage.getItem('token')
 
 
 const EditContact = (props) => {
+
+    useEffect(() => {
+        store.dispatch(getAllCountries())
+        store.dispatch(getAllChannels())
+        store.dispatch(getAllcities())
+        store.dispatch(getAllCompanies())
+        store.dispatch(getAllRegions())
+        store.dispatch(getAllContacts())
+    }, [])
 
     const id = props.location.id
     const src = props.location.src
@@ -39,7 +43,7 @@ const EditContact = (props) => {
 
     const [allCountry, setAllCountry] = React.useState({})
 
-    const [updateLabel, setUdateLabes] = React.useState(
+    const [updateLabel] = React.useState(
         {
             id: props.location.id,
             nombreValue: props.location.nombreValue,
@@ -55,15 +59,7 @@ const EditContact = (props) => {
             channelValue: props.location.channelValue,
             cuentaValue: props.location.cuentaValue,
             preferenceValue: props.location.preferenceValue,
-            defaultValue: props.location.defaultValue,
-
-
-            companyValue: props.location.companyValue,
-            regionValue: props.location.regionValue,
-            countryValue: props.location.countryValue,
-            cityValue: props.location.cityValue,
-            channelValue: props.location.channelValue,
-            preferenceValue: props.location.preferenceValue
+            defaultValue: props.location.defaultValue
         }
     )
 

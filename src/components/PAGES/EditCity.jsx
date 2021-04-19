@@ -1,25 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import axios from 'axios'
 import store from '../../REDUX/store';
 import { getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 import FormEditCountryCity from '../ORGANISMS/FormEditCountryCity'
-store.dispatch(getAllRegions())
-store.dispatch(getAllCountries())
 
-const userLocalId = localStorage.getItem('user')
-const userId = JSON.parse(userLocalId)
+
 const JWT = localStorage.getItem('token')
 
 
 const EditCity = (props) => {
 
+    useEffect(() => {
+        store.dispatch(getAllRegions())
+        store.dispatch(getAllCountries())
+    }, [])
+
     const id = props.location.id
     const labelCountry = props.location.labelCountry
     const valueInputCity = props.location.valueInputCity
 
-    const [idPut, setIdPut] = React.useState(id);
+    const [idPut] = React.useState(id);
     const [valuePut, setValuePut] = React.useState(valueInputCity)
 
     const editCityAction = async e => {

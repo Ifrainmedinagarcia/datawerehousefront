@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, makeStyles, TextField, ButtonGroup, AccordionSummary } from '@material-ui/core'
+import { makeStyles, TextField, ButtonGroup } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
@@ -102,7 +102,7 @@ const FormAddEditContact = (
             <h3 style={{ textAlign: 'center' }}>{title}</h3>
             <div className={classes.avatar}>
                 <input name='image' onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-                <img style={{ borderRadius: '200px' }} className={classes.absolute} src={src} />
+                <img style={{ borderRadius: '200px' }} className={classes.absolute} src={src} alt='imageProfile' />
                 <label className={`${classes.absolute} ${classes.camera}`} htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
                         <PhotoCamera />
@@ -142,7 +142,6 @@ const FormAddEditContact = (
                         >
                         </TextField>
                         <TextField
-                            name='compania'
                             select
                             name='idComany'
                             label={companyValue}
@@ -151,16 +150,15 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" value="" selected></option>
+                            <option aria-label="None" defaultValue selected disabled></option>
                             {
                                 companies.length !== 0 ?
                                     companies.map(c => (
-                                        <option key={c.id_company} value={c.id_company}>
+                                        <option key={c.id_company.toString()} value={c.id_company}>
                                             {c.name_company}
                                         </option>
                                     ))
-                                    : <option>Aun no hay compañías ingresadas</option>
-
+                                    : <option disabled>Aun no hay compañías ingresadas</option>
                             }
                         </TextField>
                     </div>
@@ -178,21 +176,18 @@ const FormAddEditContact = (
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" disabled selected></option>
+                    <option aria-label="None" defaultValue selected disabled></option>
                     {
                         regions.length !== 0 ?
                             regions.map(r => (
-                                <option key={r.id_region} value={r.id_region}>
+                                <option key={r.id_region.toString()} value={r.id_region}>
                                     {r.name_region}
                                 </option>
                             ))
-                            : <option>
-                                Debe configurar una ciudad
-                        </option>
+                            : <option disabled> Debe configurar una ciudad</option>
                     }
                 </TextField>
                 <TextField
-                    name
                     select
                     onChange={CityFromCountry}
                     label={countryValue}
@@ -202,15 +197,15 @@ const FormAddEditContact = (
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" disabled selected></option>
+                    <option aria-label="None" defaultValue selected disabled></option>
                     {
                         allRegion.data !== undefined ?
                             allRegion.data.data.Paises.map(c => (
-                                <option key={c.id_country} value={c.id_country}>
+                                <option key={c.id_country.toString()} value={c.id_country}>
                                     {c.name_country}
                                 </option>
                             ))
-                            : <option>Debes agregar un país</option>
+                            : <option disabled>Debes agregar un país</option>
                     }
                 </TextField>
                 <TextField
@@ -222,17 +217,19 @@ const FormAddEditContact = (
                         native: true,
                     }}
                 >
-                    <option aria-label="None" value="" disabled selected></option>
+                    <option aria-label="None" defaultValue selected disabled></option>
                     {
                         allCountry.data !== undefined ?
                             allCountry.data.data.City.map(c => (
-                                <option key={c.id_city} value={c.id_city}>
+
+                                <option key={c.id_city.toString()} value={c.id_city}>
                                     {c.name_city}
                                 </option>
+
+
                             ))
                             : <option disabled>Debes agregar un ciudad</option>
                     }
-
                 </TextField>
                 <TextField
                     className={classes.inputText}
@@ -255,16 +252,16 @@ const FormAddEditContact = (
                             native: true,
                         }}
                     >
-                        <option aria-label="None" value="" selected></option>
+                        <option aria-label="None" defaultValue selected disabled></option>
 
                         {
                             channels.length !== 0 ?
                                 channels.map(c => (
-                                    <option key={c.id_channel_comunication} value={c.id_channel_comunication}>
+                                    <option key={c.id_channel_comunication.toString()} value={c.id_channel_comunication}>
                                         {c.name_channel}
                                     </option>
                                 ))
-                                : <option>Hay un error, recarge la página</option>
+                                : <option disabled>Hay un error, recarge la página</option>
                         }
 
                     </TextField>
@@ -284,16 +281,16 @@ const FormAddEditContact = (
                             native: true,
                         }}
                     >
-                        <option aria-label="None" value="" selected></option>
+                        <option aria-label="None" defaultValue disabled selected></option>
                         {
                             preferences.length !== 0 ?
                                 preferences.map(p => (
-                                    <option key={p.id_preference} value={p.id_preference}>
+                                    <option key={p.id_preference.toString()} value={p.id_preference}>
                                         {p.name_preference}
                                     </option>
 
                                 ))
-                                : <option>Hay un error, recargue la página</option>
+                                : <option disabled>Hay un error, recargue la página</option>
                         }
 
                     </TextField>

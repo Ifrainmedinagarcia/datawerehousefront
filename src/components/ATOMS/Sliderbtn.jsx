@@ -49,7 +49,6 @@ const Sliderbtn = ({ name, defaultValue }) => {
             Nivel de interés
             <Slider
                 name={name}
-                step={25}
                 min={0}
                 max={4}
                 defaultValue={defaultValue || 1}

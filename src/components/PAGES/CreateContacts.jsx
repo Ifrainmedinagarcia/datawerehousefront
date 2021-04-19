@@ -1,17 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import { connect } from 'react-redux';
 import store from '../../REDUX/store';
-import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAllContacts, getAllPreferences } from '../../REDUX/actionsCreators';
+import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAllContacts, getAllPreferences, getAllRegions } from '../../REDUX/actionsCreators';
 import axios from 'axios'
 import FormAddEditContact from '../ORGANISMS/FormAddEditContact';
-store.dispatch(getAllChannels())
-store.dispatch(getAllCommitments())
-store.dispatch(getAllPreferences())
-store.dispatch(getAllCompanies())
-store.dispatch(getAllcities())
-store.dispatch(getAllContacts())
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -26,6 +20,17 @@ const CreateContacts = (
         companies
 
     }) => {
+
+    useEffect(() => {
+        store.dispatch(getAllChannels())
+        store.dispatch(getAllCommitments())
+        store.dispatch(getAllPreferences())
+        store.dispatch(getAllCompanies())
+        store.dispatch(getAllcities())
+        store.dispatch(getAllContacts())
+        store.dispatch(getAllRegions())
+
+    }, [])
 
     const [src, setSrc] = React.useState('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png');
 

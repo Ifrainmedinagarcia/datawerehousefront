@@ -12,7 +12,7 @@ const EditRegion = (props) => {
     const id = props.location.id
     const value = props.location.value
 
-    const [idPut, setIdPut] = React.useState(id);
+    const [idPut] = React.useState(id);
     const [valuePut, setValuePut] = React.useState(value)
 
     const editRegionAction = async e => {
@@ -53,7 +53,7 @@ const EditRegion = (props) => {
     return (
         <FormAddEditRegion
             title='Editar Region'
-            nameBtn='Editar'
+            nameBtn='Editar'    
             submitBtn={editRegionAction.bind()}
             valueInput={valuePut}
         />

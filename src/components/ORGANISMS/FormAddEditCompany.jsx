@@ -46,7 +46,7 @@ const FormAddEditCompany = ({ title, btnName, SubmitBtn, addressValue, valueCoun
                             className={classes.inputText}
                             label={valueNameCompany}
                             size="small"
-                            name='nombreCompany'    
+                            name='nombreCompany'
                         >
                         </TextField>
 
@@ -63,14 +63,12 @@ const FormAddEditCompany = ({ title, btnName, SubmitBtn, addressValue, valueCoun
                             {
                                 countries.length !== 0 ?
                                     countries.map(c => (
-                                        <option key={c.id_country} value={c.id_country}>
+                                        <option key={c.id_country.toString()} value={c.id_country}>
                                             {c.name_country}
                                         </option>
                                     ))
-                                    : <option>Debes agregar un país</option>
+                                    : <option disabled>Debes agregar un país</option>
                             }
-
-
                         </TextField>
                         <TextField
                             className={classes.inputText}
