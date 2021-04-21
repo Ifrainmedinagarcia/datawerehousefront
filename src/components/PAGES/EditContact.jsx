@@ -43,6 +43,8 @@ const EditContact = (props) => {
 
     const [allCountry, setAllCountry] = React.useState({})
 
+    const [errorGeneral] = React.useState(false)
+
     const [updateLabel] = React.useState(
         {
             id: props.location.id,
@@ -128,7 +130,9 @@ const EditContact = (props) => {
                 console.log(res)
             })
         } catch (error) {
-            console.log(error);
+            if (error) {
+                alert('El tamaño de la imagen supera los 2MB, por favor elegir una foto menor a 2MB')
+            }
         }
     }
 
@@ -199,6 +203,18 @@ const EditContact = (props) => {
                 regions={props.regions}
                 channels={props.channels}
                 preferences={props.preferences}
+                errorName={errorGeneral}
+                errorLast={errorGeneral}
+                errorPoss={errorGeneral}
+                errorAddress={errorGeneral}
+                errorEmail={errorGeneral}
+                errorAccount={errorGeneral}
+                errorCompany={errorGeneral}
+                errorRegion={errorGeneral}
+                errorCountry={errorGeneral}
+                errorCity={errorGeneral}
+                errorChannel={errorGeneral}
+                errorDis={errorGeneral}
                 renderImage={renderImage}
                 CityFromCountry={CityFromCountry}
                 countryFromRegion={countryFromRegion}

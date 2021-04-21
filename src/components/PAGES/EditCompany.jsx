@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import { getAllCompanies } from '../../REDUX/actionsCreators'
+import { getAllCompanies, getAllCountries } from '../../REDUX/actionsCreators'
 import store from '../../REDUX/store'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
@@ -14,6 +14,7 @@ const EditCompany = (props) => {
 
     useEffect(() => {
         store.dispatch(getAllCompanies())
+        store.dispatch(getAllCountries())
     }, [])
 
     const id = props.location.id

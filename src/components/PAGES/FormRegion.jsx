@@ -10,6 +10,8 @@ import axios from 'axios'
 import store from '../../REDUX/store'
 import { getAllRegions } from '../../REDUX/actionsCreators'
 import { connect } from 'react-redux'
+store.dispatch(getAllRegions())
+
 
 const useStyle = makeStyles({
     color: {
@@ -28,10 +30,10 @@ const JWT = localStorage.getItem('token')
 let id = []
 
 const Frominit = ({ regions }) => {
-    const classes = useStyle()
     useEffect(() => {
         store.dispatch(getAllRegions())
     }, [])
+    const classes = useStyle()
 
     const registerRegion = async (e) => {
         e.preventDefault()

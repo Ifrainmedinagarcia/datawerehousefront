@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import Select from '@material-ui/core/Select';
 import store from '../../REDUX/store'
 import axios from 'axios'
-import { getAllCompanies } from '../../REDUX/actionsCreators'
+import { getAllCompanies, getAllCountries } from '../../REDUX/actionsCreators'
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -32,6 +32,7 @@ const Formcompany = ({ countries, companies }) => {
     const classes = useStyle()
 
     useEffect(() => {
+        store.dispatch(getAllCountries())
         store.dispatch(getAllCompanies())
     }, []);
 

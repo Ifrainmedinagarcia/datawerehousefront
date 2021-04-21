@@ -25,13 +25,14 @@ import EditCountry from './components/PAGES/EditCountry';
 import EditCity from './components/PAGES/EditCity';
 import EditContact from './components/PAGES/EditContact';
 import EditCompany from './components/PAGES/EditCompany';
+import theme from './components/HOC/temaConfig';
 
 
 
 function App() {
   return (
     <>
-      <ThemeProvider>
+      <ThemeProvider theme={theme}>
         <Router>
           <Switch>
             <Public path="/" exact component={Home} />

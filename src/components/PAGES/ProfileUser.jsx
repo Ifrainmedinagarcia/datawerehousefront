@@ -62,7 +62,7 @@ const useStyle = makeStyles(theme => ({
     },
 }))
 
-const nombre = localStorage.getItem('welcome') //.replace('Bienvenid@', '')arreglar cuando se vence el token
+const nombre = localStorage.getItem('welcome')
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
@@ -80,7 +80,6 @@ const ProfileUser = (props) => {
     const renderImage = async e => {
         const file = e.target.files[0]
         const reader = new FileReader()
-        console.log(file)
 
         reader.onloadend = function () {
             let url = reader.result
@@ -103,11 +102,14 @@ const ProfileUser = (props) => {
                 }
             }).then(res => {
                 setIdFoto(res.data.data.id_photo)
-                console.log(res)
             })
             await store.dispatch(getUserByid())
         } catch (error) {
-            console.log(error);
+            if (error) {
+                alert('El tamaño de la imagen supera los 2MB, por favor elegir una foto menor a 2MB')
+                setSrcProps('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
+            }
+
         }
     }
 
@@ -140,7 +142,11 @@ const ProfileUser = (props) => {
             <main className={classes.content}>
                 <div className={classes.avatar}>
                     <input onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-                    <img style={{ borderRadius: '200px' }} className={classes.absolute} src={srcProps} alt='imageProfile' />
+                    {
+                        srcProps !== undefined ?
+                            <img style={{ borderRadius: '200px' }} className={classes.absolute} src={srcProps} alt='imageProfile' />
+                            : <img style={{ borderRadius: '200px' }} className={classes.absolute} src='https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png' alt='imageProfile' />
+                    }
                     <label className={`${classes.absolute} ${classes.camera}`} htmlFor="icon-button-file">
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera />

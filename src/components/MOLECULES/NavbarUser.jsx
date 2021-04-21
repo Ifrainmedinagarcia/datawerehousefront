@@ -21,6 +21,7 @@ const useStyles = makeStyles({
 
 const NavbarUser = ({ users }) => {
     const classes = useStyles()
+
     useEffect(() => {
         store.dispatch(getUserByid())
     }, [])
@@ -51,9 +52,9 @@ const NavbarUser = ({ users }) => {
                 <ul className="nav__container__lists__flex">
                     <IconButton aria-label="" onClick={handleClick}>
                         {
-                            users.Photo !== undefined ?
+                            users.Photo ?
                                 <Avatar className={classes.tamaño} alt="Remy Sharp" src={users.Photo.urlPhoto_contact} />
-                                : <Avatar className={classes.tamaño} alt="Remy Sharp" src='https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png' />
+                            : <Avatar className={classes.tamaño} alt="Remy Sharp" src='https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png' />
                         }
                     </IconButton>
                     <Menu
@@ -64,7 +65,7 @@ const NavbarUser = ({ users }) => {
                         onClose={handleClose}
                     >
                         {
-                            users.Photo !== undefined ?
+                            users.Photo ?
                                 <Link to={{
                                     pathname: '/profile',
                                     urlPhoto: users.Photo.urlPhoto_contact,

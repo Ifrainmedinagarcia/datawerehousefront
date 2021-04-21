@@ -7,6 +7,7 @@ import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAl
 import axios from 'axios'
 import FormAddEditContact from '../ORGANISMS/FormAddEditContact';
 
+
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
@@ -40,6 +41,31 @@ const CreateContacts = (
 
     const [allCountry, setAllCountry] = React.useState({})
 
+    const [errorName, setErrorName] = React.useState(false)
+
+    const [errorLast, setErrorLast] = React.useState(false)
+
+    const [errorPoss, setErrorPoss] = React.useState(false)
+
+    const [errorAddress, setErrorAddress] = React.useState(false)
+
+    const [errorEmail, setErrorEmail] = React.useState(false)
+
+    const [errorAccount, setErrorAccount] = React.useState(false)
+
+    const [errorCompany, setErrorCompany] = React.useState(false)
+
+    const [errorRegion, setErrorRegion] = React.useState(false)
+
+    const [errorCountry, setErrorCountry] = React.useState(false)
+
+    const [errorCity, setErrorCity] = React.useState(false)
+
+    const [errorChannel, setErrorChannel] = React.useState(false)
+
+    const [errorDis, setErrorDis] = React.useState(false)
+
+
     const countryFromRegion = async (e) => {
         try {
             await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
@@ -51,7 +77,6 @@ const CreateContacts = (
             }).then(res => {
                 setAllRegion(res)
                 setAllCountry('')
-                console.log(res)
             })
         } catch (error) {
             console.log(error)
@@ -70,7 +95,6 @@ const CreateContacts = (
                 }
             }).then(resp => {
                 setAllCountry(resp)
-                console.log(allCountry);
             })
         } catch (error) {
             console.log(error)
@@ -104,7 +128,9 @@ const CreateContacts = (
                 setIdFoto(res.data.data.id_photo)
             })
         } catch (error) {
-            console.log(error);
+            if (error) {
+                alert('El tamaño de la imagen supera los 2MB, por favor elegir una foto menor a 2MB')
+            }
         }
     }
 
@@ -128,8 +154,42 @@ const CreateContacts = (
             "id_channel_comunication": parseInt(form.idChannel.value),
             "id_user": userId
         }
-        if (data.name_contact === '' && data.lastname_contact === '' && data.position === '' && data.address === '' && data.email_contact === '' && data.contact_account === '') {
-            return alert('Por favor llenar correctamente los campos requeridos')
+
+        if (data.name_contact === '') {
+            setErrorName(true)
+        }
+        if (data.lastname_contact === '') {
+            setErrorLast(true)
+        }
+        if (data.position === '') {
+            setErrorPoss(true)
+        }
+        if (data.address === '') {
+            setErrorAddress(true)
+        }
+        if (data.email_contact === '') {
+            setErrorEmail(true)
+        }
+        if (data.contact_account === '') {
+            setErrorAccount(true)
+        }
+        if (isNaN(data.id_company)) {
+            setErrorCompany(true)
+        }
+        if (isNaN(data.id_region)) {
+            setErrorRegion(true)
+        }
+        if (isNaN(data.id_region)) {
+            setErrorCountry(true)
+        }
+        if (isNaN(data.id_city)) {
+            setErrorCity(true)
+        }
+        if (isNaN(data.id_channel_comunication)) {
+            setErrorChannel(true)
+        }
+        if (isNaN(data.id_preference)) {
+            setErrorDis(true)
         }
 
         try {
@@ -141,12 +201,30 @@ const CreateContacts = (
                 }
             }).then(res => {
                 console.log(res)
+                setErrorName(false)
+                setErrorLast(false)
+                setErrorPoss(false)
+                setErrorAddress(false)
+                setErrorEmail(false)
+                setErrorAccount(false)
+                setErrorCompany(false)
+                setErrorRegion(false)
+                setErrorCity(false)
+                setErrorChannel(false)
+                setErrorDis(false)
+                setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
+
             })
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error);
-
+            console.log(error.response);
+            if (error.response.data.error === '"id_photo" must be a number') {
+                alert('Por favor elegir una foto para el contacto')
+                setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
+            }
+            return
         }
+
         form.nombre.value = ''
         form.apellido.value = ''
         form.cargo.value = ''
@@ -161,7 +239,6 @@ const CreateContacts = (
         form.sliderCommitment.value = 1
         form.idChannel.value = ''
     }
-
     return (
         <>
             <NavbarUser />
@@ -191,6 +268,18 @@ const CreateContacts = (
                 addressValue='Dirección'
                 channelValue='Canal de contacto'
                 cuentaValue='Cuenta'
+                errorName={errorName}
+                errorLast={errorLast}
+                errorPoss={errorPoss}
+                errorAddress={errorAddress}
+                errorEmail={errorEmail}
+                errorAccount={errorAccount}
+                errorCompany={errorCompany}
+                errorRegion={errorRegion}
+                errorCountry={errorCountry}
+                errorCity={errorCity}
+                errorChannel={errorChannel}
+                errorDis={errorDis}
                 preferenceValue='Disponibilidad'
             />
         </>
