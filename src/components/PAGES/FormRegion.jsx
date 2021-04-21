@@ -12,7 +12,6 @@ import { getAllRegions } from '../../REDUX/actionsCreators'
 import { connect } from 'react-redux'
 store.dispatch(getAllRegions())
 
-
 const useStyle = makeStyles({
     color: {
         color: '#F7F9FC'
@@ -26,14 +25,14 @@ const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
 
-
 let id = []
 
 const Frominit = ({ regions }) => {
+    const classes = useStyle()
+
     useEffect(() => {
         store.dispatch(getAllRegions())
-    }, [])
-    const classes = useStyle()
+    }, []);
 
     const registerRegion = async (e) => {
         e.preventDefault()

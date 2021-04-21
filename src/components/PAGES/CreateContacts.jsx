@@ -6,12 +6,13 @@ import store from '../../REDUX/store';
 import { getAllChannels, getAllcities, getAllCommitments, getAllCompanies, getAllContacts, getAllPreferences, getAllRegions } from '../../REDUX/actionsCreators';
 import axios from 'axios'
 import FormAddEditContact from '../ORGANISMS/FormAddEditContact';
+import SimpleBackdrop from '../ATOMS/SimpleBackdrop';
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars';
 
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
-
 
 const CreateContacts = (
     {
@@ -65,6 +66,9 @@ const CreateContacts = (
 
     const [errorDis, setErrorDis] = React.useState(false)
 
+    const [loader, setLoader] = React.useState(false)
+
+    const [message, setMessage] = React.useState(false)
 
     const countryFromRegion = async (e) => {
         try {
@@ -80,9 +84,7 @@ const CreateContacts = (
             })
         } catch (error) {
             console.log(error)
-
         }
-
     }
 
     const CityFromCountry = async e => {
@@ -120,6 +122,7 @@ const CreateContacts = (
         formdata.append("file", file)
 
         try {
+            setLoader(true)
             await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
@@ -131,6 +134,9 @@ const CreateContacts = (
             if (error) {
                 alert('El tamaño de la imagen supera los 2MB, por favor elegir una foto menor a 2MB')
             }
+        }
+        finally {
+            setLoader(false)
         }
     }
 
@@ -193,6 +199,8 @@ const CreateContacts = (
         }
 
         try {
+            setLoader(true)
+            setMessage(false)
             await axios.post('http://localhost:3001/v1/api/contacts', data, {
                 headers: {
                     'Authorization': JWT,
@@ -212,17 +220,20 @@ const CreateContacts = (
                 setErrorCity(false)
                 setErrorChannel(false)
                 setErrorDis(false)
+                setMessage(true)
                 setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
 
             })
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error.response);
             if (error.response.data.error === '"id_photo" must be a number') {
                 alert('Por favor elegir una foto para el contacto')
                 setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
             }
             return
+        }
+        finally {
+            setLoader(false)
         }
 
         form.nombre.value = ''
@@ -239,10 +250,23 @@ const CreateContacts = (
         form.sliderCommitment.value = 1
         form.idChannel.value = ''
     }
+
     return (
         <>
             <NavbarUser />
             <Cajon />
+            {
+                loader ?
+                    <SimpleBackdrop />
+                    : ''
+            }
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Contacto Creado con éxito'
+                    />
+                    : ''
+            }
             <FormAddEditContact
                 title='Crear Contacto'
                 channels={channels}

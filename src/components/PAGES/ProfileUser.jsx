@@ -8,6 +8,8 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import store from '../../REDUX/store'
 import { getUserByid } from '../../REDUX/actionsCreators'
 import { connect } from 'react-redux'
+import SimpleBackdrop from '../ATOMS/SimpleBackdrop'
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars'
 
 
 const useStyle = makeStyles(theme => ({
@@ -63,6 +65,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const nombre = localStorage.getItem('welcome')
+const apellido = localStorage.getItem('apellido')
+const name = localStorage.getItem('name')
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
 const JWT = localStorage.getItem('token')
@@ -72,6 +76,11 @@ const ProfileUser = (props) => {
     useEffect(() => {
         store.dispatch(getUserByid())
     }, [])
+
+    const [loader, setLoader] = React.useState(false)
+
+    const [message, setMessage] = React.useState(false)
+
     const urlPhoto = props.location.urlPhoto
 
     const [srcProps, setSrcProps] = React.useState(urlPhoto);
@@ -96,6 +105,7 @@ const ProfileUser = (props) => {
         formdata.append("file", file)
 
         try {
+            setLoader(true)
             await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
@@ -109,7 +119,9 @@ const ProfileUser = (props) => {
                 alert('El tamaño de la imagen supera los 2MB, por favor elegir una foto menor a 2MB')
                 setSrcProps('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
             }
-
+        }
+        finally {
+            setLoader(false)
         }
     }
 
@@ -120,6 +132,7 @@ const ProfileUser = (props) => {
         }
 
         try {
+            setMessage(false)
             await axios.put(`http://localhost:3001/v1/api/users/${userId}`, data, {
                 headers: {
                     'Authorization': JWT,
@@ -127,7 +140,7 @@ const ProfileUser = (props) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
+                setMessage(true)
             })
             await store.dispatch(getUserByid())
         } catch (error) {
@@ -139,6 +152,18 @@ const ProfileUser = (props) => {
         <>
             <NavbarUser />
             <Cajon />
+            {
+                loader ?
+                    <SimpleBackdrop />
+                    : ''
+            }
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Foto de perfil actualizada'
+                    />
+                    : ''
+            }
             <main className={classes.content}>
                 <div className={classes.avatar}>
                     <input onChange={renderImage} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
@@ -161,7 +186,7 @@ const ProfileUser = (props) => {
                 <form onSubmit={updateUser.bind()} className='contenedorInfo'>
                     <TextField
                         className={classes.inputText}
-                        label="Ifrain David"
+                        label={name}
                         size="small"
                         selected
                         disabled
@@ -169,7 +194,7 @@ const ProfileUser = (props) => {
                     </TextField>
                     <TextField
                         className={classes.inputText}
-                        label="Medina García"
+                        label={apellido}
                         size="small"
                         selected
                         disabled

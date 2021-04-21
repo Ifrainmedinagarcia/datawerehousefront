@@ -18,6 +18,9 @@ import { connect } from 'react-redux';
 import store from '../../REDUX/store';
 import { getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 import axios from 'axios';
+import { Typography } from '@material-ui/core';
+import SpringModal from './SpringModal';
+import SimpleBackdrop from './SimpleBackdrop';
 
 const JWT = localStorage.getItem('token')
 
@@ -71,14 +74,14 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                             control={<Checkbox style={{ display: 'none' }} />}
                             label='Aún no hay Regiones ingresadas'
                         />
-
                 }
                 {
                     labelRegion !== undefined ?
                         <Tooltip title='Eliminar'>
-                            <IconButton onClick={() => deleteRegion(idRegion, 'regions')}>
-                                <DeleteIcon style={{ color: Red[700] }} />
-                            </IconButton>
+                            <SpringModal
+                                description='Si eliminas esta región estarías eliminando todo lo que depende de ella (Ciudad/Países/Compañías/Contactos)'
+                                eliminar={() => deleteRegion(idRegion, 'regions')}
+                            />
                         </Tooltip>
                         : ''
                 }
@@ -110,15 +113,17 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
             </AccordionSummary>
             {
                 !countries ?
-                    <h5>No hay Países
-                        <Link to='/add/country'>
+                    <Typography style={{ marginLeft: '20px' }} variant='h6'>
+                        No hay Países
+                                <Link to='/add/country'>
                             <Tooltip title='Agregar'>
                                 <IconButton>
                                     <AddIcon style={{ color: blue[700] }} />
                                 </IconButton>
                             </Tooltip>
                         </Link>
-                    </h5>
+                    </Typography>
+
                     : countries.length !== 0 ?
                         countries.map(c => (
                             <AccordionDetails key={c.id_country.toString()}>
@@ -171,7 +176,8 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                     </AccordionSummary>
                                     {
                                         !c.City ?
-                                            <h5>No hay ciudades
+                                            <Typography variant='h6' style={{ marginLeft: '20px' }}>
+                                                No hay ciudades
                                             <Link to='/ingresar/city'>
                                                     <Tooltip title='Agregar'>
                                                         <IconButton>
@@ -179,7 +185,8 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                         </IconButton>
                                                     </Tooltip>
                                                 </Link>
-                                            </h5>
+                                            </Typography>
+
                                             : c.City.length !== 0 ?
                                                 c.City.map(t => (
                                                     <AccordionDetails key={t.id_city.toString()}>
@@ -232,7 +239,8 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                         </Accordion>
                                                     </AccordionDetails>
                                                 ))
-                                                : <h5>No hay ciudades
+                                                : <Typography variant='h6' style={{ marginLeft: '20px' }}>
+                                                    No hay Ciudades
                                                     <Link to='/ingresar/city'>
                                                         <Tooltip title='Agregar'>
                                                             <IconButton>
@@ -240,12 +248,13 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                             </IconButton>
                                                         </Tooltip>
                                                     </Link>
-                                                </h5>
+                                                </Typography>
                                     }
                                 </Accordion>
                             </AccordionDetails>
                         ))
-                        : <h5>No hay Países
+                        : <Typography style={{ marginLeft: '20px' }} variant='h6'>
+                            No hay Países
                             <Link to='/add/country'>
                                 <Tooltip title='Agregar'>
                                     <IconButton>
@@ -253,9 +262,9 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                     </IconButton>
                                 </Tooltip>
                             </Link>
-                        </h5>
-            }
 
+                        </Typography>
+            }
         </Accordion>
     )
 }

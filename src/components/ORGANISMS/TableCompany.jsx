@@ -13,6 +13,9 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import store from '../../REDUX/store'
 import { getAllCompanies, getAllContacts } from '../../REDUX/actionsCreators'
+import SpringModal from '../ATOMS/SpringModal'
+import SimpleBackdrop from '../ATOMS/SimpleBackdrop'
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars'
 
 const useStyle = makeStyles({
     color: {
@@ -33,18 +36,27 @@ const TableCompany = ({ companies }) => {
         store.dispatch(getAllContacts())
     }, [])
 
+    const [loader, setLoader] = React.useState(false)
+
+    const [message, setMessage] = React.useState(false)
+
     let rows = []
     const [filterRowsCompany, setFilterRowsCompany] = React.useState([])
     const [idFullCompany, setIdFullCompany] = React.useState([])
 
     const deleteFull = async () => {
         try {
+            setLoader(true)
+            setMessage(false)
             idFullCompany.forEach((element, index) => {
                 axios.delete(`http://localhost:3001/v1/api/companies/${element}`, {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
                         setIdFullCompany([])
+                        setMessage(true)
+                        store.dispatch(getAllCompanies())
+                        store.dispatch(getAllContacts())
                     })
             })
             await store.dispatch(getAllCompanies())
@@ -52,19 +64,28 @@ const TableCompany = ({ companies }) => {
         } catch (error) {
             console.log(error)
         }
+        finally {
+            setLoader(false)
+        }
     }
 
     const deleteCompany = async id => {
         try {
+            setLoader(true)
+            setMessage(false)
             await axios.delete(`http://localhost:3001/v1/api/companies/${id}`, {
                 headers: { 'Authorization': JWT }
             }).then(res => {
                 setIdFullCompany([])
+                setMessage(true)
             })
             await store.dispatch(getAllCompanies())
             await store.dispatch(getAllContacts())
         } catch (error) {
             console.log(error)
+        }
+        finally {
+            setLoader(false)
         }
     }
 
@@ -77,12 +98,12 @@ const TableCompany = ({ companies }) => {
             headerName: 'Acciones',
             width: 120,
             renderCell: (params) => (
-                <strong>
-                    <Tooltip title='Eliminar'>
-                        <IconButton onClick={() => deleteCompany(params.id)}>
-                            <DeleteIcon style={{ color: Red[700] }} />
-                        </IconButton>
-                    </Tooltip>
+                <>
+                    <SpringModal
+                        description='Si Eliminas esta compañía estarías eliminando todos los contactos que dependen de ella'
+                        eliminar={() => deleteCompany(params.id)}
+                    />
+
                     <Link style={{ background: 'transparent' }} to={{
                         pathname: '/update/company',
                         id: params.row.id,
@@ -96,7 +117,7 @@ const TableCompany = ({ companies }) => {
                             </IconButton>
                         </Tooltip>
                     </Link>
-                </strong>
+                </>
             ),
         },
     ]
@@ -141,6 +162,18 @@ const TableCompany = ({ companies }) => {
     return (
         <>
             <h3>Compañías</h3>
+            {
+                loader ?
+                    <SimpleBackdrop />
+                    : ''
+            }
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Compañía eliminada con éxito'
+                    />
+                    : ''
+            }
             <div>
                 <TextField
                     className='busqueda'
@@ -154,15 +187,20 @@ const TableCompany = ({ companies }) => {
                         Crear Compañía
                     </Button>
                 </NavLink>
-                {
-                    idFullCompany.length !== 0 ?
-                        <Tooltip title='Eliminar' onClick={() => deleteFull()}>
-                            <IconButton >
-                                <DeleteIcon style={{ color: Red[700] }} />
-                            </IconButton>
-                        </Tooltip>
-                        : ''
-                }
+                <span>
+                    {
+                        idFullCompany.length !== 0 ?
+                            <>
+                                <SpringModal
+                                    description='Si Eliminas estas compañías estarías eliminando todos los contactos que dependen de ellas'
+                                    eliminar={() => deleteFull()}
+                                />
+
+                            </>
+                            : ''
+                    }
+
+                </span>
             </div>
             <div style={{ height: 500, width: '100%' }}>
                 {

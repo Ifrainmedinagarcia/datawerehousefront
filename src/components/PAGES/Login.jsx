@@ -6,35 +6,41 @@ import { makeStyles } from '@material-ui/core/styles'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 
+
 const useStyle = makeStyles({
     color: {
         color: '#F7F9FC'
     }
 })
-const loginUser = e => {
-    e.preventDefault()
-    const form = e.target
-    const data = {
-        "email_user": form.email.value,
-        "password_user": form.passwordUser.value
-    }
-    axios.post('http://localhost:3001/v1/api/auth/login', data)
-        .then(res => {
-            console.log(res);
-            localStorage.setItem('token', res.data.token)
-            localStorage.setItem('welcome', res.data.data)
-            localStorage.setItem('user', JSON.stringify(res.data.user.id_user))
-            window.location = '/welcome'
-        }).catch(e => {
-            if (e) {
-                alert('Credenciales Inválidas')
-            }
-        })
-}
 
-const Login = () => {
-
+const Login = ({ regions }) => {
     const classes = useStyle()
+
+
+    const loginUser = e => {
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "email_user": form.email.value,
+            "password_user": form.passwordUser.value
+        }
+        axios.post('http://localhost:3001/v1/api/auth/login', data)
+            .then(res => {
+                console.log(res);
+                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('welcome', res.data.data)
+                localStorage.setItem('apellido', res.data.user.lastname_user)
+                localStorage.setItem('name', res.data.user.name_user)
+                localStorage.setItem('user', JSON.stringify(res.data.user.id_user))
+                window.location = '/welcome'
+            }).catch(e => {
+                if (e) {
+                    alert('Credenciales Inválidas')
+                }
+            })
+    }
+
+
     return (
         <>
             <header className="header__flex">
@@ -84,5 +90,7 @@ const Login = () => {
         </>
     )
 }
+
+
 
 export default Login

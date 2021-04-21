@@ -20,8 +20,15 @@ export const getAllRegions = () => dispatch => {
                 type: GET_ALL_REGIONS,
                 regions: res.data.data
             })
-        }).catch(e => console.log(e))
-
+        }).catch(e => {
+            if (e.response.data.error === "token no válido") {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.removeItem('welcome')
+                localStorage.removeItem('apellido')
+                localStorage.removeItem('name')
+            }
+        })
 }
 
 //COUNTRIES
@@ -38,7 +45,15 @@ export const getAllCountries = () => dispatch => {
                 type: GET_ALL_COUNTRIES,
                 countries: res.data.data
             })
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            if (e.response.data.error === "token no válido") {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.removeItem('welcome')
+                localStorage.removeItem('apellido')
+                localStorage.removeItem('name')
+            }
+        })
 
 }
 
@@ -56,7 +71,15 @@ export const getAllCompanies = () => dispatch => {
                 type: GET_ALL_COMPANIES,
                 companies: res.data.data
             })
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            if (e.response.data.error === "token no válido") {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.removeItem('welcome')
+                localStorage.removeItem('apellido')
+                localStorage.removeItem('name')
+            }
+        })
 
 }
 
@@ -74,7 +97,15 @@ export const getAllContacts = () => dispatch => {
                 type: GET_ALL_CONTACTS,
                 contacts: res.data.data
             })
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            if (e.response.data.error === "token no válido") {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.removeItem('welcome')
+                localStorage.removeItem('apellido')
+                localStorage.removeItem('name')
+            }
+        })
 }
 
 //CHANNELS
@@ -91,7 +122,15 @@ export const getAllChannels = () => dispatch => {
                 type: GET_ALL_CHANNELS,
                 channels: res.data.data
             })
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            if (e.response.data.error === "token no válido") {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.removeItem('welcome')
+                localStorage.removeItem('apellido')
+                localStorage.removeItem('name')
+            }
+        })
 }
 
 //COMMITMENTS
@@ -107,6 +146,14 @@ export const getAllCommitments = () => dispatch => {
             type: GET_ALL_COMMITMENTS,
             commitments: res.data.data
         })
+    }).catch(e => {
+        if (e.response.data.error === "token no válido") {
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            localStorage.removeItem('welcome')
+            localStorage.removeItem('apellido')
+            localStorage.removeItem('name')
+        }
     })
 }
 
@@ -123,6 +170,14 @@ export const getAllPreferences = () => dispatch => {
             type: GET_ALL_PREFERENCE,
             preferences: res.data.data
         })
+    }).catch(e => {
+        if (e.response.data.error === "token no válido") {
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            localStorage.removeItem('welcome')
+            localStorage.removeItem('apellido')
+            localStorage.removeItem('name')
+        }
     })
 }
 
@@ -139,6 +194,14 @@ export const getAllcities = () => dispatch => {
             type: GET_ALL_CITIES,
             cities: res.data.data
         })
+    }).catch(e => {
+        if (e.response.data.error === "token no válido") {
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            localStorage.removeItem('welcome')
+            localStorage.removeItem('apellido')
+            localStorage.removeItem('name')
+        }
     })
 }
 
@@ -156,7 +219,13 @@ export const getUserByid = () => dispatch => {
             type: GET_USER,
             users: res.data.data
         })
+    }).catch(e => {
+        if (e.response.data.error === "token no válido") {
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            localStorage.removeItem('welcome')
+            localStorage.removeItem('apellido')
+            localStorage.removeItem('name')
+        }
     })
 }
-
-//catch

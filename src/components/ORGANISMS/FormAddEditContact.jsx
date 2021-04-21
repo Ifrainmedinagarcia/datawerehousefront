@@ -400,8 +400,6 @@ const FormAddEditContact = (
                         </TextField>
 
                 }
-
-
                 {
                     errorAddress === false ?
                         <TextField
