@@ -20,7 +20,6 @@ import { getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllR
 import axios from 'axios';
 import { Typography } from '@material-ui/core';
 import SpringModal from './SpringModal';
-import SimpleBackdrop from './SimpleBackdrop';
 
 const JWT = localStorage.getItem('token')
 
@@ -77,12 +76,12 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                 }
                 {
                     labelRegion !== undefined ?
-                        <Tooltip title='Eliminar'>
-                            <SpringModal
-                                description='Si eliminas esta región estarías eliminando todo lo que depende de ella (Ciudad/Países/Compañías/Contactos)'
-                                eliminar={() => deleteRegion(idRegion, 'regions')}
-                            />
-                        </Tooltip>
+
+                        <SpringModal
+                            description='Si eliminas esta región estarías eliminando todo lo que depende de ella (Ciudad/Países/Compañías/Contactos)'
+                            eliminar={() => deleteRegion(idRegion, 'regions')}
+                        />
+
                         : ''
                 }
 
@@ -142,11 +141,10 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                             control={<Checkbox style={{ display: 'none' }} />}
                                             label={c.name_country}
                                         />
-                                        <Tooltip title='Eliminar'>
-                                            <IconButton onClick={() => deleteRegion(c.id_country, 'countries')}>
-                                                <DeleteIcon style={{ color: Red[700] }} />
-                                            </IconButton>
-                                        </Tooltip>
+                                        <SpringModal
+                                            description='Si eliminas esta país estarías eliminando todo lo que depende de el (/Compañías/Contactos)'
+                                            eliminar={() => deleteRegion(c.id_country, 'countries')}
+                                        />
 
                                         <Link to={{
                                             pathname: '/editar/country',
@@ -205,11 +203,11 @@ const AcordionRegion = ({ idRegion, labelRegion, countries }) => {
                                                                     control={<Checkbox style={{ display: 'none' }} />}
                                                                     label={t.name_city}
                                                                 />
-                                                                <Tooltip title='Eliminar'>
-                                                                    <IconButton onClick={() => deleteRegion(t.id_city, 'cities')}>
-                                                                        <DeleteIcon style={{ color: Red[700] }} />
-                                                                    </IconButton>
-                                                                </Tooltip>
+                                                                <SpringModal
+                                                                    description='Si eliminas esta ciudad estarías eliminando todo lo que depende de ella (Compañías/Contactos)'
+                                                                    eliminar={() => deleteRegion(t.id_city, 'cities')}
+                                                                />
+
 
                                                                 <Link to={{
                                                                     pathname: '/modificar/city',

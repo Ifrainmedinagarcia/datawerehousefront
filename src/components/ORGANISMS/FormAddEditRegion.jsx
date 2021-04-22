@@ -34,7 +34,7 @@ const useStyle = makeStyles(theme => ({
 
 }))
 
-const FormAddEditRegion = ({ title, nameBtn, submitBtn, valueInput }) => {
+const FormAddEditRegion = ({ title, nameBtn, submitBtn, valueInput}) => {
     const classes = useStyle()
     return (
         <>

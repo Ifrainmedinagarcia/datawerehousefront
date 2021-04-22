@@ -6,6 +6,7 @@ import FormAddEditContact from '../ORGANISMS/FormAddEditContact'
 import store from '../../REDUX/store'
 import axios from 'axios'
 import { getAllChannels, getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators'
+import SimpleBackdrop from '../ATOMS/SimpleBackdrop'
 
 
 const userLocalId = localStorage.getItem('user')
@@ -14,6 +15,7 @@ const JWT = localStorage.getItem('token')
 
 
 const EditContact = (props) => {
+    const [loader, setLoader] = React.useState(false)
 
     useEffect(() => {
         store.dispatch(getAllCountries())
@@ -121,6 +123,7 @@ const EditContact = (props) => {
         formdata.append("file", file)
 
         try {
+            setLoader(true)
             await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
@@ -133,6 +136,9 @@ const EditContact = (props) => {
             if (error) {
                 alert('El tamaño de la imagen supera los 2MB, por favor elegir una foto menor a 2MB')
             }
+        }
+        finally {
+            setLoader(false)
         }
     }
 
@@ -179,6 +185,11 @@ const EditContact = (props) => {
         <>
             <NavbarUser />
             <Cajon />
+            {
+                loader ?
+                    <SimpleBackdrop />
+                    : ''
+            }
             <FormAddEditContact
                 title='Editar Contactos'
                 nameBtn='Actualizar'

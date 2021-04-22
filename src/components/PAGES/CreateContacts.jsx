@@ -106,7 +106,6 @@ const CreateContacts = (
     const renderImage = async e => {
         const file = e.target.files[0]
         const reader = new FileReader()
-        console.log(file)
         reader.onloadend = function () {
             let url = reader.result
             setSrc(url)
@@ -208,7 +207,6 @@ const CreateContacts = (
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
                 setErrorName(false)
                 setErrorLast(false)
                 setErrorPoss(false)

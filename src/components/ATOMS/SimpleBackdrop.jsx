@@ -16,9 +16,6 @@ export default function SimpleBackdrop() {
   const handleClose = () => {
     setOpen(true);
   };
-  const handleToggle = () => {
-    setOpen(!open);
-  }
 
   return (
     <div>

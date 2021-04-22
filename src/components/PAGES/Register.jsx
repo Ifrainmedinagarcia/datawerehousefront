@@ -12,35 +12,41 @@ const useStyle = makeStyles({
     }
 })
 
-const registerUser = e => {
-
-    e.preventDefault()
-    const form = e.target
-    const data = {
-        "name_user": form.nombre.value,
-        "lastname_user": form.apellido.value,
-        "password_user": form.pass.value,
-        "email_user": form.correo.value
-    }
-    if (data.password_user === form.newpass.value) {
-        axios.post('http://localhost:3001/v1/api/auth/register', data)
-            .then(res => {
-                console.log(res)
-                window.location = '/login'
-            }).catch(error => {
-                if (error.response.data.error.name === 'SequelizeUniqueConstraintError') {
-                    alert('Ususario ya existe, por favor inicie sesión')
-                } else {
-                    alert('Error inesperado del servidor')
-                }
-            })
-
-    } else {
-        alert('Las contraseñas no coinciden');
-    }
-}
-
 const Register = () => {
+    const [passError, setPassError] = React.useState(false)
+
+    const registerUser = async e => {
+
+        e.preventDefault()
+        const form = e.target
+        const data = {
+            "name_user": form.nombre.value,
+            "lastname_user": form.apellido.value,
+            "password_user": form.pass.value,
+            "email_user": form.correo.value
+        }
+        try {
+            setPassError(false)
+            if (data.password_user === form.newpass.value) {
+                await axios.post('http://localhost:3001/v1/api/auth/register', data)
+                    .then(res => {
+                        console.log(res)
+                        window.location = '/login'
+                    })
+
+            } else {
+                setPassError(true)
+            }
+        } catch (error) {
+
+            if (error.response.data.error.name === 'SequelizeUniqueConstraintError') {
+                alert('Ususario ya existe, por favor inicie sesión')
+            } else {
+                alert('Error inesperado del servidor')
+            }
+        }
+
+    }
 
     const classes = useStyle()
 
@@ -83,27 +89,54 @@ const Register = () => {
                         margin="dense"
                         required />
 
-                    <TextField
-                        className='input'
-                        name='pass'
+                    {
+                        passError ?
+                            <TextField
+                                className='input'
+                                name='pass'
+                                type="password"
+                                label="Contraseña"
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                error
+                            />
+                            : <TextField
+                                className='input'
+                                name='pass'
+                                type="password"
+                                label="Contraseña"
+                                variant="outlined"
+                                margin="dense"
+                                required
+                            />
+                    }
+                    {
+                        passError ?
+                            <TextField
+                                className='input'
+                                name='newpass'
+                                type="password"
+                                error
+                                helperText="Las contraseñas deben ser iguales"
+                                label="Repetir contraseña"
+                                variant="outlined"
+                                margin="dense"
+                                required
+                            />
+                            : <TextField
+                                className='input'
+                                name='newpass'
+                                type="password"
+                                label="Repetir contraseña"
+                                variant="outlined"
+                                margin="dense"
+                                required
+                            />
 
-                        type="password"
-                        label="Contraseña"
-                        variant="outlined"
-                        margin="dense"
-                        required
-                    />
+                    }
 
-                    <TextField
-                        className='input'
-                        name='newpass'
 
-                        type="password"
-                        label="Repetir contraseña"
-                        variant="outlined"
-                        margin="dense"
-                        required
-                    />
 
                 </div>
 

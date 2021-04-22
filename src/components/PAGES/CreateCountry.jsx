@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import axios from 'axios'
 import store from '../../REDUX/store';
 import { getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars';
 
 
 const useStyle = makeStyles(theme => ({
@@ -45,6 +46,8 @@ const JWT = localStorage.getItem('token')
 
 const CreateCountry = ({ regions }) => {
     const classes = useStyle()
+    const [message, setMessage] = React.useState(false)
+
     useEffect(() => {
         store.dispatch(getAllRegions())
         store.dispatch(getAllCountries())
@@ -64,6 +67,7 @@ const CreateCountry = ({ regions }) => {
         }
 
         try {
+            setMessage(false)
             await axios.post(`http://localhost:3001/v1/api/countries`, data, {
                 headers: {
                     'Authorization': JWT,
@@ -71,12 +75,12 @@ const CreateCountry = ({ regions }) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
+                setMessage(true)
             })
             await store.dispatch(getAllCountries())
             await store.dispatch(getAllRegions())
         } catch (error) {
-            console.log(error)
+            alert(`Ha ocurrido un error inesperado: ${e}`)
         }
 
         form.countryInput.value = ''
@@ -86,13 +90,19 @@ const CreateCountry = ({ regions }) => {
         <>
             <NavbarUser />
             <Cajon />
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='País agregado con éxito'
+                    />
+                    : ''
+            }
             <main className={classes.content}>
                 <h3 style={{ textAlign: 'center' }}>Agregar País</h3>
                 <div className='container__crear'>
                     <div className='container__main__crear'>
                         <form onSubmit={createCountryFun.bind()} className={classes.inputs}>
                             <TextField
-
                                 select
                                 name='regionSelect'
                                 label="Región"

@@ -3,10 +3,9 @@ import axios from 'axios'
 import store from '../../REDUX/store'
 import FormAddEditRegion from '../ORGANISMS/FormAddEditRegion'
 import { getAllRegions } from '../../REDUX/actionsCreators'
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars'
 
 const JWT = localStorage.getItem('token')
-
-
 
 const EditRegion = (props) => {
     const id = props.location.id
@@ -14,6 +13,7 @@ const EditRegion = (props) => {
 
     const [idPut] = React.useState(id);
     const [valuePut, setValuePut] = React.useState(value)
+    const [message, setMessage] = React.useState(false)
 
     const editRegionAction = async e => {
         e.preventDefault()
@@ -27,6 +27,7 @@ const EditRegion = (props) => {
         }
 
         try {
+            setMessage(false)
             await axios.put(`http://localhost:3001/v1/api/regions/${idPut}`, data, {
                 headers: {
                     'Authorization': JWT,
@@ -35,28 +36,33 @@ const EditRegion = (props) => {
                 }
 
             }).then(res => {
-                console.log(res)
                 setValuePut(form.regionForm.value)
-
+                setMessage(true)
             })
 
             await store.dispatch(getAllRegions())
 
         } catch (error) {
-            console.log(error)
+            alert(`Ha ocurrido un error inesperado: ${e}`)
         }
-
         form.regionForm.value = ''
-
     }
-
     return (
-        <FormAddEditRegion
-            title='Editar Region'
-            nameBtn='Editar'    
-            submitBtn={editRegionAction.bind()}
-            valueInput={valuePut}
-        />
+        <>
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Región actualizada con éxito'
+                    />
+                    : ''
+            }
+            <FormAddEditRegion
+                title='Editar Region'
+                nameBtn='Editar'
+                submitBtn={editRegionAction.bind()}
+                valueInput={valuePut}
+            />
+        </>
     )
 }
 

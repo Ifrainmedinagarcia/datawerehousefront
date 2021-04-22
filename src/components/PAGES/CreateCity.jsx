@@ -6,6 +6,8 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { makeStyles, TextField, ButtonGroup, Button } from '@material-ui/core'
 import { getAllcities, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars'
+
 
 
 const useStyle = makeStyles(theme => ({
@@ -53,6 +55,8 @@ const CreateCity = ({ countries }) => {
         store.dispatch(getAllRegions())
     }, [])
 
+    const [message, setMessage] = React.useState(false)
+
     const addCity = async e => {
         e.preventDefault()
         const form = e.target
@@ -66,6 +70,7 @@ const CreateCity = ({ countries }) => {
         }
 
         try {
+            setMessage(false)
             await axios.post(`http://localhost:3001/v1/api/cities`, data, {
                 headers: {
                     'Authorization': JWT,
@@ -73,7 +78,8 @@ const CreateCity = ({ countries }) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
+                setMessage(true)
+
             })
             await store.dispatch(getAllcities())
             await store.dispatch(getAllRegions())
@@ -88,6 +94,13 @@ const CreateCity = ({ countries }) => {
         <>
             <NavbarUser />
             <Cajon />
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Ciudad Agregada con éxito'
+                    />
+                    : ''
+            }
             <main className={classes.content}>
                 <h3 style={{ textAlign: 'center' }}>Agregar Ciudad</h3>
                 <div className='container__crear'>
