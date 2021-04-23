@@ -71,7 +71,7 @@ const CreateCity = ({ countries }) => {
 
         try {
             setMessage(false)
-            await axios.post(`http://localhost:3001/v1/api/cities`, data, {
+            await axios.post(`https://datawerehouse.herokuapp.com/v1/api/cities`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -84,7 +84,7 @@ const CreateCity = ({ countries }) => {
             await store.dispatch(getAllcities())
             await store.dispatch(getAllRegions())
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
         form.cityInput.value = ''

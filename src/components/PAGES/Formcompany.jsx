@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import store from '../../REDUX/store'
 import axios from 'axios'
 import { getAllCompanies, getAllCountries } from '../../REDUX/actionsCreators'
+import { NavLink } from 'react-router-dom'
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -51,7 +52,7 @@ const Formcompany = ({ countries, companies }) => {
         }
 
         try {
-            await axios.post('http://localhost:3001/v1/api/companies', data, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/companies', data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -76,7 +77,7 @@ const Formcompany = ({ countries, companies }) => {
         e.preventDefault()
         try {
             id.forEach((element, index) => {
-                axios.delete(`http://localhost:3001/v1/api/companies/${element}`, {
+                axios.delete(`https://datawerehouse.herokuapp.com/v1/api/companies/${element}`, {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
@@ -89,7 +90,7 @@ const Formcompany = ({ countries, companies }) => {
                 id = []
             }
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
@@ -176,7 +177,10 @@ const Formcompany = ({ countries, companies }) => {
                                     companies.length === 0 ?
                                         <Button disabled type='button' href='/contacts' className={`${classes.color}`} variant="text" >Continuar</Button>
 
-                                        : <Button type='button' href='/contacts' className={`${classes.color}`} variant="text" >Continuar</Button>
+                                        : 
+                                        <NavLink to='/contacts'>
+                                            <Button type='button' className={`btn__card ${classes.color}`} variant="text" >Continuar</Button>
+                                        </NavLink>
                                 }
                                 <Button type='submit' className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
                             </ButtonGroup>

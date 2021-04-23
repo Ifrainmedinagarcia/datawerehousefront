@@ -28,7 +28,7 @@ const Register = () => {
         try {
             setPassError(false)
             if (data.password_user === form.newpass.value) {
-                await axios.post('http://localhost:3001/v1/api/auth/register', data)
+                await axios.post('https://datawerehouse.herokuapp.com/v1/api/auth/register', data)
                     .then(res => {
                         console.log(res)
                         window.location = '/login'

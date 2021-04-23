@@ -5,6 +5,7 @@ import axios from 'axios'
 import store from '../../REDUX/store';
 import { getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 import FormEditCountryCity from '../ORGANISMS/FormEditCountryCity'
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars';
 
 
 const JWT = localStorage.getItem('token')
@@ -23,7 +24,7 @@ const EditCity = (props) => {
 
     const [idPut] = React.useState(id);
     const [valuePut, setValuePut] = React.useState(valueInputCity)
-
+    const [message, setMessage] = React.useState(false)
     const editCityAction = async e => {
         e.preventDefault()
         const form = e.target
@@ -36,7 +37,8 @@ const EditCity = (props) => {
         }
 
         try {
-            await axios.put(`http://localhost:3001/v1/api/cities/${idPut}`, data, {
+            setMessage(false)
+            await axios.put(`https://datawerehouse.herokuapp.com/v1/api/cities/${idPut}`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -44,29 +46,33 @@ const EditCity = (props) => {
                 }
 
             }).then(res => {
-                console.log(res)
                 setValuePut(form.countryInput.value)
-
+                setMessage(true)
             })
 
             await store.dispatch(getAllRegions())
 
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
         form.countryInput.value = ''
 
     }
-
-
-
     return (
         <>
             <NavbarUser />
             <Cajon />
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Ciudad editada con éxito'
+                    />
+                    : ''
+            }
             <FormEditCountryCity
                 title='Editar Cuidad'
+                titleLabel='País'
                 submitBtn={editCityAction.bind()}
                 valueInput={valuePut}
                 labelRegion={labelCountry}

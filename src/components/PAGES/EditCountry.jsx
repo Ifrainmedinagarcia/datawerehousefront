@@ -5,6 +5,7 @@ import axios from 'axios'
 import store from '../../REDUX/store';
 import { getAllCountries, getAllRegions } from '../../REDUX/actionsCreators';
 import FormEditCountryCity from '../ORGANISMS/FormEditCountryCity'
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars';
 
 const userLocalId = localStorage.getItem('user')
 const userId = JSON.parse(userLocalId)
@@ -25,6 +26,7 @@ const EditCountry = (props) => {
 
     const [idPut] = React.useState(id);
     const [valuePut, setValuePut] = React.useState(labelCountry)
+    const [message, setMessage] = React.useState(false)
 
     const editCountryAction = async e => {
         e.preventDefault()
@@ -40,7 +42,8 @@ const EditCountry = (props) => {
         }
 
         try {
-            await axios.put(`http://localhost:3001/v1/api/countries/${idPut}`, data, {
+            setMessage(false)
+            await axios.put(`https://datawerehouse.herokuapp.com/v1/api/countries/${idPut}`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -48,15 +51,14 @@ const EditCountry = (props) => {
                 }
 
             }).then(res => {
-                console.log(res)
+                setMessage(true)
                 setValuePut(form.countryInput.value)
-
             })
 
             await store.dispatch(getAllRegions())
 
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
         form.countryInput.value = ''
@@ -67,8 +69,16 @@ const EditCountry = (props) => {
         <>
             <NavbarUser />
             <Cajon />
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='País editado con éxito'
+                    />
+                    : ''
+            }
             <FormEditCountryCity
                 title='Editar País'
+                titleLabel='Región'
                 submitBtn={editCountryAction.bind()}
                 valueInput={valuePut}
                 labelRegion={labelRegion}

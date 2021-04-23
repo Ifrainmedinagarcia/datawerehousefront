@@ -213,7 +213,7 @@ const FormAddEditContact = (
                                         native: true,
                                     }}
                                 >
-                                    <option aria-label="None" defaultValue selected disabled></option>
+                                    <option aria-label="None" ></option>
                                     {
                                         companies.length !== 0 ?
                                             companies.map(c => (
@@ -235,7 +235,7 @@ const FormAddEditContact = (
                                         native: true,
                                     }}
                                 >
-                                    <option aria-label="None" defaultValue selected disabled></option>
+                                    <option aria-label="None" ></option>
                                     {
                                         companies.length !== 0 ?
                                             companies.map(c => (
@@ -265,7 +265,7 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" defaultValue selected disabled></option>
+                            <option aria-label="None" ></option>
                             {
                                 regions.length !== 0 ?
                                     regions.map(r => (
@@ -273,7 +273,7 @@ const FormAddEditContact = (
                                             {r.name_region}
                                         </option>
                                     ))
-                                    : <option disabled> Debe configurar una ciudad</option>
+                                    : <option disabled> Debe seleccionar una region</option>
                             }
                         </TextField>
                         : <TextField
@@ -288,7 +288,7 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" defaultValue selected disabled></option>
+                            <option aria-label="None"></option>
                             {
                                 regions.length !== 0 ?
                                     regions.map(r => (
@@ -296,7 +296,7 @@ const FormAddEditContact = (
                                             {r.name_region}
                                         </option>
                                     ))
-                                    : <option disabled> Debe configurar una ciudad</option>
+                                    : <option disabled> Debe seleccionar una region</option>
                             }
                         </TextField>
                 }
@@ -312,7 +312,7 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" defaultValue selected disabled></option>
+                            <option aria-label="None" ></option>
                             {
                                 allRegion.data !== undefined ?
                                     allRegion.data.data.Paises.map(c => (
@@ -320,7 +320,7 @@ const FormAddEditContact = (
                                             {c.name_country}
                                         </option>
                                     ))
-                                    : <option disabled>Debes agregar un país</option>
+                                    : <option disabled>Debes seleccionar una Región</option>
                             }
                         </TextField>
                         : <TextField
@@ -335,7 +335,7 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" defaultValue selected disabled></option>
+                            <option aria-label="None"></option>
                             {
                                 allRegion.data !== undefined ?
                                     allRegion.data.data.Paises.map(c => (
@@ -343,7 +343,7 @@ const FormAddEditContact = (
                                             {c.name_country}
                                         </option>
                                     ))
-                                    : <option disabled>Debes agregar un país</option>
+                                    : <option disabled>Debes seleccionar una Región</option>
                             }
                         </TextField>
                 }
@@ -359,7 +359,7 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" defaultValue selected disabled></option>
+                            <option aria-label="None"></option>
                             {
                                 allCountry.data !== undefined ?
                                     allCountry.data.data.City.map(c => (
@@ -370,7 +370,7 @@ const FormAddEditContact = (
 
 
                                     ))
-                                    : <option disabled>Debes agregar un ciudad</option>
+                                    : <option disabled>Debes seleccionar un País</option>
                             }
                         </TextField>
                         : <TextField
@@ -384,7 +384,7 @@ const FormAddEditContact = (
                                 native: true,
                             }}
                         >
-                            <option aria-label="None" defaultValue selected disabled></option>
+                            <option aria-label="None" ></option>
                             {
                                 allCountry.data !== undefined ?
                                     allCountry.data.data.City.map(c => (
@@ -392,10 +392,8 @@ const FormAddEditContact = (
                                         <option key={c.id_city.toString()} value={c.id_city}>
                                             {c.name_city}
                                         </option>
-
-
                                     ))
-                                    : <option disabled>Debes agregar un ciudad</option>
+                                    : <option disabled>Debes seleccionar un País</option>
                             }
                         </TextField>
 
@@ -436,7 +434,7 @@ const FormAddEditContact = (
                                     native: true,
                                 }}
                             >
-                                <option aria-label="None" defaultValue selected disabled></option>
+                                <option aria-label="None"></option>
 
                                 {
                                     channels.length !== 0 ?
@@ -460,7 +458,7 @@ const FormAddEditContact = (
                                     native: true,
                                 }}
                             >
-                                <option aria-label="None" defaultValue selected disabled></option>
+                                <option aria-label="None" ></option>
 
                                 {
                                     channels.length !== 0 ?
@@ -505,7 +503,7 @@ const FormAddEditContact = (
                                     native: true,
                                 }}
                             >
-                                <option aria-label="None" defaultValue disabled selected></option>
+                                <option aria-label="None"></option>
                                 {
                                     preferences.length !== 0 ?
                                         preferences.map(p => (
@@ -529,7 +527,7 @@ const FormAddEditContact = (
                                     native: true,
                                 }}
                             >
-                                <option aria-label="None" defaultValue disabled selected></option>
+                                <option aria-label="None" ></option>
                                 {
                                     preferences.length !== 0 ?
                                         preferences.map(p => (

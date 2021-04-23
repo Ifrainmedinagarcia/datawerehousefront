@@ -83,7 +83,7 @@ const CreateCompany = ({ countries }) => {
         try {
             setLoader(true)
             setMessage(false)
-            await axios.post('http://localhost:3001/v1/api/companies', data, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/companies', data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -98,7 +98,7 @@ const CreateCompany = ({ countries }) => {
             })
             await store.dispatch(getAllCompanies())
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
             return
         }
         finally {

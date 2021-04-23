@@ -27,7 +27,7 @@ const CreateRegion = () => {
 
         try {
             setMessage(false)
-            await axios.post('http://localhost:3001/v1/api/regions', data, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/regions', data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -41,7 +41,7 @@ const CreateRegion = () => {
             await store.dispatch(getAllRegions())
 
         } catch (error) {
-            console.log(error);
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
         form.regionForm.value = ''

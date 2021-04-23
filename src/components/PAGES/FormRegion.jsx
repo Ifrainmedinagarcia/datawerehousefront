@@ -10,6 +10,7 @@ import axios from 'axios'
 import store from '../../REDUX/store'
 import { getAllRegions } from '../../REDUX/actionsCreators'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 store.dispatch(getAllRegions())
 
 const useStyle = makeStyles({
@@ -47,7 +48,7 @@ const Frominit = ({ regions }) => {
         }
 
         try {
-            await axios.post('http://localhost:3001/v1/api/regions', data, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/regions', data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -61,7 +62,7 @@ const Frominit = ({ regions }) => {
             await store.dispatch(getAllRegions())
 
         } catch (error) {
-            console.log(error);
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
         form.region.value = ''
@@ -72,7 +73,7 @@ const Frominit = ({ regions }) => {
         e.preventDefault()
         try {
             id.forEach((element, index) => {
-                axios.delete(`http://localhost:3001/v1/api/regions/${element}`, {
+                axios.delete(`https://datawerehouse.herokuapp.com/v1/api/regions/${element}`, {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
@@ -85,7 +86,7 @@ const Frominit = ({ regions }) => {
                 id = []
             }
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
@@ -137,7 +138,7 @@ const Frominit = ({ regions }) => {
                         {
                             regions.length !== 0 ?
                                 regions.map(resp => (
-                                    <div className="flex__check">
+                                    <div key={resp.id_region.toString()} className="flex__check">
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
@@ -160,7 +161,9 @@ const Frominit = ({ regions }) => {
                                     regions.length === 0 ?
                                         <Button type='button' disabled href='/country/config' className={`${classes.color}`} variant="text" >Continuar</Button>
                                         :
-                                        <Button type='button' href='/country/config' className={`${classes.color}`} variant="text" >Continuar</Button>
+                                        <NavLink to='/country/config'>
+                                            <Button type='button' className={`btn__card ${classes.color}`} variant="text" >Continuar</Button>
+                                        </NavLink>
                                 }
                                 <Button type='submit' className={`danger ${classes.color}`} variant="text" color="default">Eliminar</Button>
                             </ButtonGroup>

@@ -36,7 +36,7 @@ const useStyle = makeStyles(theme => ({
 }))
 
 
-const FormEditCountryCity = ({ title, submitBtn, valueInput, labelRegion }) => {
+const FormEditCountryCity = ({ title, submitBtn, valueInput, labelRegion, titleLabel }) => {
     const classes = useStyle()
     return (
         <>
@@ -50,7 +50,7 @@ const FormEditCountryCity = ({ title, submitBtn, valueInput, labelRegion }) => {
                             <TextField
                                 select
                                 name='regionSelect'
-                                label="Región"
+                                label={titleLabel}
                                 className={classes.inputText}
                                 SelectProps={{
                                     native: true,

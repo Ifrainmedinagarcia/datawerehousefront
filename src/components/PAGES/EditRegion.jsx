@@ -28,7 +28,7 @@ const EditRegion = (props) => {
 
         try {
             setMessage(false)
-            await axios.put(`http://localhost:3001/v1/api/regions/${idPut}`, data, {
+            await axios.put(`https://datawerehouse.herokuapp.com/v1/api/regions/${idPut}`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -43,7 +43,7 @@ const EditRegion = (props) => {
             await store.dispatch(getAllRegions())
 
         } catch (error) {
-            alert(`Ha ocurrido un error inesperado: ${e}`)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
         form.regionForm.value = ''
     }

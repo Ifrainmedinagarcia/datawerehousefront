@@ -8,7 +8,7 @@ const JWT = localStorage.getItem('token')
 
 //REGIONS
 export const getAllRegions = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/regions', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/regions', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -21,7 +21,7 @@ export const getAllRegions = () => dispatch => {
                 regions: res.data.data
             })
         }).catch(e => {
-            if (e.response.data.error === "token no válido") {
+            if (e.response) {
                 localStorage.removeItem('token')
                 localStorage.removeItem('user')
                 localStorage.removeItem('welcome')
@@ -33,7 +33,7 @@ export const getAllRegions = () => dispatch => {
 
 //COUNTRIES
 export const getAllCountries = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/countries', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/countries', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -46,7 +46,7 @@ export const getAllCountries = () => dispatch => {
                 countries: res.data.data
             })
         }).catch(e => {
-            if (e.response.data.error === "token no válido") {
+            if (e.response) {
                 localStorage.removeItem('token')
                 localStorage.removeItem('user')
                 localStorage.removeItem('welcome')
@@ -59,7 +59,7 @@ export const getAllCountries = () => dispatch => {
 
 //COMPANIES
 export const getAllCompanies = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/companies', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/companies', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -72,7 +72,7 @@ export const getAllCompanies = () => dispatch => {
                 companies: res.data.data
             })
         }).catch(e => {
-            if (e.response.data.error === "token no válido") {
+            if (e.response.error === "token no válido") {
                 localStorage.removeItem('token')
                 localStorage.removeItem('user')
                 localStorage.removeItem('welcome')
@@ -85,7 +85,7 @@ export const getAllCompanies = () => dispatch => {
 
 //CONTACTS
 export const getAllContacts = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/contacts', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/contacts', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -98,7 +98,7 @@ export const getAllContacts = () => dispatch => {
                 contacts: res.data.data
             })
         }).catch(e => {
-            if (e.response.data.error === "token no válido") {
+            if (e.response) {
                 localStorage.removeItem('token')
                 localStorage.removeItem('user')
                 localStorage.removeItem('welcome')
@@ -110,7 +110,7 @@ export const getAllContacts = () => dispatch => {
 
 //CHANNELS
 export const getAllChannels = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/channels', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/channels', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -123,7 +123,7 @@ export const getAllChannels = () => dispatch => {
                 channels: res.data.data
             })
         }).catch(e => {
-            if (e.response.data.error === "token no válido") {
+            if (e.response) {
                 localStorage.removeItem('token')
                 localStorage.removeItem('user')
                 localStorage.removeItem('welcome')
@@ -135,7 +135,7 @@ export const getAllChannels = () => dispatch => {
 
 //COMMITMENTS
 export const getAllCommitments = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/commiment', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/commiment', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -147,7 +147,7 @@ export const getAllCommitments = () => dispatch => {
             commitments: res.data.data
         })
     }).catch(e => {
-        if (e.response.data.error === "token no válido") {
+        if (e.response) {
             localStorage.removeItem('token')
             localStorage.removeItem('user')
             localStorage.removeItem('welcome')
@@ -159,7 +159,7 @@ export const getAllCommitments = () => dispatch => {
 
 //PREFERENCES
 export const getAllPreferences = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/preferences', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/preferences', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -171,7 +171,7 @@ export const getAllPreferences = () => dispatch => {
             preferences: res.data.data
         })
     }).catch(e => {
-        if (e.response.data.error === "token no válido") {
+        if (e.response) {
             localStorage.removeItem('token')
             localStorage.removeItem('user')
             localStorage.removeItem('welcome')
@@ -183,7 +183,7 @@ export const getAllPreferences = () => dispatch => {
 
 //CITIES
 export const getAllcities = () => dispatch => {
-    axios.get('http://localhost:3001/v1/api/cities', {
+    axios.get('https://datawerehouse.herokuapp.com/v1/api/cities', {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
@@ -195,7 +195,7 @@ export const getAllcities = () => dispatch => {
             cities: res.data.data
         })
     }).catch(e => {
-        if (e.response.data.error === "token no válido") {
+        if (e.response) {
             localStorage.removeItem('token')
             localStorage.removeItem('user')
             localStorage.removeItem('welcome')
@@ -207,20 +207,19 @@ export const getAllcities = () => dispatch => {
 
 //USERS
 export const getUserByid = () => dispatch => {
-    axios.get(`http://localhost:3001/v1/api/users/${userId}`, {
+    axios.get(`https://datawerehouse.herokuapp.com/v1/api/users/${userId}`, {
         headers: {
             'Authorization': JWT,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
     }).then(res => {
-        console.log(res)
         return dispatch({
             type: GET_USER,
             users: res.data.data
         })
     }).catch(e => {
-        if (e.response.data.error === "token no válido") {
+        if (e.response) {
             localStorage.removeItem('token')
             localStorage.removeItem('user')
             localStorage.removeItem('welcome')

@@ -7,6 +7,9 @@ import store from '../../REDUX/store'
 import axios from 'axios'
 import { getAllChannels, getAllcities, getAllCompanies, getAllContacts, getAllCountries, getAllRegions } from '../../REDUX/actionsCreators'
 import SimpleBackdrop from '../ATOMS/SimpleBackdrop'
+import { useHistory } from "react-router-dom"
+import CustomizedSnackbars from '../ATOMS/CustomizedSnackbars'
+
 
 
 const userLocalId = localStorage.getItem('user')
@@ -16,6 +19,7 @@ const JWT = localStorage.getItem('token')
 
 const EditContact = (props) => {
     const [loader, setLoader] = React.useState(false)
+    let history = useHistory()
 
     useEffect(() => {
         store.dispatch(getAllCountries())
@@ -47,6 +51,8 @@ const EditContact = (props) => {
 
     const [errorGeneral] = React.useState(false)
 
+    const [message, setMessage] = React.useState(false)
+
     const [updateLabel] = React.useState(
         {
             id: props.location.id,
@@ -68,8 +74,13 @@ const EditContact = (props) => {
     )
 
     const countryFromRegion = async (e) => {
+        if (e.target.value === '') {
+            setAllRegion({})
+            setAllCountry({})
+            return
+        }
         try {
-            await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
+            await axios.get(`https://datawerehouse.herokuapp.com/v1/api/regions/${e.target.value}`, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -77,19 +88,22 @@ const EditContact = (props) => {
                 }
             }).then(res => {
                 setAllRegion(res)
-                setAllCountry('')
+                setAllCountry({})
                 console.log(res)
             })
         } catch (error) {
-            console.log(error)
-
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
     }
 
     const CityFromCountry = async e => {
+        if (e.target.value === '') {
+            setAllCountry({})
+            return
+        }
         try {
-            await axios.get(`http://localhost:3001/v1/api/countries/${e.target.value}`, {
+            await axios.get(`https://datawerehouse.herokuapp.com/v1/api/countries/${e.target.value}`, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -97,10 +111,9 @@ const EditContact = (props) => {
                 }
             }).then(resp => {
                 setAllCountry(resp)
-                console.log(allCountry);
             })
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
@@ -124,7 +137,7 @@ const EditContact = (props) => {
 
         try {
             setLoader(true)
-            await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
                 }
@@ -164,22 +177,24 @@ const EditContact = (props) => {
         }
 
         try {
-            await axios.put(`http://localhost:3001/v1/api/contacts/${id}`, data, {
+            setMessage(false)
+            await axios.put(`https://datawerehouse.herokuapp.com/v1/api/contacts/${id}`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
-                console.log(data);
+                store.dispatch(getAllContacts())
+                setMessage(true)
             })
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error);
-
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
-        window.location = '/contacts'
+        finally {
+            history.push('/contacts')
+        }
     }
     return (
         <>
@@ -188,6 +203,13 @@ const EditContact = (props) => {
             {
                 loader ?
                     <SimpleBackdrop />
+                    : ''
+            }
+            {
+                message ?
+                    <CustomizedSnackbars
+                        message='Contacto actualizado con éxito'
+                    />
                     : ''
             }
             <FormAddEditContact

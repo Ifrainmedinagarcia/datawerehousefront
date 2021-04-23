@@ -16,20 +16,20 @@ const useStyles = makeStyles({
 const marks = [
 
     {
-        value: 1,
+        value: 4,
         label: '25%',
     },
     {
-        value: 2,
+        value: 14,
         label: '50%',
     },
     {
-        value: 3,
+        value: 24,
         label: '75%',
     },
     {
 
-        value: 4,
+        value: 34,
         label: '100%',
     },
 ]
@@ -50,8 +50,8 @@ const Sliderbtn = ({ name, defaultValue }) => {
             <Slider
                 name={name}
                 min={0}
-                max={4}
-                defaultValue={defaultValue || 1}
+                max={34}
+                defaultValue={defaultValue || 4}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-restrict"

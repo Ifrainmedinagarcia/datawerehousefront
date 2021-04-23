@@ -71,8 +71,14 @@ const CreateContacts = (
     const [message, setMessage] = React.useState(false)
 
     const countryFromRegion = async (e) => {
+        if (e.target.value === '') {
+            setAllRegion({})
+            setAllCountry({})
+            return
+        }
+        console.log(e.target.value);
         try {
-            await axios.get(`http://localhost:3001/v1/api/regions/${e.target.value}`, {
+            await axios.get(`https://datawerehouse.herokuapp.com/v1/api/regions/${e.target.value}`, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -80,16 +86,20 @@ const CreateContacts = (
                 }
             }).then(res => {
                 setAllRegion(res)
-                setAllCountry('')
+                setAllCountry({})
             })
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
     const CityFromCountry = async e => {
+        if (e.target.value === '') {
+            setAllCountry({})
+            return
+        }
         try {
-            await axios.get(`http://localhost:3001/v1/api/countries/${e.target.value}`, {
+            await axios.get(`https://datawerehouse.herokuapp.com/v1/api/countries/${e.target.value}`, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -99,7 +109,7 @@ const CreateContacts = (
                 setAllCountry(resp)
             })
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
@@ -122,7 +132,7 @@ const CreateContacts = (
 
         try {
             setLoader(true)
-            await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
                 }
@@ -200,7 +210,7 @@ const CreateContacts = (
         try {
             setLoader(true)
             setMessage(false)
-            await axios.post('http://localhost:3001/v1/api/contacts', data, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/contacts', data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -220,7 +230,7 @@ const CreateContacts = (
                 setErrorDis(false)
                 setMessage(true)
                 setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
-
+                store.dispatch(getAllContacts())
             })
             await store.dispatch(getAllContacts())
         } catch (error) {

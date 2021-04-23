@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles, Button } from '@material-ui/core'
 import { DataGrid } from '@material-ui/data-grid'
 import Avatar from '@material-ui/core/Avatar'
@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import store from '../../REDUX/store'
 import { getAllContacts } from '../../REDUX/actionsCreators'
 import axios from 'axios'
-store.dispatch(getAllContacts())
 
 const useStyle = makeStyles({
     color: {
@@ -32,34 +31,38 @@ const Tables = ({ contacts }) => {
     const classes = useStyle()
     const [idFull, setIdFull] = React.useState([])
 
+    useEffect(() => {
+        store.dispatch(getAllContacts())
+    }, [])
+
     const deleteFull = async () => {
         try {
             idFull.forEach((element, index) => {
-                axios.delete(`http://localhost:3001/v1/api/contacts/${element}`, {
+                axios.delete(`https://datawerehouse.herokuapp.com/v1/api/contacts/${element}`, {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
-                        console.log(res)
                         setIdFull([])
+                        store.dispatch(getAllContacts())
                     })
             })
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
     const deleteContact = async id => {
         try {
-            await axios.delete(`http://localhost:3001/v1/api/contacts/${id}`, {
+            await axios.delete(`https://datawerehouse.herokuapp.com/v1/api/contacts/${id}`, {
                 headers: { 'Authorization': JWT }
             }).then(res => {
-                console.log(res)
+
                 setIdFull([])
             })
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 
@@ -174,7 +177,6 @@ const Tables = ({ contacts }) => {
             let country = contact.Country.name_country.toLowerCase()
 
 
-            console.log(company)
             if (name.indexOf(valueInput) !== -1) {
                 let filter = rows.filter(row => row.name_contact.toLowerCase() === contact.name_contact.toLowerCase())
                 setFilterRows(filter)

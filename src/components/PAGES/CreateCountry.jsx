@@ -68,7 +68,7 @@ const CreateCountry = ({ regions }) => {
 
         try {
             setMessage(false)
-            await axios.post(`http://localhost:3001/v1/api/countries`, data, {
+            await axios.post(`https://datawerehouse.herokuapp.com/v1/api/countries`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -80,7 +80,7 @@ const CreateCountry = ({ regions }) => {
             await store.dispatch(getAllCountries())
             await store.dispatch(getAllRegions())
         } catch (error) {
-            alert(`Ha ocurrido un error inesperado: ${e}`)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
 
         form.countryInput.value = ''
@@ -115,7 +115,7 @@ const CreateCountry = ({ regions }) => {
                                 {
                                     regions.length !== 0 ?
                                         regions.map(r => (
-                                            <option value={r.id_region}>
+                                            <option key={r.id_region.toString()} value={r.id_region}>
                                                 {r.name_region}
                                             </option>
                                         ))

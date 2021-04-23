@@ -47,7 +47,7 @@ const TableCompany = ({ companies }) => {
             setLoader(true)
             setMessage(false)
             idFullCompany.forEach((element, index) => {
-                axios.delete(`http://localhost:3001/v1/api/companies/${element}`, {
+                axios.delete(`https://datawerehouse.herokuapp.com/v1/api/companies/${element}`, {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
@@ -71,7 +71,7 @@ const TableCompany = ({ companies }) => {
         try {
             setLoader(true)
             setMessage(false)
-            await axios.delete(`http://localhost:3001/v1/api/companies/${id}`, {
+            await axios.delete(`https://datawerehouse.herokuapp.com/v1/api/companies/${id}`, {
                 headers: { 'Authorization': JWT }
             }).then(res => {
                 setIdFullCompany([])

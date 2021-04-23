@@ -24,7 +24,7 @@ const Login = ({ regions }) => {
             "email_user": form.email.value,
             "password_user": form.passwordUser.value
         }
-        axios.post('http://localhost:3001/v1/api/auth/login', data)
+        axios.post('https://datawerehouse.herokuapp.com/v1/api/auth/login', data)
             .then(res => {
                 console.log(res);
                 localStorage.setItem('token', res.data.token)

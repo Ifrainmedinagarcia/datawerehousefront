@@ -106,7 +106,7 @@ const ProfileUser = (props) => {
 
         try {
             setLoader(true)
-            await axios.post('http://localhost:3001/v1/api/file/upload', formdata, {
+            await axios.post('https://datawerehouse.herokuapp.com/v1/api/file/upload', formdata, {
                 headers: {
                     'Authorization': JWT
                 }
@@ -133,7 +133,7 @@ const ProfileUser = (props) => {
 
         try {
             setMessage(false)
-            await axios.put(`http://localhost:3001/v1/api/users/${userId}`, data, {
+            await axios.put(`https://datawerehouse.herokuapp.com/v1/api/users/${userId}`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -144,7 +144,7 @@ const ProfileUser = (props) => {
             })
             await store.dispatch(getUserByid())
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
     }
 

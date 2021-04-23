@@ -5,12 +5,14 @@ import store from '../../REDUX/store'
 import NavbarUser from '../MOLECULES/NavbarUser'
 import Cajon from '../ORGANISMS/Cajon'
 import FormAddEditCompany from '../ORGANISMS/FormAddEditCompany'
+import { useHistory } from "react-router-dom"
 
 
 const JWT = localStorage.getItem('token')
 
 
 const EditCompany = (props) => {
+    let history = useHistory()
 
     useEffect(() => {
         store.dispatch(getAllCompanies())
@@ -31,7 +33,7 @@ const EditCompany = (props) => {
             'address': form.addressValue.value
         }
         try {
-            axios.put(`http://localhost:3001/v1/api/companies/${id}`, data, {
+            axios.put(`https://datawerehouse.herokuapp.com/v1/api/companies/${id}`, data, {
                 headers: {
                     'Authorization': JWT,
                     'Accept': 'application/json',
@@ -39,12 +41,16 @@ const EditCompany = (props) => {
                 }
             }).then(res => {
                 console.log(res)
+                store.dispatch(getAllCompanies())
+                store.dispatch(getAllCountries())
             })
             await store.dispatch(getAllCompanies())
         } catch (error) {
-            console.log(error)
+            alert(`ocurrió un error, recargue la página ${error}`)
         }
-        window.location = '/company'
+        finally {
+            return history.push('/company')
+        }
     }
 
     return (
