@@ -6,7 +6,7 @@ const Public = ({ component: Component, ...rest }) => {
     const userLogged = localStorage.getItem('token')
 
     if (userLogged) {
-        return <Redirect to='/' />
+        return <Redirect to='/contacts' />
     }
     return (
         <Route {...rest} component={Component} />

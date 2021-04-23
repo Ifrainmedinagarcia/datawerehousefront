@@ -5,8 +5,13 @@ import Header from '../ORGANISMS/Header'
 import Possibilities from '../ORGANISMS/Possibilities'
 import Price from '../ORGANISMS/Price'
 import Statistics from '../ORGANISMS/Statistics'
+import { Redirect } from 'react-router'
+
+
+
 
 const Home = () => {
+
     return (
         <>
             <Header />

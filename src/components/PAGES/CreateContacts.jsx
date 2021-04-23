@@ -229,6 +229,7 @@ const CreateContacts = (
                 setErrorChannel(false)
                 setErrorDis(false)
                 setMessage(true)
+                setErrorCountry(false)
                 setSrc('https://imageprofileproject.s3.amazonaws.com/fotopredeterminada.png')
                 store.dispatch(getAllContacts())
             })
