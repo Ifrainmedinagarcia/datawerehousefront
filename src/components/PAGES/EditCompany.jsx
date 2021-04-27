@@ -40,7 +40,6 @@ const EditCompany = (props) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
                 store.dispatch(getAllCompanies())
                 store.dispatch(getAllCountries())
             })

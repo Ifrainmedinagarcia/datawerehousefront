@@ -26,7 +26,6 @@ const Login = ({ regions }) => {
         }
         axios.post('https://datawerehouse.herokuapp.com/v1/api/auth/login', data)
             .then(res => {
-                console.log(res);
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('welcome', res.data.data)
                 localStorage.setItem('apellido', res.data.user.lastname_user)

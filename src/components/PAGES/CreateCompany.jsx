@@ -90,7 +90,6 @@ const CreateCompany = ({ countries }) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
                 setErrorNameCompany(false)
                 setErrorCountry(false)
                 setErrorAddress(false)

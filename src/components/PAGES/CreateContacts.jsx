@@ -76,7 +76,6 @@ const CreateContacts = (
             setAllCountry({})
             return
         }
-        console.log(e.target.value);
         try {
             await axios.get(`https://datawerehouse.herokuapp.com/v1/api/regions/${e.target.value}`, {
                 headers: {

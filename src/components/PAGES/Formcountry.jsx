@@ -58,7 +58,7 @@ const Formcountry = ({ regions, countries }) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
+    
             })
             await store.dispatch(getAllCountries())
         } catch (error) {
@@ -78,7 +78,7 @@ const Formcountry = ({ regions, countries }) => {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
-                        console.log(res)
+                  
                         id.splice(index, 1)
                     })
             })
@@ -94,14 +94,13 @@ const Formcountry = ({ regions, countries }) => {
     const checkBox = async e => {
         if (e.target.checked) {
             id.push(parseInt(e.target.id))
-            console.log(e.target.id)
-            console.log(id);
+            
         }
         if (!e.target.checked) {
             id.forEach((element, index) => {
                 id.splice(index, 1)
             })
-            console.log(id);
+    
         }
     }
 

@@ -59,7 +59,6 @@ const Formcompany = ({ countries, companies }) => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res)
             })
             await store.dispatch(getAllCompanies())
         } catch (error) {
@@ -73,7 +72,6 @@ const Formcompany = ({ countries, companies }) => {
     }
 
     const deleteCountry = async (e) => {
-        console.log(e.target.id);
         e.preventDefault()
         try {
             id.forEach((element, index) => {
@@ -81,7 +79,7 @@ const Formcompany = ({ countries, companies }) => {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
-                        console.log(res)
+    
                         id.splice(index, 1)
                     })
             })
@@ -95,17 +93,14 @@ const Formcompany = ({ countries, companies }) => {
     }
 
     const checkBox = async e => {
-        console.log(e.target.checked);
+
         if (e.target.checked) {
             id.push(parseInt(e.target.id))
-            console.log(e.target.id)
-            console.log(id);
         }
         if (!e.target.checked) {
             id.forEach((element, index) => {
                 id.splice(index, 1)
             })
-            console.log(id);
         }
     }
 

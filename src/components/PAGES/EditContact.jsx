@@ -89,7 +89,6 @@ const EditContact = (props) => {
             }).then(res => {
                 setAllRegion(res)
                 setAllCountry({})
-                console.log(res)
             })
         } catch (error) {
             alert(`ocurrió un error, recargue la página ${error}`)
@@ -120,7 +119,6 @@ const EditContact = (props) => {
     const renderImage = async e => {
         const file = e.target.files[0]
         const reader = new FileReader()
-        console.log(file)
         reader.onloadend = function () {
             let url = reader.result
             setSrcProps(url)
@@ -143,7 +141,6 @@ const EditContact = (props) => {
                 }
             }).then(res => {
                 setIdFoto(res.data.data.id_photo)
-                console.log(res)
             })
         } catch (error) {
             if (error) {

@@ -56,7 +56,7 @@ const Frominit = ({ regions }) => {
                 }
             })
                 .then(res => {
-                    console.log(res)
+               
                 })
 
             await store.dispatch(getAllRegions())
@@ -69,7 +69,7 @@ const Frominit = ({ regions }) => {
     }
 
     const deleteRegion = async (e) => {
-        console.log(e.target.id);
+
         e.preventDefault()
         try {
             id.forEach((element, index) => {
@@ -77,7 +77,7 @@ const Frominit = ({ regions }) => {
                     headers: { 'Authorization': JWT }
                 })
                     .then(res => {
-                        console.log(res)
+                    
                         id.splice(index, 1)
                     })
             })
@@ -91,17 +91,16 @@ const Frominit = ({ regions }) => {
     }
 
     const checkBox = async e => {
-        console.log(e.target.checked);
+
         if (e.target.checked) {
             id.push(parseInt(e.target.id))
-            console.log(e.target.id)
-            console.log(id);
+        
         }
         if (!e.target.checked) {
             id.forEach((element, index) => {
                 id.splice(index, 1)
             })
-            console.log(id);
+        
         }
     }
 
@@ -134,7 +133,7 @@ const Frominit = ({ regions }) => {
                 <div className="container__info__input">
 
                     <form onSubmit={deleteRegion.bind()} className="container__lists__region">
-                        {console.log(regions)}
+                
                         {
                             regions.length !== 0 ?
                                 regions.map(resp => (

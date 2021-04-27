@@ -30,7 +30,6 @@ const Register = () => {
             if (data.password_user === form.newpass.value) {
                 await axios.post('https://datawerehouse.herokuapp.com/v1/api/auth/register', data)
                     .then(res => {
-                        console.log(res)
                         window.location = '/login'
                     })
 

@@ -60,7 +60,7 @@ const TableCompany = ({ companies }) => {
             await store.dispatch(getAllCompanies())
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error)
+            alert('Ha ocurrido un error')
         }
         finally {
             setLoader(false)
@@ -80,7 +80,7 @@ const TableCompany = ({ companies }) => {
             await store.dispatch(getAllCompanies())
             await store.dispatch(getAllContacts())
         } catch (error) {
-            console.log(error)
+            alert('ha ocurrido un error')
         }
         finally {
             setLoader(false)
