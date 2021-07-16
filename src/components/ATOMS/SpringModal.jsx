@@ -1,24 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import { useSpring, animated } from '@react-spring/web'; // web.cjs is required for IE 11 support
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
-import Red from '@material-ui/core/colors/red'
-import Tooltip from '@material-ui/core/Tooltip';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import { useSpring, animated } from "@react-spring/web"; // web.cjs is required for IE 11 support
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Red from "@material-ui/core/colors/red";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -69,11 +69,10 @@ export default function SpringModal({ description, eliminar }) {
 
   return (
     <span>
-      <Tooltip title='Eliminar'>
+      <Tooltip title="Eliminar">
         <IconButton aria-label="" onClick={handleOpen}>
           <DeleteIcon style={{ color: Red[700] }} />
         </IconButton>
-
       </Tooltip>
 
       <Modal
@@ -91,8 +90,15 @@ export default function SpringModal({ description, eliminar }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="spring-modal-title">¡ADVERTENCIA!</h2>
-            <p style={{ marginTop: '20px' }} id="spring-modal-description">{description}</p>
-            <Button onClick={eliminar} style={{ marginTop: '20px' }} variant="contained" color="primary">
+            <p style={{ marginTop: "20px" }} id="spring-modal-description">
+              {description}
+            </p>
+            <Button
+              onClick={eliminar}
+              style={{ marginTop: "20px" }}
+              variant="contained"
+              color="primary"
+            >
               Aceptar
             </Button>
           </div>

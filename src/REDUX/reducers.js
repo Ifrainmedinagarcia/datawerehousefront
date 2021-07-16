@@ -1,150 +1,157 @@
-
-import { GET_ALL_CHANNELS, GET_ALL_CITIES, GET_ALL_COMMITMENTS, GET_ALL_COMPANIES, GET_ALL_CONTACTS, GET_ALL_COUNTRIES, GET_ALL_PREFERENCE, GET_ALL_REGIONS, GET_USER } from "./accions"
+import {
+  GET_ALL_CHANNELS,
+  GET_ALL_CITIES,
+  GET_ALL_COMMITMENTS,
+  GET_ALL_COMPANIES,
+  GET_ALL_CONTACTS,
+  GET_ALL_COUNTRIES,
+  GET_ALL_PREFERENCE,
+  GET_ALL_REGIONS,
+  GET_USER,
+} from "./accions";
 
 let initialStateRegion = {
-    regions: []
-}
+  regions: [],
+};
 
 let initialStateCountry = {
-    countries: []
-}
+  countries: [],
+};
 
 let initialStateUsers = {
-    users: []
-}
+  users: [],
+};
 
 let initialStateContacts = {
-    contacts: []
-}
+  contacts: [],
+};
 
 let initialStateCities = {
-    cities: []
-}
+  cities: [],
+};
 
 let initialStateCompanies = {
-    companies: []
-}
+  companies: [],
+};
 
 let initialStateChannels = {
-    channels: []
-}
+  channels: [],
+};
 
 let initialStateCommitment = {
-    commitments: []
-}
+  commitments: [],
+};
 
 let initialStatePreference = {
-    preferences: []
-}
+  preferences: [],
+};
 
 export const usersReducer = (state = initialStateUsers, action) => {
-    switch (action.type) {
-        case GET_USER:
-            return {
-                ...state,
-                users: action.users
-            }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case GET_USER:
+      return {
+        ...state,
+        users: action.users,
+      };
+    default:
+      return state;
+  }
+};
 
 export const contactsReducer = (state = initialStateContacts, action) => {
-    switch (action.type) {
-        case GET_ALL_CONTACTS:
-            return {
-                ...state,
-                contacts: action.contacts
-            }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case GET_ALL_CONTACTS:
+      return {
+        ...state,
+        contacts: action.contacts,
+      };
+    default:
+      return state;
+  }
+};
 
 export const regionReducer = (state = initialStateRegion, action) => {
-    switch (action.type) {
-        case GET_ALL_REGIONS:
-            return {
-                ...state,
-                regions: action.regions
-            }
+  switch (action.type) {
+    case GET_ALL_REGIONS:
+      return {
+        ...state,
+        regions: action.regions,
+      };
 
-        default:
-            return state
-    }
-}
+    default:
+      return state;
+  }
+};
 
 export const countryReducer = (state = initialStateCountry, action) => {
-    switch (action.type) {
-        case GET_ALL_COUNTRIES:
-            return {
-                ...state,
-                countries: action.countries
-            }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case GET_ALL_COUNTRIES:
+      return {
+        ...state,
+        countries: action.countries,
+      };
+    default:
+      return state;
+  }
+};
 
 export const cityReducer = (state = initialStateCities, action) => {
-    switch (action.type) {
-        case GET_ALL_CITIES:
-            return {
-                ...state,
-                cities: action.cities
-            }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case GET_ALL_CITIES:
+      return {
+        ...state,
+        cities: action.cities,
+      };
+    default:
+      return state;
+  }
+};
 
 export const companiesReducer = (state = initialStateCompanies, action) => {
-    switch (action.type) {
-        case GET_ALL_COMPANIES:
-            return {
-                ...state,
-                companies: action.companies
-            }
-        default:
-            return state
-    }
-
-}
+  switch (action.type) {
+    case GET_ALL_COMPANIES:
+      return {
+        ...state,
+        companies: action.companies,
+      };
+    default:
+      return state;
+  }
+};
 
 export const channelsReducer = (state = initialStateChannels, action) => {
-    switch (action.type) {
-        case GET_ALL_CHANNELS:
-            return {
-                ...state,
-                channels: action.channels
-            }
+  switch (action.type) {
+    case GET_ALL_CHANNELS:
+      return {
+        ...state,
+        channels: action.channels,
+      };
 
-        default:
-            return state
-    }
-}
+    default:
+      return state;
+  }
+};
 
 export const commitmentsReducer = (state = initialStateCommitment, action) => {
-    switch (action.type) {
-        case GET_ALL_COMMITMENTS:
-            return {
-                ...state,
-                commitments: action.commitments
-            }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case GET_ALL_COMMITMENTS:
+      return {
+        ...state,
+        commitments: action.commitments,
+      };
+    default:
+      return state;
+  }
+};
 
 export const preferencesReducer = (state = initialStatePreference, action) => {
-    switch (action.type) {
-        case GET_ALL_PREFERENCE:
-            return {
-                ...state,
-                preferences: action.preferences
-            }
-        default:
-            return state
-    }
-}
-
+  switch (action.type) {
+    case GET_ALL_PREFERENCE:
+      return {
+        ...state,
+        preferences: action.preferences,
+      };
+    default:
+      return state;
+  }
+};
